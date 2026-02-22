@@ -2239,6 +2239,24 @@
     </div>
   </div>
 
+  <!-- ═══════ SLIDE 4e — The Loop (Code ↔ Figma Video) ═══════ -->
+  <div class="slide" data-slide="4e">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="slide4b-video-wrap" id="slide4e-video-wrap">
+        <video id="slide4e-video" preload="auto" playsinline data-manual-play>
+          <source src="assets/slide4e-video.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="comparison-top" style="z-index:2; left:50%; transform:translateX(-50%); align-items:center;">
+        <span class="green-badge">The Workflow</span>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ═══════ SLIDE 5 — The Walls Are Falling ═══════ -->
   <div class="slide" data-slide="5">
     <div class="slide-inner">
@@ -2369,6 +2387,36 @@
 
       <div class="sw-video" style="border:none; background:none;">
         <video id="sw-video-8d" src="assets/connected-workflow.mp4" muted playsinline preload="auto" style="width:100%; height:100%; object-fit:contain; border-radius:16px;"></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 8e — Design to Code ═══════ -->
+  <div class="slide" data-slide="8e">
+    <div class="slide-inner">
+      <div class="sw-bg"></div>
+      <div class="sw-header">
+        <span class="sw-badge">DESIGN TO CODE</span>
+        <div class="sw-title">FROM FIGMA TO CODE</div>
+      </div>
+      <div class="sw-video">
+        <div class="sw-video-play"></div>
+        <div class="sw-video-label">VIDEO PLACEHOLDER</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 8f — Code to Design ═══════ -->
+  <div class="slide" data-slide="8f">
+    <div class="slide-inner">
+      <div class="sw-bg"></div>
+      <div class="sw-header">
+        <span class="sw-badge">CODE TO DESIGN</span>
+        <div class="sw-title">FROM CODE TO FIGMA</div>
+      </div>
+      <div class="sw-video">
+        <div class="sw-video-play"></div>
+        <div class="sw-video-label">VIDEO PLACEHOLDER</div>
       </div>
     </div>
   </div>
@@ -2515,6 +2563,7 @@
     if (slide4cTimeline) slide4cTimeline.kill();
     if (slide4cRotateTween) { slide4cRotateTween.kill(); slide4cRotateTween = null; }
     if (slide4dTimeline) slide4dTimeline.kill();
+    if (slide4eTimeline) slide4eTimeline.kill();
 
     // Trigger slide-specific animations
     var slideId = slides[currentSlide].getAttribute('data-slide');
@@ -2523,6 +2572,7 @@
     else if (slideId === '4b') animateSlide4b();
     else if (slideId === '4c') animateSlide4c();
     else if (slideId === '4d') animateSlide4d();
+    else if (slideId === '4e') animateSlide4e();
     else if (slideId === '6a') animateSlide6a();
     else if (slideId === '6b') animateSlide6b();
   }
@@ -2801,6 +2851,8 @@
   var slide4cTimeline = null;
   var slide4cRotateTween = null;
   var slide4dTimeline = null;
+  var slide4eTimeline = null;
+  var slide4ePlayCount = 0;
   var slide6aTimeline = null;
   var slide6bTimeline = null;
   var slide6bGlowTween = null;
@@ -3134,6 +3186,43 @@
         stagger: 0.18,
         ease: 'back.out(1.6)'
       }, 0.5);
+  }
+
+  // ── Slide 4e — Code ↔ Figma Video (play twice then freeze) ──
+  function animateSlide4e() {
+    if (slide4eTimeline) slide4eTimeline.kill();
+
+    var slide = document.querySelector('[data-slide="4e"]');
+    var badge = slide.querySelector('.green-badge');
+    var videoWrap = document.getElementById('slide4e-video-wrap');
+    var video = document.getElementById('slide4e-video');
+
+    slide4ePlayCount = 0;
+    video.onended = null;
+    video.pause();
+    video.currentTime = 0;
+
+    gsap.set(badge, { opacity: 0, y: -30 });
+    gsap.set(videoWrap, { opacity: 0, y: 30, scale: 0.97 });
+
+    slide4eTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    slide4eTimeline
+      .to(badge, { opacity: 1, y: 0, duration: 0.5 }, 0)
+      .to(videoWrap, { opacity: 1, y: 0, scale: 1, duration: 0.7, onComplete: function() {
+        video.currentTime = 0;
+        video.playbackRate = 1;
+
+        video.onended = function() {
+          slide4ePlayCount++;
+          if (slide4ePlayCount < 2) {
+            video.currentTime = 0;
+            video.play();
+          }
+        };
+
+        video.play();
+      }}, 0.3);
   }
 
   // Triangle vertices (SVG coords)

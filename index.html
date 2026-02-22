@@ -1069,6 +1069,128 @@
       align-items: flex-start;
     }
 
+    /* ── Slide 4c: Tool Logo Animation ── */
+    .tool-logo-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .tool-logo-item {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      margin-left: -50px;
+      margin-top: -50px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .tool-logo-item:hover {
+      box-shadow: 0 0 35px rgba(123, 237, 82, 0.3);
+      border-color: rgba(123, 237, 82, 0.3);
+    }
+
+    .tool-logo-item img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .tool-logo-item .logo-text {
+      font-family: 'Minecraft', monospace;
+      font-size: 22px;
+      color: #7bed52;
+      font-weight: 700;
+    }
+
+    /* Slide 4c header — starts top-center, moves into circle */
+    [data-slide="4c"] .slide4c-header {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      z-index: 3;
+    }
+
+    [data-slide="4c"] .slide4c-question {
+      font-family: 'Minecraft', monospace;
+      font-size: 42px;
+      color: #fff;
+      text-align: center;
+      line-height: 1.2;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── Slide 4d: Focused 3 Tools ── */
+    .focus-tools-row {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 70px;
+      z-index: 2;
+    }
+
+    .focus-tool-card {
+      width: 220px;
+      height: 250px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .focus-tool-card:hover {
+      border-color: rgba(123, 237, 82, 0.3);
+      box-shadow: 0 8px 50px rgba(123, 237, 82, 0.15);
+    }
+
+    .focus-tool-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .focus-tool-card .focus-tool-name {
+      font-family: 'Minecraft', monospace;
+      font-size: 22px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    /* 4d header + subtitle positioning */
+    [data-slide="4d"] .center-content {
+      top: 10%;
+      transform: translate(-50%, 0);
+    }
+
     @keyframes glowPulse4a {
       0%, 100% { box-shadow: 0 0 30px rgba(123, 237, 82, 0.1), 0 0 60px rgba(123, 237, 82, 0.05); }
       50% { box-shadow: 0 0 60px rgba(123, 237, 82, 0.3), 0 0 120px rgba(123, 237, 82, 0.15); }
@@ -2058,6 +2180,65 @@
     </div>
   </div>
 
+  <!-- ═══════ SLIDE 4c — The Toolkit (Logo Animation) ═══════ -->
+  <div class="slide" data-slide="4c">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="slide4c-header">
+        <span class="green-badge">The Ecosystem</span>
+        <div class="slide4c-question">So Many Tools.<br>Where Do You Start?</div>
+      </div>
+
+      <div class="tool-logo-stage" id="tool-logo-stage">
+        <div class="tool-logo-item" data-tool="figma"><img src="assets/ai-figma.png" alt="Figma"></div>
+        <div class="tool-logo-item" data-tool="cursor"><img src="assets/ai-cursor.png" alt="Cursor"></div>
+        <div class="tool-logo-item" data-tool="claude"><img src="assets/ai-claude.png" alt="Claude"></div>
+        <div class="tool-logo-item" data-tool="chatgpt"><img src="assets/ai-chatgpt.png" alt="ChatGPT"></div>
+        <div class="tool-logo-item" data-tool="gemini"><img src="assets/ai-gemini.png" alt="Gemini"></div>
+        <div class="tool-logo-item" data-tool="copilot"><img src="assets/ai-copilot.png" alt="Copilot"></div>
+        <div class="tool-logo-item" data-tool="deepseek"><img src="assets/ai-deepseek.png" alt="DeepSeek"></div>
+        <div class="tool-logo-item" data-tool="perplexity"><img src="assets/ai-perplexity.png" alt="Perplexity"></div>
+        <div class="tool-logo-item" data-tool="grok"><img src="assets/ai-grok.png" alt="Grok"></div>
+        <div class="tool-logo-item" data-tool="notion"><img src="assets/ai-notion.png" alt="Notion"></div>
+        <div class="tool-logo-item" data-tool="huggingface"><img src="assets/ai-huggingface.png" alt="Hugging Face"></div>
+        <div class="tool-logo-item" data-tool="mistral"><img src="assets/ai-mistral.png" alt="Mistral"></div>
+        <div class="tool-logo-item" data-tool="stability"><img src="assets/ai-stability.png" alt="Stability AI"></div>
+        <div class="tool-logo-item" data-tool="poe"><img src="assets/ai-poe.png" alt="Poe"></div>
+        <div class="tool-logo-item" data-tool="cohere"><img src="assets/ai-cohere.png" alt="Cohere"></div>
+        <div class="tool-logo-item" data-tool="fireworks"><img src="assets/ai-fireworks.png" alt="Fireworks AI"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4d — Go Deep Not Wide (Focused Tools) ═══════ -->
+  <div class="slide" data-slide="4d">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="center-content">
+        <div class="green-label">The Philosophy</div>
+        <div class="mc-title">GO DEEP, NOT WIDE</div>
+        <div class="subtitle">Choose 2-3 tools. Build real mastery. Depth creates impact.</div>
+      </div>
+
+      <div class="focus-tools-row" id="focus-tools-row">
+        <div class="focus-tool-card">
+          <img src="assets/figma-logo-nobg.png" alt="Figma">
+          <div class="focus-tool-name">Figma</div>
+        </div>
+        <div class="focus-tool-card">
+          <img src="assets/cursor-logo-nobg.png" alt="Cursor">
+          <div class="focus-tool-name">Cursor</div>
+        </div>
+        <div class="focus-tool-card">
+          <img src="assets/claude-color.png" alt="Claude">
+          <div class="focus-tool-name">Claude</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════ SLIDE 5 — The Walls Are Falling ═══════ -->
   <div class="slide" data-slide="5">
     <div class="slide-inner">
@@ -2328,15 +2509,20 @@
     clearTimeout(typewriterTimeout);
     stopRain();
 
-    // Kill slide 4a/4b timelines if leaving
+    // Kill slide 4a/4b/4c/4d timelines if leaving
     if (slide4aTimeline) slide4aTimeline.kill();
     if (slide4bTimeline) slide4bTimeline.kill();
+    if (slide4cTimeline) slide4cTimeline.kill();
+    if (slide4cRotateTween) { slide4cRotateTween.kill(); slide4cRotateTween = null; }
+    if (slide4dTimeline) slide4dTimeline.kill();
 
     // Trigger slide-specific animations
     var slideId = slides[currentSlide].getAttribute('data-slide');
     if (slideId === '4') animateSlide4();
     else if (slideId === '4a') animateSlide4a();
     else if (slideId === '4b') animateSlide4b();
+    else if (slideId === '4c') animateSlide4c();
+    else if (slideId === '4d') animateSlide4d();
     else if (slideId === '6a') animateSlide6a();
     else if (slideId === '6b') animateSlide6b();
   }
@@ -2612,6 +2798,9 @@
 
   var slide4aTimeline = null;
   var slide4bTimeline = null;
+  var slide4cTimeline = null;
+  var slide4cRotateTween = null;
+  var slide4dTimeline = null;
   var slide6aTimeline = null;
   var slide6bTimeline = null;
   var slide6bGlowTween = null;
@@ -2812,6 +3001,139 @@
         video.playbackRate = 1;
         video.play();
       }}, 0.3);
+  }
+
+  // ── Slide 4c — Tool Logo Animation (Scatter → Line → Circle) ──
+  function animateSlide4c() {
+    if (slide4cTimeline) slide4cTimeline.kill();
+    if (slide4cRotateTween) { slide4cRotateTween.kill(); slide4cRotateTween = null; }
+
+    var items = document.querySelectorAll('#tool-logo-stage .tool-logo-item');
+    var total = items.length;
+    var header = document.querySelector('[data-slide="4c"] .slide4c-header');
+    var badge = document.querySelector('[data-slide="4c"] .green-badge');
+    var question = document.querySelector('[data-slide="4c"] .slide4c-question');
+    var circleRadius = 340;
+
+    // Reset header to top position
+    gsap.set(header, { top: '50px' });
+    gsap.set(badge, { opacity: 0, y: -20 });
+    gsap.set(question, { opacity: 0, y: -15 });
+
+    // Scatter positions (random)
+    items.forEach(function(item) {
+      gsap.set(item, {
+        x: (Math.random() - 0.5) * 1600,
+        y: (Math.random() - 0.5) * 900,
+        rotation: (Math.random() - 0.5) * 220,
+        scale: 0.3,
+        opacity: 0
+      });
+    });
+
+    slide4cTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    // Header fades in at top
+    slide4cTimeline.to(badge, { opacity: 1, y: 0, duration: 0.5 }, 0);
+    slide4cTimeline.to(question, { opacity: 1, y: 0, duration: 0.6 }, 0.2);
+
+    // Phase 1: Scatter → Two rows (staggered)
+    var cols = 8;
+    var rowSpacing = 130;
+    var colSpacing = 120;
+    var rows = Math.ceil(total / cols);
+    var gridStartY = -(rows - 1) * rowSpacing / 2 + 30;
+
+    items.forEach(function(item, i) {
+      var row = Math.floor(i / cols);
+      var col = i % cols;
+      // Center incomplete last row
+      var itemsInRow = (row === rows - 1) ? (total - row * cols) : cols;
+      var rowOffsetX = -(itemsInRow - 1) * colSpacing / 2;
+
+      slide4cTimeline.to(item, {
+        x: rowOffsetX + col * colSpacing,
+        y: gridStartY + row * rowSpacing,
+        rotation: 0,
+        scale: 1,
+        opacity: 1,
+        duration: 0.7,
+        ease: 'back.out(1.4)'
+      }, 0.4 + i * 0.05);
+    });
+
+    // Phase 2: Grid → Circle + header moves to center of circle
+    // Move header into the center of the stage (top:50% - half header height)
+    slide4cTimeline.to(header, {
+      top: '50%',
+      y: '-50%',
+      duration: 1.2,
+      ease: 'power3.inOut'
+    }, 2.2);
+
+    items.forEach(function(item, i) {
+      var angle = (i / total) * Math.PI * 2 - Math.PI / 2;
+      var cx = Math.cos(angle) * circleRadius;
+      var cy = Math.sin(angle) * circleRadius;
+
+      slide4cTimeline.to(item, {
+        x: cx,
+        y: cy,
+        rotation: 0,
+        duration: 1.2,
+        ease: 'power3.inOut'
+      }, 2.2 + i * 0.03);
+    });
+
+    // Phase 3: Slow continuous rotation
+    slide4cTimeline.call(function() {
+      var proxy = { angle: 0 };
+      slide4cRotateTween = gsap.to(proxy, {
+        angle: Math.PI * 2,
+        duration: 25,
+        repeat: -1,
+        ease: 'none',
+        onUpdate: function() {
+          items.forEach(function(item, i) {
+            var baseAngle = (i / total) * Math.PI * 2 - Math.PI / 2;
+            var a = baseAngle + proxy.angle;
+            gsap.set(item, {
+              x: Math.cos(a) * circleRadius,
+              y: Math.sin(a) * circleRadius
+            });
+          });
+        }
+      });
+    }, null, 4.0);
+  }
+
+  // ── Slide 4d — Focus on 3 Tools ──
+  function animateSlide4d() {
+    if (slide4dTimeline) slide4dTimeline.kill();
+
+    var slide = document.querySelector('[data-slide="4d"]');
+    var label = slide.querySelector('.green-label');
+    var title = slide.querySelector('.mc-title');
+    var subtitle = slide.querySelector('.subtitle');
+    var cards = slide.querySelectorAll('.focus-tool-card');
+
+    // Reset
+    gsap.set([label, title, subtitle], { opacity: 0, y: 30 });
+    gsap.set(cards, { opacity: 0, scale: 0.6, y: 60 });
+
+    slide4dTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    slide4dTimeline
+      .to(label, { opacity: 1, y: 0, duration: 0.5 }, 0)
+      .to(title, { opacity: 1, y: 0, duration: 0.6 }, 0.15)
+      .to(subtitle, { opacity: 1, y: 0, duration: 0.5 }, 0.35)
+      // Cards bloom up with stagger
+      .to(cards, {
+        opacity: 1, scale: 1, y: 0,
+        duration: 0.7,
+        stagger: 0.18,
+        ease: 'back.out(1.6)'
+      }, 0.5);
   }
 
   // Triangle vertices (SVG coords)

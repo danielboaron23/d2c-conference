@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Boaron — Designers Build. Resources from the talk.</title>
+  <meta name="description" content="The full toolkit from Daniel Boaron's D2C Conference talk: workshop, Claude skills, AI design tools, and components." />
+
+  <!-- OG -->
+  <meta property="og:title" content="Daniel Boaron — Designers Build" />
+  <meta property="og:description" content="The toolkit, the workshop, and every link from the talk." />
+  <meta property="og:type" content="website" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ── Local brand fonts (already in /fonts) ── */
+    @font-face {
+      font-family: 'ElmsSans';
+      src: url('fonts/ElmsSans-VariableFont_wght.ttf') format('truetype-variations'),
+           url('fonts/ElmsSans-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('fonts/1_MinecraftRegular1.otf') format('opentype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Almoni';
+      src: url('fonts/Almoni DL AAA.ttf') format('truetype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Almoni';
+      src: url('fonts/almoni-dl-aaa-bold.otf') format('opentype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'ElmsSans', 'Inter', system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .font-mono { font-family: 'JetBrains Mono', 'Minecraft', ui-monospace, monospace; }
+    .font-heb  { font-family: 'Almoni', 'ElmsSans', sans-serif; }
+
+    .bg-stage { background: linear-gradient(128deg, #000 38.5%, #06150f 97.6%); }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #050a08; }
+    ::-webkit-scrollbar-thumb { background: #1a2a22; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #2a4a3a; }
+
+    ::selection { background: #7bed52; color: #000; }
+
+    .text-glow { text-shadow: 0 0 32px rgba(123, 237, 82, 0.4); }
+
+    /* film grain */
+    .grain {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: screen;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* float animations (preserve static rotation via --r) */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+      50%      { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+    }
+    .float-slow   { animation: float 6s   ease-in-out infinite; }
+    .float-medium { animation: float 4.5s ease-in-out infinite; }
+    .float-fast   { animation: float 3s   ease-in-out infinite; }
+
+    /* pulse green dot */
+    @keyframes pulseGreen {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(123, 237, 82, 0.55); }
+      70%      { box-shadow: 0 0 0 10px rgba(123, 237, 82, 0); }
+    }
+    .pulse-dot { animation: pulseGreen 2s ease-out infinite; }
+
+    /* reveal on scroll */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; }
+    .reveal.visible { animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    /* link card hover */
+    .link-card {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+    }
+    .link-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(123, 237, 82, 0.4);
+      background-color: rgba(123, 237, 82, 0.03);
+    }
+    .link-card:hover .arrow-icon { transform: translate(3px, -3px); color: #7bed52; }
+    .link-card:hover .link-title { color: #7bed52; }
+    .arrow-icon { transition: transform 0.3s, color 0.3s; }
+    .link-title { transition: color 0.3s; }
+
+    /* workshop card */
+    .workshop-card {
+      background: linear-gradient(145deg, rgba(123, 237, 82, 0.14) 0%, rgba(6, 21, 15, 0.7) 65%);
+      border: 1px solid rgba(123, 237, 82, 0.32);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .workshop-card:hover {
+      border-color: rgba(123, 237, 82, 0.6);
+      box-shadow: 0 0 80px rgba(123, 237, 82, 0.18);
+      transform: translateY(-3px);
+    }
+
+    /* highlight underline */
+    .underline-green {
+      position: relative;
+      display: inline-block;
+    }
+    .underline-green::after {
+      content: '';
+      position: absolute;
+      left: -4px; right: -4px;
+      bottom: 4px;
+      height: 14px;
+      background: #7bed52;
+      opacity: 0.35;
+      z-index: -1;
+      border-radius: 2px;
+      transform: skewX(-10deg);
+    }
+
+    /* marquee */
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee 38s linear infinite; }
+
+    /* focus ring */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #7bed52;
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    /* reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .float-slow, .float-medium, .float-fast,
+      .pulse-dot, .marquee-track { animation: none; }
+      .reveal { opacity: 1; }
+      .reveal.visible { animation: none; }
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-black/60 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-5 md:px-6 h-14 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="w-2 h-2 rounded-full bg-[#7bed52] pulse-dot"></span>
+        <span class="font-mono text-xs tracking-[0.2em] text-white/90 group-hover:text-[#7bed52] transition-colors">DANIEL.BOARON</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 font-mono text-[11px] tracking-[0.2em] text-white/50">
+        <a href="#workshop" class="hover:text-white transition-colors">WORKSHOP</a>
+        <a href="#skills"   class="hover:text-white transition-colors">SKILLS</a>
+        <a href="#tools"    class="hover:text-white transition-colors">TOOLS</a>
+        <a href="#about"    class="hover:text-white transition-colors">ABOUT</a>
+      </div>
+      <a href="https://designai.co.il/design-to-code/" target="_blank" rel="noopener"
+         class="group flex items-center gap-2 bg-[#7bed52] text-black text-xs font-medium px-3.5 py-1.5 rounded-full hover:bg-white transition-colors">
+        <span>JOIN WORKSHOP</span>
+        <iconify-icon icon="solar:arrow-right-up-linear" width="14" height="14"></iconify-icon>
+      </a>
+    </div>
+  </nav>
+
+  <!-- 01 — HERO -->
+  <section id="top" class="relative bg-stage min-h-[100svh] flex flex-col justify-center pt-24 pb-20 overflow-hidden">
+    <div class="grain"></div>
+
+    <!-- Decorative floating elements -->
+    <div class="absolute inset-0 max-w-7xl mx-auto pointer-events-none hidden md:block">
+      <!-- code window -->
+      <div class="absolute left-[6%] top-[16%] float-slow" style="--r: -8deg;">
+        <div class="w-36 h-48 bg-gradient-to-br from-[#7bed52]/15 to-transparent border border-[#7bed52]/30 rounded-2xl backdrop-blur-sm p-4">
+          <div class="flex items-center gap-1 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#7bed52]"></span>
+          </div>
+          <div class="font-mono text-[9px] text-[#7bed52]/80 mb-2">// CURSOR</div>
+          <div class="space-y-1.5">
+            <div class="h-1 bg-white/20 rounded w-full"></div>
+            <div class="h-1 bg-white/15 rounded w-4/5"></div>
+            <div class="h-1 bg-[#7bed52]/40 rounded w-2/3"></div>
+            <div class="h-1 bg-white/10 rounded w-1/2"></div>
+            <div class="h-1 bg-white/15 rounded w-3/4"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- claude terminal -->
+      <div class="absolute right-[8%] top-[12%] float-medium" style="--r: 7deg;">
+        <div class="w-44 h-24 bg-black border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#7bed52] pulse-dot"></span>
+            <span class="font-mono text-[9px] text-white/50 tracking-widest">CLAUDE</span>
+          </div>
+          <div class="font-mono text-[10px] text-white/70 leading-snug">
+            &gt; shipping...<br />
+            <span class="text-[#7bed52]">&gt; done.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- bolt -->
+      <div class="absolute right-[7%] bottom-[18%] float-fast" style="--r: -6deg;">
+        <div class="w-24 h-24 bg-[#7bed52] rounded-3xl flex items-center justify-center">
+          <iconify-icon icon="solar:bolt-bold" width="44" height="44" class="text-black"></iconify-icon>
+        </div>
+      </div>
+
+      <!-- git pill -->
+      <div class="absolute left-[10%] bottom-[20%] float-slow" style="--r: 4deg;">
+        <div class="bg-black/70 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 font-mono text-[10px] tracking-[0.15em] text-white/60">
+          $ git commit -m "<span class="text-[#7bed52]">ship it</span>"
+        </div>
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-5 md:px-6 w-full text-center">
+      <!-- status pill -->
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 mb-8 reveal">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#7bed52] pulse-dot"></span>
+        <span class="font-mono text-[10px] tracking-[0.25em] text-white/70">D2C CONFERENCE — TALK RESOURCES</span>
+      </div>
+
+      <!-- hero title -->
+      <h1 class="text-[clamp(3rem,11vw,8.5rem)] font-medium tracking-[-0.045em] leading-[0.9] mb-6 reveal" style="animation-delay: 100ms;">
+        Designers<br />
+        <span class="text-[#7bed52] text-glow">Build.</span>
+      </h1>
+
+      <p class="text-white/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10 reveal" style="animation-delay: 200ms;">
+        The full toolkit from my talk — workshop, Claude skills, AI design tools, and the resources I actually use every day.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center items-stretch reveal" style="animation-delay: 300ms;">
+        <a href="#workshop" class="group flex items-center justify-center gap-2 bg-[#7bed52] text-black px-6 py-3.5 rounded-full font-medium hover:bg-white transition-colors">
+          <iconify-icon icon="solar:graduation-bold" width="18" height="18"></iconify-icon>
+          <span>Join the Workshop</span>
+          <iconify-icon icon="solar:arrow-right-linear" width="16" height="16" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+        </a>
+        <a href="#links" class="flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-white px-6 py-3.5 rounded-full font-medium hover:bg-white/10 transition-colors">
+          <span>Browse 15 Resources</span>
+          <iconify-icon icon="solar:arrow-down-linear" width="16" height="16"></iconify-icon>
+        </a>
+      </div>
+
+      <!-- motto -->
+      <div class="mt-20 max-w-xl mx-auto reveal" style="animation-delay: 400ms;">
+        <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52]/80 mb-4">// THE TIP</div>
+        <p class="text-2xl md:text-3xl font-medium tracking-tight text-white/95 leading-snug">
+          Don't learn everything.<br />
+          <span class="underline-green">Just dive in.</span>
+        </p>
+        <p class="font-mono text-xs text-white/40 mt-5 leading-relaxed">
+          Ask Claude "stupid" questions. Start ugly. Ship it.<br />That's the job.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="bg-[#7bed52] text-black overflow-hidden border-y border-black/10">
+    <div class="flex marquee-track whitespace-nowrap py-3 font-mono text-sm tracking-[0.3em] uppercase">
+      <span class="mx-7">★ Cursor</span><span class="mx-7">★ Claude</span><span class="mx-7">★ Git</span><span class="mx-7">★ MCP</span><span class="mx-7">★ Figma</span><span class="mx-7">★ Designers Build</span><span class="mx-7">★ Ship it</span><span class="mx-7">★ Don't learn everything</span><span class="mx-7">★ Just dive in</span>
+      <span class="mx-7">★ Cursor</span><span class="mx-7">★ Claude</span><span class="mx-7">★ Git</span><span class="mx-7">★ MCP</span><span class="mx-7">★ Figma</span><span class="mx-7">★ Designers Build</span><span class="mx-7">★ Ship it</span><span class="mx-7">★ Don't learn everything</span><span class="mx-7">★ Just dive in</span>
+    </div>
+  </div>
+
+  <!-- 02 — WORKSHOP CTA -->
+  <section id="workshop" class="bg-stage py-24 md:py-32 relative">
+    <div class="grain"></div>
+    <div class="max-w-5xl mx-auto px-5 md:px-6 relative">
+      <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52] mb-3 reveal">// 01 / WORKSHOP</div>
+      <h2 class="text-3xl md:text-5xl font-medium tracking-[-0.03em] mb-12 reveal" style="animation-delay: 80ms;">
+        Start with <span class="text-[#7bed52]">the workshop.</span>
+      </h2>
+
+      <a href="https://designai.co.il/design-to-code/" target="_blank" rel="noopener"
+         class="workshop-card block rounded-3xl p-8 md:p-12 group relative overflow-hidden reveal" style="animation-delay: 160ms;">
+
+        <div class="absolute -right-12 -top-12 w-72 h-72 rounded-full bg-[#7bed52]/12 blur-3xl group-hover:bg-[#7bed52]/25 transition-all duration-700"></div>
+
+        <div class="relative grid md:grid-cols-[1fr_auto] gap-10 items-end">
+          <div class="max-w-xl">
+            <div class="inline-flex items-center gap-2 bg-[#7bed52] text-black rounded-full px-3 py-1 mb-6 font-mono text-[10px] tracking-[0.25em]">
+              <span class="w-1.5 h-1.5 rounded-full bg-black"></span>
+              FLAGSHIP WORKSHOP
+            </div>
+            <h3 class="text-4xl md:text-6xl font-medium tracking-[-0.035em] leading-[0.95] mb-5">
+              Design <span class="text-[#7bed52]">→</span> Code
+            </h3>
+            <p class="text-white/75 text-base md:text-lg leading-relaxed mb-7">
+              The hands-on workshop where designers learn to ship — from Figma to production with Cursor, Claude, MCP, and the new builder stack. Real cohort, real projects, in Hebrew.
+            </p>
+            <div class="flex flex-wrap gap-2 font-mono text-[10px] tracking-[0.2em] text-white/55">
+              <span class="border border-white/10 rounded-full px-2.5 py-1">CURSOR</span>
+              <span class="border border-white/10 rounded-full px-2.5 py-1">CLAUDE</span>
+              <span class="border border-white/10 rounded-full px-2.5 py-1">MCP</span>
+              <span class="border border-white/10 rounded-full px-2.5 py-1">GIT</span>
+              <span class="border border-[#7bed52]/40 text-[#7bed52] rounded-full px-2.5 py-1">סדנא בעברית</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 text-[#7bed52] font-mono text-sm tracking-[0.25em] md:flex-col md:items-end md:gap-2">
+            <span>ENROLL</span>
+            <iconify-icon icon="solar:arrow-right-up-linear" width="36" height="36" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon>
+          </div>
+        </div>
+      </a>
+
+      <p class="text-center text-white/40 font-mono text-[11px] tracking-[0.25em] mt-7 reveal" style="animation-delay: 240ms;">
+        ↑ THIS IS THE ONE. THE REST IS THE TOOLKIT. ↑
+      </p>
+    </div>
+  </section>
+
+  <!-- 03 — LINKS GRID -->
+  <section id="links" class="bg-black py-24 md:py-32 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-5 md:px-6">
+
+      <!-- ─── 02 / Skills & Agents ─── -->
+      <div id="skills" class="mb-24">
+        <div class="flex items-end justify-between mb-10 flex-wrap gap-4 reveal">
+          <div>
+            <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52] mb-3">// 02 / SKILLS &amp; AGENTS</div>
+            <h2 class="text-3xl md:text-4xl font-medium tracking-[-0.02em]">Make Claude yours.</h2>
+          </div>
+          <p class="text-white/50 max-w-md text-sm leading-relaxed">Curated skills — pre-built capabilities that turn Claude into a domain expert.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <a href="https://claude-skills-designers.vercel.app/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-[#7bed52]/15 border border-[#7bed52]/25 flex items-center justify-center text-[#7bed52]">
+                <iconify-icon icon="solar:magic-stick-3-bold" width="22" height="22"></iconify-icon>
+              </div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="20" height="20" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-medium tracking-tight mb-2 link-title">Claude Skills for Designers</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">A growing library of design-focused Claude skills — UI generation, brand consistency, design tokens, copy review.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">CLAUDE-SKILLS-DESIGNERS.VERCEL.APP</div>
+          </a>
+
+          <a href="https://github.com/RefoundAI/lenny-skills.git" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 80ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-[#7bed52]/15 border border-[#7bed52]/25 flex items-center justify-center text-[#7bed52]">
+                <iconify-icon icon="solar:notebook-bold" width="22" height="22"></iconify-icon>
+              </div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="20" height="20" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-medium tracking-tight mb-2 link-title">Claude PM Skills (Lenny)</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Lenny's PM skill collection — frameworks and workflows from Lenny's Newsletter, packaged as Claude skills.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">GITHUB.COM/REFOUNDAI/LENNY-SKILLS</div>
+          </a>
+
+          <a href="https://lnkd.in/etfEnrHR" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group md:col-span-2 reveal" style="animation-delay: 160ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-[#7bed52]/15 border border-[#7bed52]/25 flex items-center justify-center text-[#7bed52]">
+                <iconify-icon icon="solar:rocket-2-bold" width="22" height="22"></iconify-icon>
+              </div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="20" height="20" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-xl font-medium tracking-tight mb-2 link-title">Deploy Your First Agent</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">A step-by-step guide to deploying your first AI agent — from zero to a working agent in under an hour. Start here if you've never built one.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">LNKD.IN/ETFENRHR</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ─── 03 / AI Design & Builders ─── -->
+      <div class="mb-24">
+        <div class="flex items-end justify-between mb-10 flex-wrap gap-4 reveal">
+          <div>
+            <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52] mb-3">// 03 / AI DESIGN &amp; BUILDERS</div>
+            <h2 class="text-3xl md:text-4xl font-medium tracking-[-0.02em]">From prompt to product.</h2>
+          </div>
+          <p class="text-white/50 max-w-md text-sm leading-relaxed">The AI builders I actually use — for prototyping, ideation, and shipping fast.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a href="https://www.aura.build/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:cloud-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Aura</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">AI app builder for production-ready interfaces. Strong taste, real components, fast iteration.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">AURA.BUILD</div>
+          </a>
+
+          <a href="https://stitch.withgoogle.com/docs/design-md/overview" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 60ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:widget-add-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Stitch by Google</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Google's AI-driven UI generator. Plug in a prompt, get a Material-flavored, production-coded screen.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">STITCH.WITHGOOGLE.COM</div>
+          </a>
+
+          <a href="https://claude.ai/design/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 120ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:palette-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Claude Design</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Anthropic's design surface — design directly inside Claude with full conversational iteration.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">CLAUDE.AI/DESIGN</div>
+          </a>
+
+          <a href="https://neuform.ai/community/featured" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 180ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:atom-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Neuform</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">AI-native design community — featured generations, prompts, and designer-shared workflows.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">NEUFORM.AI</div>
+          </a>
+
+          <a href="https://getdesign.md/figma/design-md" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 240ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:document-text-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Design.md</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Treat your design system as Markdown — versioned, AI-readable, machine-shippable from Figma to code.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">GETDESIGN.MD</div>
+          </a>
+
+          <a href="https://www.uupm.cc/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 300ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:layers-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">UI/UX Pro Max</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">A design intelligence skill — 50+ styles, 161 palettes, 57 font pairings. The reference behind this very page.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">UUPM.CC</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ─── 04 / Components & Inspiration ─── -->
+      <div id="tools" class="mb-8">
+        <div class="flex items-end justify-between mb-10 flex-wrap gap-4 reveal">
+          <div>
+            <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52] mb-3">// 04 / COMPONENTS &amp; INSPIRATION</div>
+            <h2 class="text-3xl md:text-4xl font-medium tracking-[-0.02em]">Steal good components.</h2>
+          </div>
+          <p class="text-white/50 max-w-md text-sm leading-relaxed">Don't build from scratch — start from production-grade components and prompts.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a href="https://21st.dev/home" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:widget-3-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">21st.dev</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Open marketplace of high-end React/Tailwind components — copy, paste, ship.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">21ST.DEV</div>
+          </a>
+
+          <a href="https://ui.tripled.work/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 60ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:gallery-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Tripled UI</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">A taste-forward component gallery — distinctive blocks for landing pages and product surfaces.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">UI.TRIPLED.WORK</div>
+          </a>
+
+          <a href="https://www.designprompts.dev/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 120ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:cup-star-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Design Prompts</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Battle-tested prompts for AI design tools. Stop staring at the blank box.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">DESIGNPROMPTS.DEV</div>
+          </a>
+
+          <a href="https://recharts.github.io/en-US/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 180ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:chart-square-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Recharts</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">My go-to charting library for React. Composable, customizable, and Claude knows it cold.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">RECHARTS.GITHUB.IO</div>
+          </a>
+
+          <a href="https://hueapp.io/" target="_blank" rel="noopener" class="link-card block bg-white/[0.04] border border-white/10 rounded-2xl p-6 group reveal" style="animation-delay: 240ms;">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/85"><iconify-icon icon="solar:pallete-2-bold" width="22" height="22"></iconify-icon></div>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18" class="text-white/30 arrow-icon"></iconify-icon>
+            </div>
+            <h3 class="text-lg font-medium tracking-tight mb-2 link-title">Hue App</h3>
+            <p class="text-white/60 text-sm leading-relaxed mb-4">Color exploration tool — generate, balance, and export palettes that actually feel coherent.</p>
+            <div class="font-mono text-[10px] tracking-[0.2em] text-white/30">HUEAPP.IO</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 04 — ABOUT -->
+  <section id="about" class="bg-stage py-24 md:py-32 border-t border-white/5 relative">
+    <div class="grain"></div>
+    <div class="max-w-4xl mx-auto px-5 md:px-6 relative">
+      <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52] mb-3 reveal">// 05 / ABOUT</div>
+      <h2 class="text-3xl md:text-5xl font-medium tracking-[-0.03em] mb-12 reveal" style="animation-delay: 80ms;">Hi, I'm Daniel.</h2>
+
+      <div class="grid md:grid-cols-[auto_1fr] gap-8 items-start reveal" style="animation-delay: 160ms;">
+        <div class="relative w-40 h-40 rounded-3xl overflow-hidden bg-gradient-to-br from-[#7bed52] to-[#3a8228] shadow-[0_0_60px_rgba(123,237,82,0.25)]">
+          <img src="assets/daniel-backpack.svg" alt="Daniel Boaron" class="absolute inset-0 w-full h-full object-cover" />
+        </div>
+
+        <div class="space-y-5 text-white/75 text-base md:text-lg leading-relaxed">
+          <p>
+            I'm a designer who builds. I run <span class="text-white">Design AI</span> — a workshop and community in Israel for designers learning to ship real products with AI.
+          </p>
+          <p>
+            For years I watched designers stop at the handoff: hi-fi mockup, prayer, and a long wait. The new tools — Cursor, Claude, MCP — change that. The role isn't dying. <span class="text-[#7bed52]">It's evolving into a builder.</span>
+          </p>
+          <p>
+            This page is everything I shared in the talk. Bookmark it. Share it. The workshop is where we go deep.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-3">
+            <a href="https://www.linkedin.com/in/danielboaronux/" target="_blank" rel="noopener"
+               class="group inline-flex items-center gap-2 bg-white/5 border border-white/10 hover:border-[#7bed52]/40 hover:bg-[#7bed52]/5 transition-colors text-white text-sm font-medium px-4 py-2.5 rounded-full">
+              <iconify-icon icon="mdi:linkedin" width="18" height="18" class="text-[#7bed52]"></iconify-icon>
+              <span>Follow on LinkedIn</span>
+              <iconify-icon icon="solar:arrow-right-up-linear" width="14" height="14" class="text-white/40 group-hover:text-[#7bed52] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></iconify-icon>
+            </a>
+            <span class="font-mono text-[10px] tracking-[0.2em] text-white/30">@DANIELBOARONUX</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- big motto card -->
+      <div class="mt-16 bg-black border border-white/10 rounded-3xl p-8 md:p-14 text-center relative overflow-hidden reveal" style="animation-delay: 240ms;">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#7bed52]/5 via-transparent to-transparent"></div>
+        <div class="relative">
+          <div class="font-mono text-[10px] tracking-[0.3em] text-[#7bed52] mb-6">// THE MOTTO</div>
+          <p class="text-3xl md:text-5xl font-medium tracking-[-0.025em] leading-[1.05] mb-6">
+            Don't learn everything.<br />
+            <span class="text-[#7bed52]">Just dive in.</span>
+          </p>
+          <p class="text-white/55 text-sm md:text-base font-mono tracking-wide max-w-md mx-auto leading-relaxed">
+            Ask Claude "stupid" questions. Start ugly. Ship it. <span class="text-[#7bed52]">That's the job.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — FINAL CTA -->
+  <section class="bg-black py-24 md:py-32 text-center border-t border-white/5">
+    <div class="max-w-3xl mx-auto px-5 md:px-6">
+      <h2 class="text-4xl md:text-6xl font-medium tracking-[-0.035em] leading-[0.95] mb-8 reveal">
+        Ready to actually<br />
+        <span class="text-[#7bed52]">build something?</span>
+      </h2>
+      <p class="text-white/65 text-lg mb-10 max-w-xl mx-auto reveal" style="animation-delay: 80ms;">
+        The workshop is the fastest path from "I want to ship" to actually shipping. Hands-on, in Hebrew, with a real cohort.
+      </p>
+      <a href="https://designai.co.il/design-to-code/" target="_blank" rel="noopener"
+         class="group inline-flex items-center gap-3 bg-[#7bed52] text-black px-8 py-4 rounded-full font-medium text-lg hover:bg-white transition-colors reveal" style="animation-delay: 160ms;">
+        <iconify-icon icon="solar:graduation-bold" width="22" height="22"></iconify-icon>
+        <span>Join the Design → Code Workshop</span>
+        <iconify-icon icon="solar:arrow-right-up-linear" width="20" height="20" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-5 md:px-6 flex flex-col md:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-[#7bed52]"></span>
+        <span class="font-mono text-xs tracking-[0.2em] text-white/60">DANIEL.BOARON / DESIGN-AI.CO.IL</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://www.linkedin.com/in/danielboaronux/" target="_blank" rel="noopener"
+           class="flex items-center gap-1.5 text-white/50 hover:text-[#7bed52] transition-colors font-mono text-[11px] tracking-[0.2em]">
+          <iconify-icon icon="mdi:linkedin" width="16" height="16"></iconify-icon>
+          <span>LINKEDIN</span>
+        </a>
+        <a href="https://designai.co.il/design-to-code/" target="_blank" rel="noopener"
+           class="flex items-center gap-1.5 text-white/50 hover:text-[#7bed52] transition-colors font-mono text-[11px] tracking-[0.2em]">
+          <iconify-icon icon="solar:graduation-bold" width="14" height="14"></iconify-icon>
+          <span>WORKSHOP</span>
+        </a>
+        <p class="font-mono text-[10px] tracking-[0.2em] text-white/30 hidden sm:block">© 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach((el) => io.observe(el));
+
+    // Auto-trigger hero reveals on first paint
+    requestAnimationFrame(() => {
+      document.querySelectorAll('section:first-of-type .reveal').forEach((el) => el.classList.add('visible'));
+    });
+
+    // Smooth scroll w/ nav offset
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id && id.length > 1) {
+          const t = document.querySelector(id);
+          if (t) {
+            e.preventDefault();
+            window.scrollTo({ top: t.offsetTop - 56, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

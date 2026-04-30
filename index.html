@@ -264,7 +264,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 48%;
+      width: 45%;
       height: 100%;
       z-index: 1;
       display: flex;
@@ -337,7 +337,7 @@
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      max-width: 640px;
+      max-width: 720px;
       z-index: 3;
     }
 
@@ -346,12 +346,12 @@
       align-items: center;
       gap: 10px;
       font-family: 'Inter', sans-serif;
-      font-size: 10px;
+      font-size: 13px;
       font-weight: 500;
       color: #7bed52;
       text-transform: uppercase;
       letter-spacing: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .whoami-label-line {
@@ -363,21 +363,21 @@
     .whoami-name {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 62px;
+      font-size: 76px;
       color: #fff;
-      letter-spacing: -2px;
+      letter-spacing: -2.5px;
       line-height: 1.05;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .whoami-bio {
       font-family: 'Inter', sans-serif;
       font-weight: 400;
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.4);
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.85);
       letter-spacing: 0;
-      line-height: 1.7;
-      margin-bottom: 32px;
+      line-height: 1.65;
+      margin-bottom: 36px;
     }
 
     .whoami-stats {
@@ -397,7 +397,7 @@
     .whoami-stat-num {
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 26px;
+      font-size: 32px;
       color: #fff;
       letter-spacing: -0.5px;
     }
@@ -405,8 +405,8 @@
     .whoami-stat-label {
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-top: 4px;
@@ -421,9 +421,9 @@
 
     .whoami-marquee-label {
       font-family: 'Inter', sans-serif;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.5);
       text-transform: uppercase;
       letter-spacing: 3px;
       margin-bottom: 14px;
@@ -455,7 +455,7 @@
     }
 
     .whoami-marquee-item img {
-      height: 20px;
+      height: 24px;
       width: auto;
       object-fit: contain;
       filter: brightness(0) invert(1);
@@ -661,28 +661,29 @@
 
     .sd-num-desc {
       font-family: 'Inter', 'Almoni', sans-serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 400;
       color: rgba(255, 255, 255, 0.75);
       text-align: center;
-      line-height: 1.3;
-      max-width: 400px;
+      line-height: 1.35;
+      max-width: 460px;
     }
 
     .sd-num-source {
       font-family: 'Inter', 'Almoni', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.25);
+      font-size: 17px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.55);
       text-align: center;
       letter-spacing: 0.5px;
+      margin-top: 6px;
     }
 
     /* ── Logos ── */
     .sd-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       object-fit: contain;
     }
 
@@ -853,19 +854,19 @@
 
     .sd-hire-desc {
       font-family: 'Inter', 'Almoni', sans-serif;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 400;
       color: rgba(255, 255, 255, 0.75);
-      line-height: 1.3;
+      line-height: 1.35;
     }
 
     .sd-hire-source {
       font-family: 'Inter', 'Almoni', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.2);
+      font-size: 17px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.55);
       letter-spacing: 0.5px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     /* ═══════════════════════════════════════
@@ -1260,6 +1261,507 @@
     }
 
     /* ═══════════════════════════════════════
+       SLIDE 4d-1 — Figma Make + Claude Skills Title
+    ═══════════════════════════════════════ */
+
+    .slide4d1-logos {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 8px;
+    }
+
+    .slide4d1-logos img {
+      height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 24px rgba(123, 237, 82, 0.15));
+    }
+
+    .slide4d1-plus {
+      font-family: 'Minecraft', monospace;
+      font-size: 48px;
+      color: #7bed52;
+      line-height: 1;
+    }
+
+    /* ═══════════════════════════════════════
+       SLIDE 4d-2 — Side-by-side Screens
+    ═══════════════════════════════════════ */
+
+    .slide4d2-screens {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: flex-start;
+      gap: 60px;
+      z-index: 2;
+    }
+
+    .slide4d2-screen-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .slide4d2-screen-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .slide4d2-screen-frame img {
+      display: block;
+      height: 560px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .slide4d2-title {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 5;
+    }
+
+    .slide4d2-screen-logos {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .slide4d2-screen-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════
+       SLIDE 4d-3 — Claude Skills Hero
+    ═══════════════════════════════════════ */
+
+    .s4d3-logo {
+      width: 1440px;
+      height: auto;
+      filter: drop-shadow(0 0 60px rgba(123, 237, 82, 0.25));
+    }
+
+    .s4d3-headline {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      color: rgba(255, 255, 255, 0.85);
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    .s4d3-body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 36px;
+      color: #fff;
+      text-align: center;
+      line-height: 1.5;
+      letter-spacing: -0.3px;
+      max-width: 1000px;
+    }
+
+    /* ═══════════════════════════════════════
+       SLIDE 4d-4 — Claude Chat Conversation
+    ═══════════════════════════════════════ */
+
+    /* ── Title Overlay ── */
+    .s4d4-title-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(128deg, #000 38.5%, #06150f 97.6%);
+      text-align: center;
+      gap: 0;
+    }
+
+    .s4d4-title-overlay .green-badge {
+      font-size: 20px;
+      padding: 10px 24px;
+      letter-spacing: 5px;
+    }
+
+    .s4d4-title-headline {
+      font-family: 'Inter', sans-serif;
+      font-size: 80px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -3px;
+      line-height: 1.05;
+      margin-top: 20px;
+    }
+
+    .s4d4-title-headline .hl {
+      color: #7bed52;
+    }
+
+    .s4d4-title-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      margin-top: 24px;
+      max-width: 800px;
+      line-height: 1.45;
+    }
+
+    /* ── Claude UI — Full Screen ── */
+    .s4d4-chat-container {
+      position: absolute;
+      inset: 0;
+      background: #2B2A27;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    /* Window chrome */
+    .s4d4-chrome {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .s4d4-traffic {
+      display: flex;
+      gap: 8px;
+    }
+
+    .s4d4-traffic span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .s4d4-dot-r { background: #FF5F57; }
+    .s4d4-dot-y { background: #FFBD2E; }
+    .s4d4-dot-g { background: #28CA42; }
+
+    .s4d4-chrome-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .s4d4-chrome-logo {
+      width: 22px;
+      height: 22px;
+    }
+
+    .s4d4-chrome-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #B4B4B4;
+    }
+
+    /* Messages area */
+    .s4d4-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .s4d4-messages::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Message block */
+    .s4d4-msg {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .s4d4-msg-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .s4d4-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .s4d4-avatar-user {
+      background: #D97757;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .s4d4-avatar-claude {
+      background: #3D3B37;
+      padding: 4px;
+    }
+
+    .s4d4-avatar-claude svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .s4d4-msg-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ECECEC;
+    }
+
+    .s4d4-msg-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      line-height: 1.7;
+      color: #E1E1E0;
+      padding-left: 42px;
+      letter-spacing: -0.1px;
+    }
+
+    .s4d4-msg-text.s4d4-user-text {
+      color: #ECECEC;
+    }
+
+    /* Thinking dots */
+    .s4d4-thinking-dots {
+      display: flex;
+      gap: 5px;
+      padding: 4px 0;
+      padding-left: 36px;
+    }
+
+    .s4d4-thinking-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6B6B65;
+    }
+
+    .s4d4-thinking-dots.active span {
+      animation: s4d4-dotPulse 1.2s ease-in-out infinite;
+    }
+
+    .s4d4-thinking-dots.active span:nth-child(2) { animation-delay: 0.2s; }
+    .s4d4-thinking-dots.active span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes s4d4-dotPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(1); }
+      40% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* Typewriter */
+    .s4d4-typewriter-text { display: inline; }
+
+    .s4d4-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: #D97757;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    /* Checklist */
+    .s4d4-skill-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-left: 42px;
+      margin-top: 4px;
+    }
+
+    .s4d4-check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      color: #E1E1E0;
+    }
+
+    .s4d4-check-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(217, 119, 87, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .s4d4-check-icon svg { width: 12px; height: 12px; }
+
+    /* Success */
+    .s4d4-success-msg {
+      margin-left: 42px;
+      background: rgba(217, 119, 87, 0.08);
+      border: 1px solid rgba(217, 119, 87, 0.2);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      color: #D97757;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Input bar */
+    .s4d4-input-bar {
+      padding: 16px 120px;
+      flex-shrink: 0;
+    }
+
+    .s4d4-input-field {
+      background: #30302E;
+      border: 1px solid #454540;
+      border-radius: 24px;
+      padding: 14px 16px 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .s4d4-input-plus {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8A8A88;
+      flex-shrink: 0;
+    }
+
+    .s4d4-input-text {
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      color: #6B6B65;
+    }
+
+    .s4d4-input-model {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #B4B4B4;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .s4d4-input-send {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: rgba(217, 119, 87, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .s4d4-input-send svg {
+      width: 16px;
+      height: 16px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .s4d4-disclaimer {
+      text-align: center;
+      padding: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: #6B6B65;
+    }
+
+    /* When in side-by-side mode — floating card look */
+    .s4d4-chat-container.s4d4-half {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-chrome {
+      border-radius: 16px 16px 0 0;
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-messages {
+      padding: 30px 40px;
+      gap: 24px;
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-input-bar {
+      padding: 12px 40px;
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-msg-text {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-msg-name {
+      font-size: 14px;
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-check-item {
+      font-size: 15px;
+    }
+
+    .s4d4-chat-container.s4d4-half .s4d4-success-msg {
+      font-size: 15px;
+    }
+
+    /* Dark background behind the split cards */
+    .s4d4-split-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(128deg, #000 38.5%, #06150f 97.6%);
+      z-index: 1;
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════
        SLIDE 6 — Triangle / Circle (role-*)
     ═══════════════════════════════════════ */
 
@@ -1465,8 +1967,8 @@
     /* ── Maker Circle (6b) ── */
     .maker-circle {
       position: relative;
-      width: 460px;
-      height: 460px;
+      width: 540px;
+      height: 540px;
       border-radius: 50%;
       border: 3px solid rgba(123, 237, 82, 0.6);
       background: radial-gradient(circle at 50% 50%, rgba(123,237,82,0.2) 0%, rgba(123,237,82,0.05) 60%, transparent 100%);
@@ -1998,14 +2500,14 @@
         <!-- Card 1 -->
         <div class="sd-num-card">
           <div class="sd-num-value">85%</div>
-          <div class="sd-num-desc">Of Designers &amp; Developers Say AI Skills Are Essential For Their Future</div>
+          <div class="sd-num-desc">Of Designers &amp; Developers Say AI Skills Are Essential for Their Future</div>
           <div class="sd-num-source">Figma AI Report, 2025</div>
         </div>
 
         <!-- Card 2 -->
         <div class="sd-num-card">
           <div class="sd-num-value">46%</div>
-          <div class="sd-num-desc">Of Code On GitHub Is Now AI-Assisted</div>
+          <div class="sd-num-desc">Of All Code on GitHub Is Now Written with AI Assistance</div>
           <div class="sd-num-source">GitHub / Microsoft, 2025</div>
         </div>
 
@@ -2014,7 +2516,7 @@
           <div class="sd-num-value">$14B</div>
           <div class="sd-num-desc">
             <img src="assets/claude-color.png" alt="Claude" class="sd-logo" style="vertical-align:middle; margin-right:8px;" />
-            Anthropic (Claude) ARR &mdash; 10&times; Growth, 3 Years Running
+            Anthropic (Claude) ARR, 10&times; Growth in 3 Years
           </div>
           <div class="sd-num-source">Anthropic Series G, Feb 2026</div>
         </div>
@@ -2105,7 +2607,7 @@
             <img src="assets/vercel-logo.png" alt="Vercel" class="sd-logo" />
             <div class="sd-hire-stat">$294K</div>
           </div>
-          <div class="sd-hire-desc">Top Salary For Design Engineers At Vercel &mdash; A Role That Didn't Exist 3 Years Ago</div>
+          <div class="sd-hire-desc">Top Salary for Design Engineers at Vercel, a Role That Didn't Exist 3 Years Ago</div>
           <div class="sd-hire-source">Vercel Careers, 2025</div>
         </div>
 
@@ -2151,9 +2653,9 @@
             </svg>
           </div>
           <!-- Nodes -->
-          <div class="role-node role-node-pm">R&D</div>
+          <div class="role-node role-node-pm">FE</div>
           <div class="role-node role-node-designer">PM</div>
-          <div class="role-node role-node-dev">Product<br>Design</div>
+          <div class="role-node role-node-dev">PD</div>
         </div>
       </div>
 
@@ -2168,17 +2670,17 @@
       <div class="dark-bg"></div>
 
       <!-- Ghost nodes that merge into the Maker circle -->
-      <div class="merge-ghost merge-ghost--rd">R&D</div>
+      <div class="merge-ghost merge-ghost--rd">FE</div>
       <div class="merge-ghost merge-ghost--pm">PM</div>
-      <div class="merge-ghost merge-ghost--pd">Product<br>Design</div>
+      <div class="merge-ghost merge-ghost--pd">PD</div>
 
       <div class="role-diagram">
         <div class="maker-circle">
-          <div class="maker-label">The Builder</div>
-          <div class="maker-skills">R&D &bull; PM &bull; Product Design</div>
+          <div class="maker-label">The Product Builder</div>
+          <div class="maker-skills">FE &bull; PM &bull; PD</div>
           <!-- Orbiting dot SVG overlay -->
-          <svg class="maker-orbit-svg" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle class="maker-orbit-dot" cx="230" cy="0" r="8" fill="#7bed52" opacity="0">
+          <svg class="maker-orbit-svg" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle class="maker-orbit-dot" cx="270" cy="0" r="8" fill="#7bed52" opacity="0">
               <animate attributeName="r" values="6;10;6" dur="1.2s" repeatCount="indefinite" />
             </circle>
           </svg>
@@ -2298,6 +2800,333 @@
           <img src="assets/claude-color.png" alt="Claude">
           <div class="focus-tool-name">Claude</div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4d-1 — Figma Make + Claude Skills (Title) ═══════ -->
+  <div class="slide" data-slide="4d-1">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="center-content">
+        <div class="green-badge" style="font-size:24px; letter-spacing:4px; padding:12px 32px;">HOW TO USE CLAUDE &amp; FIGMA MAKE</div>
+        <div class="slide4d1-logos" style="gap:48px; margin-top:16px;">
+          <img src="assets/figma-make-logo.png" alt="Figma Make" class="slide4d1-logo-left" style="height:100px;">
+          <span class="slide4d1-plus" style="font-size:64px;">+</span>
+          <img src="assets/claude-skills-logo.png" alt="Claude Skills" class="slide4d1-logo-right" style="height:100px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4d-2 — Figma Make vs Figma Make + Claude Skills ═══════ -->
+  <div class="slide" data-slide="4d-2">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="slide4d2-title">
+        <div class="mc-title-sm" style="font-size:52px; color:#7bed52;">SKILLS MAKE THE DIFFERENCE</div>
+        <div class="subtitle" style="font-size:24px;">SAME DESIGN, BETTER OUTPUT</div>
+      </div>
+
+      <div class="slide4d2-screens">
+        <div class="slide4d2-screen-item slide4d2-left">
+          <div class="slide4d2-screen-frame">
+            <img src="assets/figma-make-screen.png" alt="Figma Make">
+          </div>
+          <div class="slide4d2-screen-logos">
+            <img src="assets/figma-make-logo.png" alt="Figma Make" style="height:40px;">
+          </div>
+        </div>
+
+        <div class="slide4d2-screen-item slide4d2-right">
+          <div class="slide4d2-screen-frame">
+            <img src="assets/figma-make-claude-skills-screen.png" alt="Figma Make + Claude Skills">
+          </div>
+          <div class="slide4d2-screen-logos">
+            <img src="assets/figma-make-logo.png" alt="Figma Make" style="height:40px;">
+            <span style="color:#7bed52; font-family:'Minecraft',monospace; font-size:28px;">+</span>
+            <img src="assets/claude-skills-logo.png" alt="Claude Skills" style="height:40px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4d-3 — Claude Skills Hero ═══════ -->
+  <div class="slide" data-slide="4d-3">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+      <div class="center-content" style="gap: 36px;">
+        <img src="assets/claude-skills-logo.svg" alt="Claude Skills" class="s4d3-logo" />
+        <div class="s4d3-body">A Skill is a set of instructions that teaches Claude how to do something specific for you, like a recipe card for AI.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4d-4 — Claude Chat Conversation ═══════ -->
+  <div class="slide" data-slide="4d-4">
+    <div class="slide-inner">
+
+      <!-- Title overlay (phase 1) -->
+      <div class="s4d4-title-overlay" id="s4d4-overlay">
+        <span class="green-badge">Co-create with Claude</span>
+        <div class="s4d4-title-headline">You Describe, <span class="hl">Claude Builds</span></div>
+        <div class="s4d4-title-sub">Tell Claude your idea. It asks the right questions, identifies the pattern, and writes the Skill for you.</div>
+      </div>
+
+      <!-- Dark bg visible behind split cards -->
+      <div class="s4d4-split-bg" id="s4d4-split-bg"></div>
+
+      <!-- ── Container A: make-prompter (starts full-screen) ── -->
+      <div class="s4d4-chat-container" id="s4d4-container-a">
+
+          <div class="s4d4-chrome">
+            <div class="s4d4-traffic">
+              <span class="s4d4-dot-r"></span>
+              <span class="s4d4-dot-y"></span>
+              <span class="s4d4-dot-g"></span>
+            </div>
+            <div class="s4d4-chrome-center">
+              <svg class="s4d4-chrome-logo" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><ellipse id="s4d4pa" cx="100" cy="100" rx="90" ry="22"/></defs>
+                <g fill="#D46B4F"><use href="#s4d4pa" transform="rotate(0 100 100)"/><use href="#s4d4pa" transform="rotate(45 100 100)"/><use href="#s4d4pa" transform="rotate(90 100 100)"/><use href="#s4d4pa" transform="rotate(135 100 100)"/></g>
+              </svg>
+              <span class="s4d4-chrome-title">Claude</span>
+            </div>
+          </div>
+
+          <div class="s4d4-messages">
+
+            <div class="s4d4-msg" id="s4d4a-msg-1">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-user">D</div>
+                <span class="s4d4-msg-name">You</span>
+              </div>
+              <div class="s4d4-msg-text s4d4-user-text">Create a Skill that generates specification-level prompts for Figma Make. I want perfect prompts every time.</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-msg-2">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-claude">
+                  <svg viewBox="0 0 200 200" fill="none"><defs><ellipse id="s4d4pa2" cx="100" cy="100" rx="90" ry="22"/></defs><g fill="#D46B4F"><use href="#s4d4pa2" transform="rotate(0 100 100)"/><use href="#s4d4pa2" transform="rotate(45 100 100)"/><use href="#s4d4pa2" transform="rotate(90 100 100)"/><use href="#s4d4pa2" transform="rotate(135 100 100)"/></g></svg>
+                </div>
+                <span class="s4d4-msg-name">Claude</span>
+              </div>
+              <div class="s4d4-msg-text">Great idea! What kind of designs do you usually create in Make? And do you have preferred style references — like Linear, Stripe?</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-msg-3">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-user">D</div>
+                <span class="s4d4-msg-name">You</span>
+              </div>
+              <div class="s4d4-msg-text s4d4-user-text">Mostly dashboards and SaaS apps. I like the Linear/Stripe clean style.</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-thinking">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-claude">
+                  <svg viewBox="0 0 200 200" fill="none"><defs><ellipse id="s4d4pa3" cx="100" cy="100" rx="90" ry="22"/></defs><g fill="#D46B4F"><use href="#s4d4pa3" transform="rotate(0 100 100)"/><use href="#s4d4pa3" transform="rotate(45 100 100)"/><use href="#s4d4pa3" transform="rotate(90 100 100)"/><use href="#s4d4pa3" transform="rotate(135 100 100)"/></g></svg>
+                </div>
+                <span class="s4d4-msg-name">Claude</span>
+              </div>
+              <div class="s4d4-thinking-dots" id="s4d4a-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-msg-4">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-claude">
+                  <svg viewBox="0 0 200 200" fill="none"><defs><ellipse id="s4d4pa4" cx="100" cy="100" rx="90" ry="22"/></defs><g fill="#D46B4F"><use href="#s4d4pa4" transform="rotate(0 100 100)"/><use href="#s4d4pa4" transform="rotate(45 100 100)"/><use href="#s4d4pa4" transform="rotate(90 100 100)"/><use href="#s4d4pa4" transform="rotate(135 100 100)"/></g></svg>
+                </div>
+                <span class="s4d4-msg-name">Claude</span>
+              </div>
+              <div class="s4d4-msg-text"><span class="s4d4-typewriter-text" id="s4d4a-typewriter"></span><span class="s4d4-cursor" id="s4d4a-cursor"></span></div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-msg-5">
+              <div class="s4d4-skill-card">
+                <div class="s4d4-check-item" data-check="0">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  ASCII layout diagrams
+                </div>
+                <div class="s4d4-check-item" data-check="1">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  Component specs with exact values
+                </div>
+                <div class="s4d4-check-item" data-check="2">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  Design system tables (colors, typography, spacing)
+                </div>
+                <div class="s4d4-check-item" data-check="3">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  All states &amp; interactions
+                </div>
+              </div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-msg-6">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-user">D</div>
+                <span class="s4d4-msg-name">You</span>
+              </div>
+              <div class="s4d4-msg-text s4d4-user-text">This is exactly what I need!</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4a-msg-7">
+              <div class="s4d4-success-msg">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="rgba(217,119,87,0.2)"/><path d="M6 10L9 13L14 7" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Skill created — <strong>"Make Prompter"</strong> is ready to use.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="s4d4-input-bar">
+            <div class="s4d4-input-field">
+              <div class="s4d4-input-plus">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </div>
+              <span class="s4d4-input-text">How can I help you today?</span>
+              <div class="s4d4-input-model">
+                Opus 4.6
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="s4d4-input-send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              </div>
+            </div>
+            <div class="s4d4-disclaimer">Claude can make mistakes. Please double-check responses.</div>
+          </div>
+
+      </div>
+
+      <!-- ── Container B: make-guidelines (starts hidden, appears on right) ── -->
+      <div class="s4d4-chat-container" id="s4d4-container-b">
+
+          <div class="s4d4-chrome">
+            <div class="s4d4-traffic">
+              <span class="s4d4-dot-r"></span>
+              <span class="s4d4-dot-y"></span>
+              <span class="s4d4-dot-g"></span>
+            </div>
+            <div class="s4d4-chrome-center">
+              <svg class="s4d4-chrome-logo" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><ellipse id="s4d4pb" cx="100" cy="100" rx="90" ry="22"/></defs>
+                <g fill="#D46B4F"><use href="#s4d4pb" transform="rotate(0 100 100)"/><use href="#s4d4pb" transform="rotate(45 100 100)"/><use href="#s4d4pb" transform="rotate(90 100 100)"/><use href="#s4d4pb" transform="rotate(135 100 100)"/></g>
+              </svg>
+              <span class="s4d4-chrome-title">Claude</span>
+            </div>
+          </div>
+
+          <div class="s4d4-messages">
+
+            <div class="s4d4-msg" id="s4d4b-msg-1">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-user">D</div>
+                <span class="s4d4-msg-name">You</span>
+              </div>
+              <div class="s4d4-msg-text s4d4-user-text">Now create a Skill that analyzes my Figma files and generates Guidelines.md for Figma Make.</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-msg-2">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-claude">
+                  <svg viewBox="0 0 200 200" fill="none"><defs><ellipse id="s4d4pb2" cx="100" cy="100" rx="90" ry="22"/></defs><g fill="#D46B4F"><use href="#s4d4pb2" transform="rotate(0 100 100)"/><use href="#s4d4pb2" transform="rotate(45 100 100)"/><use href="#s4d4pb2" transform="rotate(90 100 100)"/><use href="#s4d4pb2" transform="rotate(135 100 100)"/></g></svg>
+                </div>
+                <span class="s4d4-msg-name">Claude</span>
+              </div>
+              <div class="s4d4-msg-text">I'll use the Figma MCP tools to analyze your file. What should the guidelines cover — full design system or specific components?</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-msg-3">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-user">D</div>
+                <span class="s4d4-msg-name">You</span>
+              </div>
+              <div class="s4d4-msg-text s4d4-user-text">Full design system — colors, typography, spacing, and component rules.</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-thinking">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-claude">
+                  <svg viewBox="0 0 200 200" fill="none"><defs><ellipse id="s4d4pb3" cx="100" cy="100" rx="90" ry="22"/></defs><g fill="#D46B4F"><use href="#s4d4pb3" transform="rotate(0 100 100)"/><use href="#s4d4pb3" transform="rotate(45 100 100)"/><use href="#s4d4pb3" transform="rotate(90 100 100)"/><use href="#s4d4pb3" transform="rotate(135 100 100)"/></g></svg>
+                </div>
+                <span class="s4d4-msg-name">Claude</span>
+              </div>
+              <div class="s4d4-thinking-dots" id="s4d4b-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-msg-4">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-claude">
+                  <svg viewBox="0 0 200 200" fill="none"><defs><ellipse id="s4d4pb4" cx="100" cy="100" rx="90" ry="22"/></defs><g fill="#D46B4F"><use href="#s4d4pb4" transform="rotate(0 100 100)"/><use href="#s4d4pb4" transform="rotate(45 100 100)"/><use href="#s4d4pb4" transform="rotate(90 100 100)"/><use href="#s4d4pb4" transform="rotate(135 100 100)"/></g></svg>
+                </div>
+                <span class="s4d4-msg-name">Claude</span>
+              </div>
+              <div class="s4d4-msg-text"><span class="s4d4-typewriter-text" id="s4d4b-typewriter"></span><span class="s4d4-cursor" id="s4d4b-cursor"></span></div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-msg-5">
+              <div class="s4d4-skill-card">
+                <div class="s4d4-check-item" data-check="0">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  Extract color tokens &amp; semantic naming
+                </div>
+                <div class="s4d4-check-item" data-check="1">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  Typography hierarchy &amp; scale
+                </div>
+                <div class="s4d4-check-item" data-check="2">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  Spacing patterns &amp; grid rules
+                </div>
+                <div class="s4d4-check-item" data-check="3">
+                  <div class="s4d4-check-icon"><svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5L5.5 9.5L10.5 3.5" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  Component variant documentation
+                </div>
+              </div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-msg-6">
+              <div class="s4d4-msg-header">
+                <div class="s4d4-avatar s4d4-avatar-user">D</div>
+                <span class="s4d4-msg-name">You</span>
+              </div>
+              <div class="s4d4-msg-text s4d4-user-text">Ship it!</div>
+            </div>
+
+            <div class="s4d4-msg" id="s4d4b-msg-7">
+              <div class="s4d4-success-msg">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="rgba(217,119,87,0.2)"/><path d="M6 10L9 13L14 7" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Skill created — <strong>"Make Guidelines"</strong> is ready to use.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="s4d4-input-bar">
+            <div class="s4d4-input-field">
+              <div class="s4d4-input-plus">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </div>
+              <span class="s4d4-input-text">How can I help you today?</span>
+              <div class="s4d4-input-model">
+                Opus 4.6
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="s4d4-input-send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              </div>
+            </div>
+            <div class="s4d4-disclaimer">Claude can make mistakes. Please double-check responses.</div>
+          </div>
+
       </div>
     </div>
   </div>
@@ -2641,6 +3470,12 @@
     if (slide4cTimeline) slide4cTimeline.kill();
     if (slide4cRotateTween) { slide4cRotateTween.kill(); slide4cRotateTween = null; }
     if (slide4dTimeline) slide4dTimeline.kill();
+    if (slide4d1Timeline) slide4d1Timeline.kill();
+    if (slide4d2Timeline) slide4d2Timeline.kill();
+    if (slide4d4Timeline) slide4d4Timeline.kill();
+    if (slide4d4TimelineB) slide4d4TimelineB.kill();
+    clearTimeout(slide4d4TypeTimeoutA);
+    clearTimeout(slide4d4TypeTimeoutB);
     if (slide4eTimeline) slide4eTimeline.kill();
 
     // Trigger slide-specific animations
@@ -2650,6 +3485,9 @@
     else if (slideId === '4b') animateSlide4b();
     else if (slideId === '4c') animateSlide4c();
     else if (slideId === '4d') animateSlide4d();
+    else if (slideId === '4d-1') animateSlide4d1();
+    else if (slideId === '4d-2') animateSlide4d2();
+    else if (slideId === '4d-4') animateSlide4d4();
     else if (slideId === '4e') animateSlide4e();
     else if (slideId === '6a') animateSlide6a();
     else if (slideId === '3b') animateSlide3b();
@@ -2671,11 +3509,26 @@
     nextBtn.disabled = currentSlide === totalSlides - 1;
   }
 
+  function advanceForward() {
+    var slideId = slides[currentSlide].getAttribute('data-slide');
+    if (slideId === '4d-4' && slide4d4Phase === 0) {
+      slide4d4Phase = 1;
+      animateSlide4d4Phase1();
+      return;
+    }
+    if (slideId === '4d-4' && slide4d4Phase === 1) {
+      slide4d4Phase = 2;
+      animateSlide4d4Phase2();
+      return;
+    }
+    goToSlide(currentSlide + 1);
+  }
+
   prevBtn.addEventListener('click', function() { goToSlide(currentSlide - 1); });
-  nextBtn.addEventListener('click', function() { goToSlide(currentSlide + 1); });
+  nextBtn.addEventListener('click', function() { advanceForward(); });
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goToSlide(currentSlide + 1);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') advanceForward();
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goToSlide(currentSlide - 1);
   });
 
@@ -2931,6 +3784,13 @@
   var slide4cTimeline = null;
   var slide4cRotateTween = null;
   var slide4dTimeline = null;
+  var slide4d1Timeline = null;
+  var slide4d2Timeline = null;
+  var slide4d4Timeline = null;
+  var slide4d4TimelineB = null;
+  var slide4d4TypeTimeoutA = null;
+  var slide4d4TypeTimeoutB = null;
+  var slide4d4Phase = 0;
   var slide4eTimeline = null;
   var slide4ePlayCount = 0;
   var slide6aTimeline = null;
@@ -3268,6 +4128,304 @@
       }, 0.5);
   }
 
+  // ── Slide 4d-1 — Figma Make + Claude Skills Title ──
+  function animateSlide4d1() {
+    if (slide4d1Timeline) slide4d1Timeline.kill();
+
+    var slide = document.querySelector('[data-slide="4d-1"]');
+    var logoLeft = slide.querySelector('.slide4d1-logo-left');
+    var logoRight = slide.querySelector('.slide4d1-logo-right');
+    var plus = slide.querySelector('.slide4d1-plus');
+    var badge = slide.querySelector('.green-badge');
+
+    gsap.set(badge, { opacity: 0, y: -20 });
+    gsap.set(logoLeft, { opacity: 0, x: -80 });
+    gsap.set(logoRight, { opacity: 0, x: 80 });
+    gsap.set(plus, { opacity: 0, scale: 0 });
+
+    slide4d1Timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    slide4d1Timeline
+      .to(badge, { opacity: 1, y: 0, duration: 0.5 }, 0)
+      .to(logoLeft, { opacity: 1, x: 0, duration: 0.6 }, 0.2)
+      .to(logoRight, { opacity: 1, x: 0, duration: 0.6 }, 0.2)
+      .to(plus, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, 0.4);
+  }
+
+  // ── Slide 4d-2 — Side-by-side Screens ──
+  function animateSlide4d2() {
+    if (slide4d2Timeline) slide4d2Timeline.kill();
+
+    var slide = document.querySelector('[data-slide="4d-2"]');
+    var titleBlock = slide.querySelector('.slide4d2-title');
+    var left = slide.querySelector('.slide4d2-left');
+    var right = slide.querySelector('.slide4d2-right');
+
+    gsap.set(titleBlock, { opacity: 0, y: -30 });
+    gsap.set(left, { opacity: 0, x: -60 });
+    gsap.set(right, { opacity: 0, x: 60 });
+
+    slide4d2Timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    slide4d2Timeline
+      .to(titleBlock, { opacity: 1, y: 0, duration: 0.5 }, 0)
+      .to(left, { opacity: 1, x: 0, duration: 0.7 }, 0.2)
+      .to(right, { opacity: 1, x: 0, duration: 0.7 }, 0.4);
+  }
+
+  // ── Slide 4d-4 — Phase 0: Title hero (enter slide) ──
+  function animateSlide4d4() {
+    if (slide4d4Timeline) slide4d4Timeline.kill();
+    if (slide4d4TimelineB) slide4d4TimelineB.kill();
+    clearTimeout(slide4d4TypeTimeoutA);
+    clearTimeout(slide4d4TypeTimeoutB);
+    slide4d4Phase = 0;
+
+    var overlay = document.getElementById('s4d4-overlay');
+    var containerA = document.getElementById('s4d4-container-a');
+    var containerB = document.getElementById('s4d4-container-b');
+    var splitBg = document.getElementById('s4d4-split-bg');
+
+    // Show overlay, hide both chats
+    gsap.set(overlay, { opacity: 0, display: 'flex' });
+    gsap.set(containerA, { opacity: 0, top: 0, right: 0, bottom: 0, left: 0 });
+    gsap.set(containerB, { opacity: 0, clearProps: 'left,right,top,bottom' });
+    gsap.set(splitBg, { display: 'none' });
+    containerA.classList.remove('s4d4-half');
+    containerB.classList.remove('s4d4-half');
+
+    // Reset container A messages
+    var twA = document.getElementById('s4d4a-typewriter');
+    var curA = document.getElementById('s4d4a-cursor');
+    var dotsA = document.getElementById('s4d4a-dots');
+    twA.textContent = '';
+    dotsA.classList.remove('active');
+    curA.style.display = 'none';
+    containerA.querySelector('.s4d4-messages').scrollTop = 0;
+
+    ['s4d4a-msg-1','s4d4a-msg-2','s4d4a-msg-3','s4d4a-thinking','s4d4a-msg-4','s4d4a-msg-5','s4d4a-msg-6','s4d4a-msg-7'].forEach(function(id) {
+      gsap.set(document.getElementById(id), { opacity: 0, y: 20 });
+    });
+    document.getElementById('s4d4a-msg-5').querySelectorAll('.s4d4-check-item').forEach(function(item) {
+      gsap.set(item, { opacity: 0, x: -20 });
+    });
+
+    // Reset container B messages
+    var twB = document.getElementById('s4d4b-typewriter');
+    var curB = document.getElementById('s4d4b-cursor');
+    var dotsB = document.getElementById('s4d4b-dots');
+    twB.textContent = '';
+    dotsB.classList.remove('active');
+    curB.style.display = 'none';
+    containerB.querySelector('.s4d4-messages').scrollTop = 0;
+
+    ['s4d4b-msg-1','s4d4b-msg-2','s4d4b-msg-3','s4d4b-thinking','s4d4b-msg-4','s4d4b-msg-5','s4d4b-msg-6','s4d4b-msg-7'].forEach(function(id) {
+      gsap.set(document.getElementById(id), { opacity: 0, y: 20 });
+    });
+    document.getElementById('s4d4b-msg-5').querySelectorAll('.s4d4-check-item').forEach(function(item) {
+      gsap.set(item, { opacity: 0, x: -20 });
+    });
+
+    slide4d4Timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    slide4d4Timeline.to(overlay, { opacity: 1, duration: 0.7 }, 0.1);
+  }
+
+  // ── Slide 4d-4 — Phase 1: Title fades, full-screen make-prompter chat ──
+  function animateSlide4d4Phase1() {
+    if (slide4d4Timeline) slide4d4Timeline.kill();
+    clearTimeout(slide4d4TypeTimeoutA);
+
+    var overlay = document.getElementById('s4d4-overlay');
+    var containerA = document.getElementById('s4d4-container-a');
+    var msg1 = document.getElementById('s4d4a-msg-1');
+    var msg2 = document.getElementById('s4d4a-msg-2');
+    var msg3 = document.getElementById('s4d4a-msg-3');
+    var thinking = document.getElementById('s4d4a-thinking');
+    var dots = document.getElementById('s4d4a-dots');
+    var msg4 = document.getElementById('s4d4a-msg-4');
+    var typewriter = document.getElementById('s4d4a-typewriter');
+    var cursor = document.getElementById('s4d4a-cursor');
+    var msg5 = document.getElementById('s4d4a-msg-5');
+    var checkItems = msg5.querySelectorAll('.s4d4-check-item');
+    var msg6 = document.getElementById('s4d4a-msg-6');
+    var msg7 = document.getElementById('s4d4a-msg-7');
+    var messagesDiv = containerA.querySelector('.s4d4-messages');
+
+    var typeTextA = "I'll create a 'Make Prompter' Skill using Figma's TC-EBC framework — it will generate specification-level prompts with layouts, exact specs, and design tokens...";
+
+    function scrollChat() {
+      gsap.to(messagesDiv, { scrollTop: messagesDiv.scrollHeight, duration: 0.5, ease: 'power2.out' });
+    }
+
+    slide4d4Timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    // 1. Title overlay fades out
+    slide4d4Timeline.to(overlay, { opacity: 0, duration: 0.5 }, 0);
+    slide4d4Timeline.set(overlay, { display: 'none' }, 0.5);
+
+    // 2. Chat window fades in
+    slide4d4Timeline.to(containerA, { opacity: 1, duration: 0.5 }, 0.2);
+
+    // 3. User msg 1
+    slide4d4Timeline.to(msg1, { opacity: 1, y: 0, duration: 0.5 }, 0.8);
+
+    // 4. Claude asks
+    slide4d4Timeline.to(msg2, { opacity: 1, y: 0, duration: 0.5 }, 1.7);
+    slide4d4Timeline.call(scrollChat, null, 1.8);
+
+    // 5. User answers
+    slide4d4Timeline.to(msg3, { opacity: 1, y: 0, duration: 0.5 }, 3.2);
+    slide4d4Timeline.call(scrollChat, null, 3.3);
+
+    // 6. Thinking dots
+    slide4d4Timeline.to(thinking, { opacity: 1, y: 0, duration: 0.3 }, 4.2);
+    slide4d4Timeline.call(function() { dots.classList.add('active'); scrollChat(); }, null, 4.2);
+
+    // 7. Thinking fades, typewriter begins
+    slide4d4Timeline.to(thinking, { opacity: 0, height: 0, marginBottom: 0, duration: 0.25 }, 5.6);
+    slide4d4Timeline.to(msg4, { opacity: 1, y: 0, duration: 0.3 }, 5.8);
+    slide4d4Timeline.call(function() {
+      scrollChat();
+      cursor.style.display = 'inline-block';
+      var i = 0;
+      function typeNext() {
+        if (i < typeTextA.length) {
+          typewriter.textContent += typeTextA[i];
+          i++;
+          if (i % 12 === 0) scrollChat();
+          slide4d4TypeTimeoutA = setTimeout(typeNext, 22);
+        } else {
+          setTimeout(function() { cursor.style.display = 'none'; }, 400);
+        }
+      }
+      typeNext();
+    }, null, 5.8);
+
+    // 8. Checklist items stagger in
+    slide4d4Timeline.to(msg5, { opacity: 1, y: 0, duration: 0.3 }, 8.4);
+    slide4d4Timeline.call(scrollChat, null, 8.4);
+    checkItems.forEach(function(item, idx) {
+      slide4d4Timeline.to(item, { opacity: 1, x: 0, duration: 0.35 }, 8.6 + idx * 0.22);
+      slide4d4Timeline.call(scrollChat, null, 8.7 + idx * 0.22);
+    });
+
+    // 9. User confirms
+    slide4d4Timeline.to(msg6, { opacity: 1, y: 0, duration: 0.4 }, 9.8);
+    slide4d4Timeline.call(scrollChat, null, 9.9);
+
+    // 10. Success message
+    slide4d4Timeline.to(msg7, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 10.5);
+    slide4d4Timeline.call(scrollChat, null, 10.6);
+  }
+
+  // ── Slide 4d-4 — Phase 2: Split-screen, make-guidelines on right ──
+  function animateSlide4d4Phase2() {
+    if (slide4d4TimelineB) slide4d4TimelineB.kill();
+    clearTimeout(slide4d4TypeTimeoutB);
+
+    var containerA = document.getElementById('s4d4-container-a');
+    var containerB = document.getElementById('s4d4-container-b');
+    var splitBg = document.getElementById('s4d4-split-bg');
+
+    // Show dark gradient behind the floating cards
+    gsap.set(splitBg, { display: 'block' });
+
+    // --- Split animation ---
+    // Container A: shrink to left card with inset + gap
+    gsap.to(containerA, {
+      top: 24,
+      left: 24,
+      right: 'calc(50% + 12px)',
+      bottom: 24,
+      duration: 0.7,
+      ease: 'power2.inOut',
+      onStart: function() { containerA.classList.add('s4d4-half'); }
+    });
+
+    // Auto-scroll container A to show completed conversation
+    var messagesDivA = containerA.querySelector('.s4d4-messages');
+    gsap.to(messagesDivA, { scrollTop: messagesDivA.scrollHeight, duration: 0.7, ease: 'power2.out', delay: 0.1 });
+
+    // Container B: appear on right half as floating card
+    gsap.set(containerB, { left: 'calc(50% + 12px)', right: '24px', top: '24px', bottom: '24px', opacity: 0 });
+    containerB.classList.add('s4d4-half');
+    gsap.to(containerB, { opacity: 1, duration: 0.5, delay: 0.3 });
+
+    // --- Auto-play Chat B after split transition ---
+    var msg1 = document.getElementById('s4d4b-msg-1');
+    var msg2 = document.getElementById('s4d4b-msg-2');
+    var msg3 = document.getElementById('s4d4b-msg-3');
+    var thinking = document.getElementById('s4d4b-thinking');
+    var dotsB = document.getElementById('s4d4b-dots');
+    var msg4 = document.getElementById('s4d4b-msg-4');
+    var typewriter = document.getElementById('s4d4b-typewriter');
+    var cursor = document.getElementById('s4d4b-cursor');
+    var msg5 = document.getElementById('s4d4b-msg-5');
+    var checkItems = msg5.querySelectorAll('.s4d4-check-item');
+    var msg6 = document.getElementById('s4d4b-msg-6');
+    var msg7 = document.getElementById('s4d4b-msg-7');
+    var messagesDiv = containerB.querySelector('.s4d4-messages');
+
+    var typeTextB = "I'll build a 'Make Guidelines' Skill that extracts your design tokens and generates a structured Guidelines.md for consistent AI generation...";
+
+    function scrollChatB() {
+      gsap.to(messagesDiv, { scrollTop: messagesDiv.scrollHeight, duration: 0.5, ease: 'power2.out' });
+    }
+
+    slide4d4TimelineB = gsap.timeline({ defaults: { ease: 'power2.out' }, delay: 0.8 });
+
+    // 1. User msg
+    slide4d4TimelineB.to(msg1, { opacity: 1, y: 0, duration: 0.5 }, 0);
+
+    // 2. Claude asks
+    slide4d4TimelineB.to(msg2, { opacity: 1, y: 0, duration: 0.5 }, 0.9);
+    slide4d4TimelineB.call(scrollChatB, null, 1.0);
+
+    // 3. User answers
+    slide4d4TimelineB.to(msg3, { opacity: 1, y: 0, duration: 0.5 }, 2.4);
+    slide4d4TimelineB.call(scrollChatB, null, 2.5);
+
+    // 4. Thinking dots
+    slide4d4TimelineB.to(thinking, { opacity: 1, y: 0, duration: 0.3 }, 3.4);
+    slide4d4TimelineB.call(function() { dotsB.classList.add('active'); scrollChatB(); }, null, 3.4);
+
+    // 5. Thinking fades, typewriter begins
+    slide4d4TimelineB.to(thinking, { opacity: 0, height: 0, marginBottom: 0, duration: 0.25 }, 4.8);
+    slide4d4TimelineB.to(msg4, { opacity: 1, y: 0, duration: 0.3 }, 5.0);
+    slide4d4TimelineB.call(function() {
+      scrollChatB();
+      cursor.style.display = 'inline-block';
+      var i = 0;
+      function typeNext() {
+        if (i < typeTextB.length) {
+          typewriter.textContent += typeTextB[i];
+          i++;
+          if (i % 12 === 0) scrollChatB();
+          slide4d4TypeTimeoutB = setTimeout(typeNext, 22);
+        } else {
+          setTimeout(function() { cursor.style.display = 'none'; }, 400);
+        }
+      }
+      typeNext();
+    }, null, 5.0);
+
+    // 6. Checklist items stagger in
+    slide4d4TimelineB.to(msg5, { opacity: 1, y: 0, duration: 0.3 }, 7.6);
+    slide4d4TimelineB.call(scrollChatB, null, 7.6);
+    checkItems.forEach(function(item, idx) {
+      slide4d4TimelineB.to(item, { opacity: 1, x: 0, duration: 0.35 }, 7.8 + idx * 0.22);
+      slide4d4TimelineB.call(scrollChatB, null, 7.9 + idx * 0.22);
+    });
+
+    // 7. User confirms
+    slide4d4TimelineB.to(msg6, { opacity: 1, y: 0, duration: 0.4 }, 9.0);
+    slide4d4TimelineB.call(scrollChatB, null, 9.1);
+
+    // 8. Success message
+    slide4d4TimelineB.to(msg7, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 9.8);
+    slide4d4TimelineB.call(scrollChatB, null, 9.9);
+  }
+
   // ── Slide 4e — Code ↔ Figma Video (play twice then freeze) ──
   function animateSlide4e() {
     if (slide4eTimeline) slide4eTimeline.kill();
@@ -3448,7 +4606,7 @@
       .to(orbitDot, { opacity: 1, duration: 0.4 }, 2.0)
       // Start orbit around the circle
       .call(function() {
-        var cx = 230, cy = 230, r = 230;
+        var cx = 270, cy = 270, r = 270;
         var proxy = { angle: 0 };
         slide6bOrbitTl = gsap.to(proxy, {
           angle: Math.PI * 2,

@@ -8589,7 +8589,7 @@
     // Reset visuals — phase 0 = HERO state (only title visible, centered)
     terminal.style.visibility = '';
     title.style.visibility = '';
-    gsap.set(title,    { opacity: 0, scale: 0.94, y: 20 });
+    gsap.set(title,    { xPercent: -50, yPercent: -50, opacity: 0, scale: 0.94, y: 20 });
     gsap.set(terminal, { opacity: 0, scale: 0.94 });
     gsap.set(blockEntry, { opacity: 1 });
     gsap.set([blockPurpose, blockBrain, blockMcp, blockSuccess], { opacity: 0, scale: 0.97, y: 14 });

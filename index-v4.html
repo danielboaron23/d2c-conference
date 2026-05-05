@@ -7985,7 +7985,7 @@
   var slide4FlowBridgeTimeline = null;
   var slide4FlowAnatomyTimeline = null;
   var slide4FlowAnatomyPhase = 0;
-  var slide4FlowAnatomyMaxPhase = 6;
+  var slide4FlowAnatomyMaxPhase = 11;
   var slide4Flow1Phase = 0;
   var slide4Flow2Phase = 0;
   var slide4Flow2MaxPhase = 3;
@@ -8701,18 +8701,23 @@
               onComplete: function() { terminal.style.visibility = 'hidden'; }
             }, 1.4)
         .to(strip, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: 'back.out(1.5)' }, 1.7);
-    } else if (n === 6) {
-      // PHASE 6 — Six-element feature grid reveals with a clean stagger
-      var featureCards = slide.querySelectorAll('[data-anatomy="grid"] .anatomy-feature-card');
-      var phaseFootnote = slide.querySelector('.anatomy-grid-footnote');
-      gsap.set(featureCards, { opacity: 0, scale: 0.92, y: 20 });
-      tl.to(featureCards, {
-        opacity: 1, scale: 1, y: 0,
-        duration: 0.55,
-        ease: 'back.out(1.4)',
-        stagger: 0.08
-      }, 0);
-      if (phaseFootnote) phaseFootnote.classList.add('is-on');
+    } else if (n >= 6 && n <= 11) {
+      // PHASES 6–11 — reveal feature cards one by one, one per click (6 cards total)
+      var cardIdx = n - 5; // n=6 → card 1, n=11 → card 6
+      var card = slide.querySelector('[data-anatomy="grid"] .anatomy-feature-card[data-feature="' + cardIdx + '"]');
+      if (card) {
+        gsap.set(card, { opacity: 0, scale: 0.92, y: 20 });
+        tl.to(card, {
+          opacity: 1, scale: 1, y: 0,
+          duration: 0.5,
+          ease: 'back.out(1.4)'
+        }, 0);
+      }
+      // Footnote shows up only after all 6 cards are revealed
+      if (n === 11) {
+        var phaseFootnote = slide.querySelector('.anatomy-grid-footnote');
+        if (phaseFootnote) phaseFootnote.classList.add('is-on');
+      }
     }
   }
 

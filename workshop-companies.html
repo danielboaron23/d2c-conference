@@ -452,21 +452,37 @@
 
       <div class="grid md:grid-cols-2 gap-5 reveal" style="animation-delay: 320ms;">
 
-        <!-- Email · primary -->
-        <a href="mailto:daniel.boaron2303@gmail.com?subject=Team%20Workshop%20Inquiry&body=Hi%20Daniel%2C%0A%0AI%27m%20interested%20in%20a%20team%20workshop.%0A%0ACompany%3A%20%0AContact%20person%3A%20%0ARole%3A%20%0ATeam%20size%3A%20%0AMix%20(designers%20%2F%20PMs%20%2F%20devs)%3A%20%0APreferred%20format%20(Single%20%2F%20Standard%20%2F%20Full)%3A%20%0APreferred%20timeframe%3A%20%0A%0AAnything%20else%20you%27d%20like%20me%20to%20know%3A%0A%0A%0AThanks%21"
-           class="audience-card group block border border-white/10 rounded-3xl p-8 bg-white/[0.02] hover:border-[#7bed52]/40 hover:bg-[#7bed52]/[0.03] transition-all duration-500">
+        <!-- Email — Gmail compose (works in browser) + copy-to-clipboard fallback -->
+        <div class="audience-card border border-white/10 rounded-3xl p-8 bg-white/[0.02] hover:border-[#7bed52]/40 hover:bg-[#7bed52]/[0.03] transition-all duration-500">
           <div class="flex items-start justify-between gap-4 mb-6">
             <div class="w-14 h-14 rounded-2xl bg-[#7bed52]/12 border border-[#7bed52]/30 flex items-center justify-center">
               <iconify-icon icon="solar:letter-bold" width="28" height="28" class="text-[#7bed52]"></iconify-icon>
             </div>
-            <iconify-icon icon="solar:arrow-right-up-linear" width="22" height="22" class="text-white/40 group-hover:text-[#7bed52] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></iconify-icon>
+            <button type="button"
+                    onclick="navigator.clipboard.writeText('daniel.boaron2303@gmail.com');var b=this,o=b.innerHTML;b.innerHTML='COPIED ✓';setTimeout(function(){b.innerHTML=o;},1500);"
+                    class="font-mono text-[9px] tracking-[0.25em] text-white/50 hover:text-[#7bed52] border border-white/10 hover:border-[#7bed52]/40 rounded-full px-2.5 py-1 transition-colors">
+              COPY
+            </button>
           </div>
           <div class="font-mono text-[10px] tracking-[0.25em] text-[#7bed52] mb-2">EMAIL · DETAILED INQUIRY</div>
-          <h3 class="text-2xl font-medium mb-2">daniel.boaron2303<wbr>@gmail.com</h3>
-          <p class="text-white/55 text-sm leading-relaxed">
-            Best when you have specifics like team size, format, and timeframe. The link pre-fills a template so you can fly through it.
+          <h3 class="text-2xl font-medium mb-2 select-all">daniel.boaron2303<wbr>@gmail.com</h3>
+          <p class="text-white/55 text-sm leading-relaxed mb-5">
+            Best when you have specifics like team size, format, and timeframe. The link below pre-fills a template so you can fly through it.
           </p>
-        </a>
+          <div class="flex flex-wrap gap-2">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=daniel.boaron2303@gmail.com&su=Team%20Workshop%20Inquiry&body=Hi%20Daniel%2C%0A%0AI%27m%20interested%20in%20a%20team%20workshop.%0A%0ACompany%3A%0AContact%20person%3A%0ARole%3A%0ATeam%20size%3A%0AMix%20(designers%20%2F%20PMs%20%2F%20devs)%3A%0APreferred%20format%20(Single%20%2F%20Standard%20%2F%20Full)%3A%0APreferred%20timeframe%3A%0A%0AAnything%20else%20you%27d%20like%20me%20to%20know%3A%0A%0A%0AThanks%21"
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-1.5 bg-[#7bed52] text-black text-xs font-medium px-3 py-1.5 rounded-full hover:bg-white transition-colors">
+              <iconify-icon icon="logos:google-gmail" width="14" height="14"></iconify-icon>
+              <span>Open in Gmail</span>
+            </a>
+            <a href="mailto:daniel.boaron2303@gmail.com?subject=Team%20Workshop%20Inquiry&body=Hi%20Daniel%2C%0A%0AI%27m%20interested%20in%20a%20team%20workshop.%0A%0ACompany%3A%0AContact%20person%3A%0ARole%3A%0ATeam%20size%3A%0APreferred%20format%3A%0APreferred%20timeframe%3A%0A%0AThanks%21"
+               class="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 text-white/80 text-xs font-medium px-3 py-1.5 rounded-full hover:bg-white/10 transition-colors">
+              <iconify-icon icon="solar:letter-linear" width="14" height="14"></iconify-icon>
+              <span>Open mail app</span>
+            </a>
+          </div>
+        </div>
 
         <!-- WhatsApp -->
         <a href="https://wa.me/972545609958?text=Hi%20Daniel%2C%20I%27m%20interested%20in%20a%20team%20workshop%20%E2%80%94%20can%20we%20talk%3F"

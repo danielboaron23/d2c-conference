@@ -4713,6 +4713,23 @@
       line-height: 1.05;
     }
     .anatomy-v2-h1 .hl { color: #7bed52; }
+
+    /* Inline Claude Skill mark — replaces the word "SKILL" in the title */
+    .anatomy-v2-h1 .cs-skillmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18em;
+      color: #d97757;
+      vertical-align: -0.06em;
+      line-height: 1;
+    }
+    .anatomy-v2-h1 .cs-skillmark .cs-asterisk {
+      width: 0.78em;
+      height: 0.78em;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+    .anatomy-v2-h1 .cs-skillmark .cs-asterisk path { fill: currentColor; }
     .anatomy-v2-sub {
       font-family: 'ElmsSans', sans-serif;
       font-size: 18px;
@@ -6189,9 +6206,8 @@
         <!-- ── Hero title (phase 0; rises away on phase 1) ── -->
         <div class="anatomy-v2-title" data-anatomy="title">
           <span class="green-badge">Live walkthrough</span>
-          <div class="anatomy-v2-h1">HOW I APPROACH<br>BUILDING A <span class="hl">SKILL</span></div>
+          <div class="anatomy-v2-h1">HOW I APPROACH<br>BUILDING A <span class="cs-skillmark"><svg class="cs-asterisk" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(50 50)"><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(30)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(60)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(90)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(120)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(150)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(180)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(210)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(240)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(270)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(300)" /><path d="M-4 -44 a4 4 0 0 1 8 0 v36 a4 4 0 0 1 -8 0 z" transform="rotate(330)" /></g></svg>Claude Skill</span></div>
           <div class="anatomy-v2-sub">Any project · same recipe · case study: Product Manager</div>
-          <img class="anatomy-v2-mark" src="assets/claude-skill-mark.svg" alt="Claude Skill">
         </div>
 
         <!-- ── Terminal (phases 1–4; collapses on phase 5) ── -->

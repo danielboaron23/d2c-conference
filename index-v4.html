@@ -1322,6 +1322,27 @@
       margin: 0 4px;
     }
 
+    /* Why-this-stack note under the toolkit badge */
+    .focus-tools-note {
+      position: absolute;
+      top: calc(52% + 295px);
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 980px;
+      text-align: center;
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.3px;
+      line-height: 1.55;
+      z-index: 2;
+    }
+    .focus-tools-note strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+
     .focus-tool-card {
       width: 220px;
       height: 250px;
@@ -5794,6 +5815,8 @@
         <span class="toolkit-divider"></span>
         <span>The New Designer</span>
       </div>
+
+      <div class="focus-tools-note"><strong>Claude inside Cursor</strong> — AI that writes real code in your real repo. Sandboxed by default. You approve every change.</div>
     </div>
   </div>
 

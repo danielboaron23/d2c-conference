@@ -238,7 +238,13 @@
       pointer-events: none;
       z-index: 1;
     }
-    .deck-cinematic-video { opacity: 0.55; }
+    /* Paired cross-fade videos for seamless infinite loop (no visible cut at loop boundary).
+       Both share the same source. JS swaps which one is active just before the end. */
+    .deck-cinematic-video {
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .deck-cinematic-video.is-active { opacity: 0.55; }
     .deck-cinematic-image { opacity: 0.55; }
     .deck-cinematic-overlay {
       position: absolute;
@@ -5235,9 +5241,12 @@
       <div class="s1-hills-container">
         <canvas class="s1-hills-canvas" id="glsl-hills-canvas"></canvas>
       </div>
-      <!-- Cinematic video background layered on top of hills (covers hills if loaded, hills shows through if not) -->
-      <video class="deck-cinematic-video" autoplay muted loop playsinline preload="auto"
+      <!-- Cinematic video background — paired cross-fade for seamless looping. -->
+      <video class="deck-cinematic-video" data-cine-pair="opening" autoplay muted playsinline preload="auto"
              poster="assets/generated/deck-opening.png" aria-hidden="true">
+        <source src="assets/generated/deck-opening.mp4" type="video/mp4">
+      </video>
+      <video class="deck-cinematic-video" data-cine-pair="opening" muted playsinline preload="auto" aria-hidden="true">
         <source src="assets/generated/deck-opening.mp4" type="video/mp4">
       </video>
       <div class="deck-cinematic-overlay"></div>
@@ -6067,9 +6076,13 @@
   <div class="slide" data-slide="4-flow-anatomy">
     <div class="slide-inner">
       <div class="dark-bg"></div>
-      <!-- Atmospheric particle loop background — adds energy to hero state, fades when terminal grows -->
-      <video class="deck-cinematic-video anatomy-bg-video" data-anatomy="bg-video"
-             autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <!-- Atmospheric particle loop — paired cross-fade for seamless looping. -->
+      <video class="deck-cinematic-video anatomy-bg-video" data-cine-pair="anatomy"
+             autoplay muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/generated/deck-anatomy-loop.mp4" type="video/mp4">
+      </video>
+      <video class="deck-cinematic-video anatomy-bg-video" data-cine-pair="anatomy"
+             muted playsinline preload="auto" aria-hidden="true">
         <source src="assets/generated/deck-anatomy-loop.mp4" type="video/mp4">
       </video>
       <div class="deck-cinematic-overlay anatomy-bg-overlay"></div>
@@ -7128,9 +7141,12 @@
   <div class="slide" data-slide="11">
     <div class="slide-inner">
       <div class="dark-bg"></div>
-      <!-- Cinematic closing background — green horizon vista that loops -->
-      <video class="deck-cinematic-video" autoplay muted loop playsinline preload="auto"
+      <!-- Cinematic closing background — paired cross-fade for seamless looping. -->
+      <video class="deck-cinematic-video" data-cine-pair="closing" autoplay muted playsinline preload="auto"
              poster="assets/generated/deck-closing-bg.png" aria-hidden="true">
+        <source src="assets/generated/deck-closing.mp4" type="video/mp4">
+      </video>
+      <video class="deck-cinematic-video" data-cine-pair="closing" muted playsinline preload="auto" aria-hidden="true">
         <source src="assets/generated/deck-closing.mp4" type="video/mp4">
       </video>
       <div class="deck-cinematic-overlay"></div>
@@ -7542,6 +7558,45 @@
       updateNav();
     });
   });
+
+  // ── Seamless cinematic loop: paired cross-fade between two video copies ──
+  // Solves the "jump" at the loop boundary that you get with <video loop>.
+  // Each pair shares a `data-cine-pair` value. JS arms the first as active,
+  // then ~0.8s before its end starts the second from t=0 and cross-fades.
+  // Repeat infinitely. Smooth, natural — no visible cut.
+  (function setupCinematicLoops() {
+    var pairs = {};
+    document.querySelectorAll('[data-cine-pair]').forEach(function(v) {
+      var name = v.getAttribute('data-cine-pair');
+      (pairs[name] = pairs[name] || []).push(v);
+    });
+    Object.keys(pairs).forEach(function(name) {
+      var pair = pairs[name];
+      if (pair.length < 2) return;
+      var a = pair[0], b = pair[1];
+      a.classList.add('is-active');
+      var FADE_MS = 800;        // crossfade duration (matches CSS transition)
+      var FADE_LEAD = 0.8;      // start fade this many seconds before active video ends
+
+      function arm(active, idle) {
+        function onUpdate() {
+          if (!active.duration || active.duration === Infinity) return;
+          if (active.currentTime >= active.duration - FADE_LEAD) {
+            active.removeEventListener('timeupdate', onUpdate);
+            try { idle.currentTime = 0; idle.play(); } catch (e) {}
+            idle.classList.add('is-active');
+            active.classList.remove('is-active');
+            setTimeout(function() {
+              try { active.pause(); active.currentTime = 0; } catch (e) {}
+              arm(idle, active);
+            }, FADE_MS);
+          }
+        }
+        active.addEventListener('timeupdate', onUpdate);
+      }
+      arm(a, b);
+    });
+  })();
 
   // ── GLSL Hills (Three.js) ──
   try { (function initGLSLHills() {

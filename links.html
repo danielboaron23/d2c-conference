@@ -82,6 +82,31 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
     }
 
+    /* Hero atmospheric video background */
+    .hero-bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.42;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 60%, transparent 0%, rgba(0,0,0,0.55) 70%),
+        linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.55) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-bg-video { display: none; }
+    }
+
     /* float animations (preserve static rotation via --r) */
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
@@ -199,6 +224,12 @@
 
   <!-- 01 — HERO -->
   <section id="top" class="relative bg-stage min-h-[100svh] flex flex-col justify-center pt-24 pb-20 overflow-hidden">
+    <!-- Atmospheric video loop background (designer workspace at night) -->
+    <video class="hero-bg-video" autoplay muted loop playsinline preload="auto"
+           poster="assets/generated/hero-bg-v1.png" aria-hidden="true">
+      <source src="assets/generated/hero-loop-v1.mp4" type="video/mp4">
+    </video>
+    <div class="hero-bg-overlay"></div>
     <div class="grain"></div>
 
     <!-- Decorative floating elements -->
@@ -314,6 +345,11 @@
       <!-- Company / team workshop — featured first -->
       <a href="workshop-companies.html"
          class="workshop-card block rounded-3xl p-8 md:p-12 group relative overflow-hidden reveal" style="animation-delay: 160ms;">
+
+        <!-- Workshop scene image — half-bleed on the right, masked into the card -->
+        <img src="assets/generated/workshop-scene-v1.png" alt=""
+             class="absolute right-0 top-0 h-full w-1/2 object-cover opacity-25 group-hover:opacity-40 transition-opacity duration-700 hidden md:block pointer-events-none"
+             style="mask-image: linear-gradient(to left, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%); -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);" />
 
         <div class="absolute -right-12 -top-12 w-72 h-72 rounded-full bg-[#7bed52]/12 blur-3xl group-hover:bg-[#7bed52]/25 transition-all duration-700"></div>
 
@@ -461,6 +497,22 @@
       <p class="text-center text-white/40 font-mono text-[11px] tracking-[0.25em] mt-7 reveal" style="animation-delay: 280ms;">
         OPENS IN A NEW TAB · BEST ON DESKTOP
       </p>
+    </div>
+  </section>
+
+  <!-- 02c — TOOLKIT VISUAL TRANSITION -->
+  <section class="relative bg-black overflow-hidden border-t border-white/5">
+    <img src="assets/generated/tech-stack-v1.png" alt=""
+         class="w-full h-[40vh] md:h-[50vh] object-cover"
+         style="mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);" />
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div class="text-center reveal">
+        <div class="font-mono text-[10px] md:text-xs tracking-[0.4em] text-[#7bed52]/85 mb-3">// 02 / THE TOOLKIT</div>
+        <h2 class="text-3xl md:text-5xl font-medium tracking-[-0.03em] text-white">
+          Every tool I <span class="text-[#7bed52]">actually use.</span>
+        </h2>
+        <p class="font-mono text-[10px] tracking-[0.3em] text-white/40 mt-4">CURSOR · CLAUDE · MCP · FIGMA · GIT</p>
+      </div>
     </div>
   </section>
 

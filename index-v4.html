@@ -4690,9 +4690,11 @@
     /* ── Hero title (phase 0: centered, large) ── */
     .anatomy-v2-title {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      inset: 0;
+      margin: auto;
+      width: fit-content;
+      height: fit-content;
+      max-width: 1700px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -8589,7 +8591,7 @@
     // Reset visuals — phase 0 = HERO state (only title visible, centered)
     terminal.style.visibility = '';
     title.style.visibility = '';
-    gsap.set(title,    { xPercent: -50, yPercent: -50, opacity: 0, scale: 0.94, y: 20 });
+    gsap.set(title,    { opacity: 0, scale: 0.94, y: 20 });
     gsap.set(terminal, { opacity: 0, scale: 0.94 });
     gsap.set(blockEntry, { opacity: 1 });
     gsap.set([blockPurpose, blockBrain, blockMcp, blockSuccess], { opacity: 0, scale: 0.97, y: 14 });

@@ -3511,16 +3511,40 @@
     /* ── Anatomy Six-Element Feature Grid (phase 6) — full-bleed, big & readable ── */
     .anatomy-grid {
       position: absolute;
-      top: 215px;
+      top: 200px;
       left: 50%;
       margin-left: -905px;
       width: 1810px;
-      height: 830px;
+      height: 790px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 24px;
       z-index: 3;
+    }
+    .anatomy-grid-footnote {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 30px;
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.4px;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.6s;
+    }
+    .anatomy-grid-footnote.is-on { opacity: 1; }
+    .anatomy-grid-footnote code {
+      font-family: 'JetBrains Mono', 'Menlo', monospace;
+      font-size: 19px;
+      color: #7bed52;
+      background: rgba(123,237,82,0.08);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(123,237,82,0.2);
     }
     .anatomy-feature-card {
       position: relative;
@@ -6485,6 +6509,8 @@
 
         </div>
 
+        <div class="anatomy-grid-footnote">Each skill = one markdown file in <code>.claude/skills/</code>. That's it.</div>
+
       </div>
     </div>
   </div>
@@ -8662,6 +8688,7 @@
     var blockSuccess = slide.querySelector('[data-block="success"]');
     var strip = slide.querySelector('[data-anatomy="strip"]');
     var anatomyFeatureCards = slide.querySelectorAll('[data-anatomy="grid"] .anatomy-feature-card');
+    var anatomyFootnote = slide.querySelector('.anatomy-grid-footnote');
 
     slide4FlowAnatomyPhase = 0;
 
@@ -8676,6 +8703,7 @@
     if (anatomyFeatureCards.length) {
       gsap.set(anatomyFeatureCards, { opacity: 0, scale: 0.92, y: 20 });
     }
+    if (anatomyFootnote) anatomyFootnote.classList.remove('is-on');
 
     // Reset terminal scroll (instant — disable transition briefly)
     var scrollEl = slide.querySelector('[data-anatomy="term-scroll"]');
@@ -8764,6 +8792,7 @@
     } else if (n === 6) {
       // PHASE 6 — Six-element feature grid reveals with a clean stagger
       var featureCards = slide.querySelectorAll('[data-anatomy="grid"] .anatomy-feature-card');
+      var phaseFootnote = slide.querySelector('.anatomy-grid-footnote');
       gsap.set(featureCards, { opacity: 0, scale: 0.92, y: 20 });
       tl.to(featureCards, {
         opacity: 1, scale: 1, y: 0,
@@ -8771,6 +8800,7 @@
         ease: 'back.out(1.4)',
         stagger: 0.08
       }, 0);
+      if (phaseFootnote) phaseFootnote.classList.add('is-on');
     }
   }
 

@@ -2998,7 +2998,7 @@
       position: absolute;
       left: 80px;
       right: 80px;
-      top: 270px;
+      top: 340px;
       bottom: 80px;
       display: grid;
       grid-template-columns: 1.7fr 1fr;
@@ -3007,6 +3007,33 @@
     .flow-step-body--video-only {
       grid-template-columns: 1fr;
       gap: 0;
+    }
+
+    /* Big stage caption above the video — back-row legibility (per dress-rehearsal feedback) */
+    .flow-step-caption {
+      position: absolute;
+      top: 258px;
+      left: 80px;
+      right: 80px;
+      text-align: center;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 700;
+      font-size: 38px;
+      color: #fff;
+      letter-spacing: 0.3px;
+      line-height: 1.15;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .slide.active .flow-step-caption {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.25s;
+    }
+    .flow-step-caption .hl {
+      color: #7bed52;
     }
 
     .flow-step-video {
@@ -6409,6 +6436,8 @@
         </div>
       </div>
 
+      <div class="flow-step-caption">Pulling the <span class="hl">Jira ticket</span>. Claude reads the context.</div>
+
       <div class="flow-step-body">
         <div class="flow-step-video">
           <video preload="auto" playsinline data-manual-play>
@@ -6493,6 +6522,8 @@
           </div>
         </div>
       </div>
+
+      <div class="flow-step-caption">Two <span class="hl">skills</span> run together — PM + Designer.</div>
 
       <div class="flow-step-body">
         <div class="flow-step-video">
@@ -6589,6 +6620,8 @@
         </div>
       </div>
 
+      <div class="flow-step-caption"><span class="hl" style="color:rgba(255,180,60,0.95);">Figma MCP</span> — push pixel-perfect designs back to Figma.</div>
+
       <div class="flow-step-body">
         <div class="flow-step-video" style="border-color:rgba(255,180,60,0.25);">
           <video preload="auto" playsinline data-manual-play>
@@ -6661,6 +6694,8 @@
           </div>
         </div>
       </div>
+
+      <div class="flow-step-caption"><span class="hl">Engineering Lead</span> skill writes the actual code.</div>
 
       <div class="flow-step-body">
         <div class="flow-step-video">
@@ -6755,6 +6790,8 @@
           </div>
         </div>
       </div>
+
+      <div class="flow-step-caption">PR by parts — <span class="hl">shipped to GitHub</span>.</div>
 
       <div class="flow-step-body flow-step-body--video-only">
         <div class="flow-step-video">

@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design AI Conference - Design x AI</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/vendor/gsap.min.js"></script>
   <!-- Fonts served locally (ElmsSans variable font in /fonts) -->
   <style>
     /* ── Fonts ── */
@@ -2993,22 +2993,111 @@
       object-fit: cover;
       display: block;
     }
-    /* ═══ FIGMA MCP showcase (slide 4-flow-3) — standalone image, no card ═══ */
+    /* ═══ FIGMA MCP showcase (slide 4-flow-3) — image + Claude-style commands ═══ */
     .ui-fix-showcase {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
       padding: 8px;
+      transition: justify-content 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ui-fix-showcase.is-revealed {
+      justify-content: flex-start;
     }
     .ui-fix-showcase-img {
       max-width: 100%;
-      max-height: 100%;
+      max-height: 360px;
       width: auto;
       height: auto;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 0 60px rgba(255,180,60,0.3)) drop-shadow(0 0 30px rgba(255,180,60,0.15));
+      transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ui-fix-showcase.is-revealed .ui-fix-showcase-img {
+      max-height: 220px;
+    }
+    .ui-fix-commands {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .ui-fix-showcase .ui-fix-commands {
+      margin-top: 48px;
+    }
+    .ui-fix-commands--centered {
+      height: 100%;
+      justify-content: center;
+    }
+    .ui-fix-command {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ui-fix-command.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .ui-fix-command-line {
+      font-family: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: #8caaff;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      white-space: nowrap;
+      text-shadow: 0 0 24px rgba(140, 170, 255, 0.35);
+    }
+    .ui-fix-command-prompt {
+      color: rgba(140, 170, 255, 0.55);
+      margin-right: 14px;
+    }
+    .ui-fix-command-text {
+      color: #8caaff;
+    }
+    .ui-fix-command-cursor {
+      display: inline-block;
+      width: 11px;
+      height: 1em;
+      background: #8caaff;
+      margin-left: 4px;
+      vertical-align: -0.12em;
+      opacity: 0;
+      box-shadow: 0 0 12px rgba(140, 170, 255, 0.6);
+    }
+    .ui-fix-command-desc {
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.3px;
+      max-width: 540px;
+      padding-left: 30px;
+    }
+    .ui-fix-command-cursor.is-typing {
+      opacity: 1;
+      animation: none;
+    }
+    .ui-fix-command-cursor.is-blinking {
+      opacity: 1;
+      animation: ui-fix-cursor-blink 1.05s step-end infinite;
+    }
+    @keyframes ui-fix-cursor-blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
     }
 
     /* ═══ SKILL CARDS (slide 4-flow-2) — Claude orange themed ═══ */
@@ -3338,6 +3427,124 @@
       background: rgba(255,180,60,0.06);
     }
 
+    /* ── Anatomy Six-Element Feature Grid (phase 6) — full-bleed, big & readable ── */
+    .anatomy-grid {
+      position: absolute;
+      top: 215px;
+      left: 50%;
+      margin-left: -905px;
+      width: 1810px;
+      height: 830px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 24px;
+      z-index: 3;
+    }
+    .anatomy-feature-card {
+      position: relative;
+      overflow: hidden;
+      padding: 44px 46px 40px;
+      background: linear-gradient(155deg, rgba(255,255,255,0.04) 0%, rgba(10,12,18,0.78) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      will-change: opacity, transform;
+    }
+    /* Subtle per-card accent — colored icon + colored corner glow */
+    .anatomy-feature-card[data-feature="1"] { --acc: 217 119 87; }
+    .anatomy-feature-card[data-feature="2"] { --acc: 255 188 90; }
+    .anatomy-feature-card[data-feature="3"] { --acc: 123 237 82; }
+    .anatomy-feature-card[data-feature="4"] { --acc: 95 168 255; }
+    .anatomy-feature-card[data-feature="5"] { --acc: 167 139 250; }
+    .anatomy-feature-card[data-feature="6"] { --acc: 95 230 222; }
+    .anatomy-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(closest-side, rgba(var(--acc), 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .anatomy-feature-card-pattern {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      mask-image: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, transparent 75%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, transparent 75%);
+      stroke: rgba(255,255,255,0.18);
+      fill: none;
+      mix-blend-mode: overlay;
+      opacity: 1;
+      z-index: 0;
+    }
+    /* Number badge top-right */
+    .anatomy-feature-card-num {
+      position: absolute;
+      top: 30px;
+      right: 32px;
+      z-index: 2;
+      font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: rgba(var(--acc), 0.85);
+      text-transform: uppercase;
+    }
+    .anatomy-feature-card-icon {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 56px;
+      color: rgb(var(--acc));
+      filter: drop-shadow(0 0 16px rgba(var(--acc), 0.30));
+    }
+    .anatomy-feature-card-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .anatomy-feature-card-title {
+      position: relative;
+      z-index: 1;
+      margin-top: 36px;
+      margin-bottom: 0;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 800;
+      font-size: 44px;
+      letter-spacing: 0.2px;
+      color: #fff;
+      line-height: 1.05;
+    }
+    .anatomy-feature-card-divider {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 2px;
+      margin-top: 18px;
+      background: rgba(var(--acc), 0.5);
+      border-radius: 2px;
+    }
+    .anatomy-feature-card-desc {
+      position: relative;
+      z-index: 1;
+      margin: 18px 0 0;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.78);
+    }
+
+
     /* Front face — large icon + title + 1-line subtitle + flip hint */
     .focus-card-front {
       align-items: flex-start;
@@ -3434,6 +3641,337 @@
       object-fit: contain;
       object-position: left center;
       display: block;
+    }
+    /* claudedesign.svg ships with dark text — flatten to a pure white silhouette */
+    .focus-card-flip-logo img[src$="claudedesign.svg"] {
+      filter: brightness(0) invert(1);
+    }
+
+    /* ═══ EVOLUTION SLIDE — 2025 vs 2026 (then-vs-now comparison) ═══ */
+    .evo-stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .evo-col {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 40px 32px;
+      height: 100%;
+      overflow: hidden;
+    }
+    .evo-col--2025 {
+      background: linear-gradient(180deg, #000 0%, #050a16 60%, #03050d 100%);
+    }
+    .evo-col--2026 {
+      background:
+        radial-gradient(ellipse 65% 80% at 60% 50%, rgba(58, 102, 220, 0.55) 0%, rgba(20, 50, 150, 0.35) 35%, rgba(8, 20, 70, 0.6) 65%, #03081f 100%),
+        linear-gradient(180deg, #03081f 0%, #03081f 100%);
+    }
+    .evo-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .evo-year {
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 80px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 0.95;
+      letter-spacing: -3px;
+    }
+    .evo-col--2026 .evo-year {
+      background: linear-gradient(135deg, #fff 0%, #b3c5ff 60%, #8caaff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .evo-time {
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 10px;
+      letter-spacing: 0.3px;
+    }
+    .evo-tagline {
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.55);
+      font-style: italic;
+      margin-top: 4px;
+      letter-spacing: 0.3px;
+    }
+    .evo-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .evo-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+    }
+    .evo-col--2026 .evo-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 4px 28px rgba(140, 170, 255, 0.25), 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+    /* Storybook logo has a lot of canvas whitespace around it — let it fill more */
+    .evo-icon img[src$="storybook-logo.svg"] {
+      width: 120%;
+      height: 120%;
+      max-width: none;
+    }
+    .evo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    /* Dashed vertical line + arrowhead between steps (matches deck style) */
+    .evo-arrow {
+      width: 24px;
+      height: 64px;
+      position: relative;
+      flex-shrink: 0;
+      transform-origin: top center;
+    }
+    .evo-arrow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 14px;
+      left: 50%;
+      width: 2px;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 50%, transparent 50%);
+      background-size: 100% 12px;
+      background-repeat: repeat-y;
+      transform: translateX(-50%);
+    }
+    .evo-arrow::after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 11px;
+      height: 11px;
+      border-right: 2.5px solid rgba(255, 255, 255, 0.6);
+      border-bottom: 2.5px solid rgba(255, 255, 255, 0.6);
+    }
+    .evo-col--2026 .evo-arrow::before {
+      background-image: linear-gradient(to bottom, rgba(140, 170, 255, 0.6) 50%, transparent 50%);
+    }
+    .evo-col--2026 .evo-arrow::after {
+      border-right-color: rgba(180, 210, 255, 0.85);
+      border-bottom-color: rgba(180, 210, 255, 0.85);
+    }
+    .evo-pill {
+      background: #fff;
+      border-radius: 999px;
+      padding: 7px 22px 7px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: #1a1a1a;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+      letter-spacing: 0.2px;
+    }
+    .evo-pill img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+    .evo-branch {
+      display: flex;
+      gap: 80px;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+    }
+    .evo-branch::before {
+      /* Y-split connectors above the two children */
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      width: 110px;
+      height: 28px;
+      transform: translateX(-50%);
+      background:
+        linear-gradient(135deg, transparent calc(50% - 0.75px), rgba(255, 255, 255, 0.35) calc(50% - 0.75px), rgba(255, 255, 255, 0.35) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+        linear-gradient(45deg, transparent calc(50% - 0.75px), rgba(255, 255, 255, 0.35) calc(50% - 0.75px), rgba(255, 255, 255, 0.35) calc(50% + 0.75px), transparent calc(50% + 0.75px));
+      background-size: 50% 100%, 50% 100%;
+      background-position: left center, right center;
+      background-repeat: no-repeat;
+    }
+    .evo-branch + .evo-arrow {
+      /* the arrow after the branch needs extra spacing */
+      margin-top: 10px;
+    }
+    .evo-mockup {
+      width: 360px;
+      height: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 36px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+    }
+    .evo-col--2026 .evo-mockup {
+      width: 420px;
+      height: 240px;
+      border-radius: 14px;
+      box-shadow: 0 8px 40px rgba(140, 170, 255, 0.25), 0 8px 36px rgba(0, 0, 0, 0.45);
+    }
+    .evo-mockup--2025 {
+      background:
+        linear-gradient(180deg, rgba(20, 24, 40, 0.95) 0%, rgba(12, 16, 28, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .evo-mockup--2026 {
+      background:
+        linear-gradient(180deg, rgba(28, 32, 56, 0.95) 0%, rgba(16, 20, 40, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    /* Mock dashboard inner layout — minimalist */
+    .evo-mock-inner {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 70px 1fr;
+    }
+    .evo-mock-side {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .evo-mockup--2026 .evo-mock-side {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .evo-mock-side-row {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .evo-mock-side-row--active {
+      background: rgba(168, 85, 247, 0.5);
+    }
+    .evo-mockup--2026 .evo-mock-side-row--active {
+      background: rgba(123, 237, 82, 0.6);
+    }
+    .evo-mock-body {
+      padding: 14px 14px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .evo-mock-kpis {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .evo-mock-kpi {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 6px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .evo-mockup--2026 .evo-mock-kpi {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .evo-mock-kpi-label {
+      height: 4px;
+      width: 60%;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+    .evo-mock-kpi-num {
+      height: 7px;
+      width: 80%;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .evo-mock-chart {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .evo-mockup--2026 .evo-mock-chart {
+      background: rgba(123, 237, 82, 0.08);
+    }
+    .evo-mock-chart::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+      clip-path: polygon(0 100%, 0 70%, 12% 60%, 25% 50%, 40% 30%, 55% 38%, 70% 18%, 85% 24%, 100% 8%, 100% 100%);
+    }
+    .evo-mockup--2026 .evo-mock-chart::before {
+      background: linear-gradient(180deg, rgba(123, 237, 82, 0.4) 0%, transparent 100%);
+    }
+    .evo-cta {
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 999px;
+      padding: 14px 36px;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+      flex-shrink: 0;
+    }
+    .evo-cta--green {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(123, 237, 82, 0.5);
+      color: #fff;
+      box-shadow: 0 4px 32px rgba(123, 237, 82, 0.35);
+      padding: 16px 40px;
+      font-size: 24px;
+    }
+    /* Subtle vertical divider between the two columns */
+    .evo-stage::after {
+      content: '';
+      position: absolute;
+      top: 8%;
+      bottom: 8%;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.15) 70%, transparent 100%);
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     /* Shared icon (small, used on back face) */
@@ -4017,6 +4555,395 @@
       letter-spacing: 1.5px;
     }
 
+    /* ═══ SLIDE 4-flow-anatomy v5 — Hero title → big terminal typing → mini-strip → 3 cards ═══ */
+    .anatomy-v2-stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* ── Hero title (phase 0: centered, large) ── */
+    .anatomy-v2-title {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      z-index: 7;
+      will-change: opacity, transform;
+      text-align: center;
+    }
+    .anatomy-v2-h1 {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 800;
+      font-size: 84px;
+      letter-spacing: 4px;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+    .anatomy-v2-h1 .hl { color: #7bed52; }
+    .anatomy-v2-sub {
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+    }
+    .anatomy-v2-mark {
+      height: 130px;
+      width: auto;
+      max-width: 720px;
+      object-fit: contain;
+      display: block;
+      margin-top: 22px;
+    }
+
+    /* ── Terminal — full bleed for stage visibility ── */
+    .anatomy-terminal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1820px;
+      height: 1000px;
+      transform: translate(-50%, -50%);
+      background: #0a0a0c;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      box-shadow: 0 0 100px rgba(217,119,87,0.16), inset 0 1px 0 rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 4;
+      transform-origin: 50% 50%;
+      will-change: opacity, transform;
+    }
+    .anatomy-term-chrome {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 16px 26px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .anatomy-term-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #3a3a3a;
+    }
+    .anatomy-term-cwd {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 16px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.4px;
+    }
+    .anatomy-term-body {
+      flex: 1;
+      padding: 38px 60px 32px;
+      font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 30px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.82);
+      overflow: hidden;
+      position: relative;
+    }
+    .anatomy-term-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      will-change: transform;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .anatomy-term-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      will-change: opacity, transform;
+    }
+    .anatomy-term-block + .anatomy-term-block,
+    .anatomy-term-chunk + .anatomy-term-block {
+      margin-top: 10px;
+    }
+    .anatomy-term-line {
+      white-space: pre-wrap;
+      min-height: 1.45em;
+    }
+
+    .anatomy-term-line .prompt    { color: #d97757; font-weight: 700; margin-right: 8px; }
+    .anatomy-term-line .welcome   { color: #d97757; font-weight: 600; }
+    .anatomy-term-line .slash     { color: #5fa8ff; font-weight: 700; }
+    .anatomy-term-line .ok        { color: #7bed52; font-weight: 800; margin-right: 10px; }
+    .anatomy-term-line .ok-text   { color: rgba(255,255,255,0.92); }
+    .anatomy-term-line .dim       { color: rgba(255,255,255,0.42); }
+    .anatomy-term-line .response  { color: rgba(255,255,255,0.72); }
+    .anatomy-term-line .user      { color: #fff; font-weight: 500; }
+
+    .anatomy-term-cursor {
+      display: inline-block;
+      width: 12px;
+      height: 1.05em;
+      background: #ffffff;
+      vertical-align: text-bottom;
+      margin-left: 4px;
+      animation: anatomyCursorBlink 1s steps(2) infinite;
+    }
+    @keyframes anatomyCursorBlink {
+      50% { opacity: 0; }
+    }
+
+    /* ── Labeled chunks (PURPOSE / BRAIN / MCP) ── */
+    .anatomy-term-chunk {
+      position: relative;
+      margin-top: 14px;
+      padding: 14px 24px 14px 28px;
+      border-left: 3px solid rgba(217,119,87,0.62);
+      background: rgba(217,119,87,0.05);
+      border-radius: 0 12px 12px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      will-change: opacity, transform;
+    }
+    .anatomy-term-chunk .prompt          { color: #d97757; }
+    .anatomy-term-chunk .user            { color: #ffe5d9; }
+    .anatomy-term-chunk--brain {
+      border-left-color: rgba(123,237,82,0.62);
+      background: rgba(123,237,82,0.05);
+    }
+    .anatomy-term-chunk--brain .prompt   { color: #7bed52; }
+    .anatomy-term-chunk--brain .user     { color: #d8f6c5; }
+    .anatomy-term-chunk--mcp {
+      border-left-color: rgba(95,168,255,0.62);
+      background: rgba(95,168,255,0.05);
+    }
+    .anatomy-term-chunk--mcp .prompt     { color: #5fa8ff; }
+    .anatomy-term-chunk--mcp .user       { color: #d8e8ff; }
+    .anatomy-term-chunk--mcp .user .strong { color: #fff; font-weight: 700; }
+
+    .anatomy-term-chunk-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      padding: 6px 16px 6px 12px;
+      border-radius: 999px;
+      background: rgba(217,119,87,0.13);
+      border: 1px solid rgba(217,119,87,0.4);
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: rgba(217,119,87,0.98);
+      margin-bottom: 6px;
+    }
+    .anatomy-term-chunk--brain .anatomy-term-chunk-label {
+      background: rgba(123,237,82,0.12);
+      border-color: rgba(123,237,82,0.38);
+      color: rgba(123,237,82,0.98);
+    }
+    .anatomy-term-chunk--mcp .anatomy-term-chunk-label {
+      background: rgba(95,168,255,0.12);
+      border-color: rgba(95,168,255,0.4);
+      color: rgba(95,168,255,0.98);
+    }
+    .anatomy-term-chunk-label .emoji {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    /* ── Mini terminal strip (collapsed state — phases 5+) ── */
+    .anatomy-mini-strip {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 36px;
+      border-radius: 18px;
+      background: #0a0a0c;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 80px rgba(123,237,82,0.16), inset 0 1px 0 rgba(255,255,255,0.06);
+      color: #fff;
+      z-index: 6;
+      opacity: 0;
+      will-change: opacity, transform;
+      white-space: nowrap;
+    }
+    .anatomy-mini-strip-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 16px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      margin-right: 6px;
+    }
+    .anatomy-mini-strip-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3a3a3a;
+    }
+    .anatomy-mini-strip .check  {
+      color: #7bed52;
+      font-weight: 800;
+      font-size: 32px;
+      font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+      margin-right: 6px;
+    }
+    .anatomy-mini-strip-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+    }
+    .anatomy-mini-strip-title {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .anatomy-mini-strip-subtitle {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.2;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── Cards row (phase 6-8) ── */
+    .anatomy-cards-row {
+      position: absolute;
+      top: 175px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1788px;
+      display: flex;
+      gap: 24px;
+      z-index: 3;
+    }
+    .anatomy-card {
+      flex: 1;
+      height: 820px;
+      padding: 40px 42px;
+      background: linear-gradient(155deg, rgba(123,237,82,0.10) 0%, rgba(10,20,12,0.96) 100%);
+      border: 2px solid rgba(123,237,82,0.45);
+      border-radius: 18px;
+      box-shadow: 0 0 50px rgba(123,237,82,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      will-change: opacity, transform;
+    }
+    .anatomy-card--purpose {
+      background: linear-gradient(155deg, rgba(217,119,87,0.12) 0%, rgba(20,12,8,0.96) 100%);
+      border-color: rgba(217,119,87,0.55);
+      box-shadow: 0 0 50px rgba(217,119,87,0.20), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .anatomy-card--mcp {
+      background: linear-gradient(155deg, rgba(95,168,255,0.12) 0%, rgba(10,16,28,0.96) 100%);
+      border-color: rgba(95,168,255,0.55);
+      box-shadow: 0 0 50px rgba(95,168,255,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .anatomy-card-icon {
+      font-size: 64px;
+      line-height: 1;
+    }
+    .anatomy-card-tag {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(123,237,82,0.95);
+    }
+    .anatomy-card--purpose .anatomy-card-tag { color: rgba(217,119,87,0.98); }
+    .anatomy-card--mcp .anatomy-card-tag { color: rgba(95,168,255,0.98); }
+    .anatomy-card-title {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 800;
+      font-size: 46px;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: 0.2px;
+    }
+    .anatomy-card-subtitle {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.2px;
+      margin-top: -6px;
+    }
+    .anatomy-card-divider {
+      height: 1px;
+      background: rgba(123,237,82,0.30);
+      margin: 8px 0 6px;
+    }
+    .anatomy-card--purpose .anatomy-card-divider { background: rgba(217,119,87,0.34); }
+    .anatomy-card--mcp .anatomy-card-divider { background: rgba(95,168,255,0.34); }
+    .anatomy-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 8px;
+    }
+    .anatomy-card-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.92);
+    }
+    .anatomy-card-item::before {
+      content: '';
+      display: block;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #7bed52;
+      box-shadow: 0 0 10px rgba(123,237,82,0.6);
+      margin-top: 13px;
+      flex-shrink: 0;
+    }
+    .anatomy-card--purpose .anatomy-card-item::before {
+      background: #d97757;
+      box-shadow: 0 0 10px rgba(217,119,87,0.65);
+    }
+    .anatomy-card--mcp .anatomy-card-item::before {
+      background: #5fa8ff;
+      box-shadow: 0 0 10px rgba(95,168,255,0.65);
+    }
+    .anatomy-card-item .strong { color: #fff; font-weight: 700; }
+    .anatomy-card-item .accent { color: #7bed52; font-weight: 700; }
+    .anatomy-card--purpose .anatomy-card-item .accent { color: #d97757; }
+    .anatomy-card--mcp .anatomy-card-item .accent { color: #5fa8ff; }
+    .anatomy-card-item code {
+      font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 21px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 2px 8px;
+      color: rgba(255,255,255,0.95);
+    }
+
+
     /* ═══ NON-LINEAR variant (slide 4-flow-nonlinear) ═══ */
     .flow-nl-stage {
       position: absolute;
@@ -4300,10 +5227,6 @@
       <div class="whoami-photo">
         <img src="assets/daniel-nobg.png" alt="Daniel Boaron" />
         <div class="whoami-photo-corner"></div>
-        <div class="whoami-photo-badge">
-          <div class="whoami-badge-dot"></div>
-          <span class="whoami-badge-text">Design AI 7.0 &mdash; March 2026</span>
-        </div>
       </div>
 
       <!-- Text left -->
@@ -5105,6 +6028,283 @@
   </div>
 
 
+  <!-- ═══════ SLIDE 4-flow-anatomy v5 — Hero → Big Terminal → Mini-strip → 3 Cards ═══════ -->
+  <div class="slide" data-slide="4-flow-anatomy">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="anatomy-v2-stage">
+
+        <!-- ── Hero title (phase 0; rises away on phase 1) ── -->
+        <div class="anatomy-v2-title" data-anatomy="title">
+          <span class="green-badge">Live walkthrough</span>
+          <div class="anatomy-v2-h1">HOW I APPROACH<br>BUILDING A <span class="hl">SKILL</span></div>
+          <div class="anatomy-v2-sub">Any project · same recipe · case study: Product Manager</div>
+          <img class="anatomy-v2-mark" src="assets/claude-skill-mark.svg" alt="Claude Skill">
+        </div>
+
+        <!-- ── Terminal (phases 1–4; collapses on phase 5) ── -->
+        <div class="anatomy-terminal" data-anatomy="terminal">
+          <div class="anatomy-term-chrome">
+            <div class="anatomy-term-dot"></div>
+            <div class="anatomy-term-dot"></div>
+            <div class="anatomy-term-dot"></div>
+            <div class="anatomy-term-cwd">~/dashboard — claude code</div>
+          </div>
+          <div class="anatomy-term-body">
+           <div class="anatomy-term-scroll" data-anatomy="term-scroll">
+
+            <div class="anatomy-term-block" data-block="entry">
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+            </div>
+
+            <div class="anatomy-term-chunk" data-block="purpose">
+              <div class="anatomy-term-chunk-label"><span class="emoji">🎯</span>01 · Purpose</div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+            </div>
+
+            <div class="anatomy-term-chunk anatomy-term-chunk--brain" data-block="brain">
+              <div class="anatomy-term-chunk-label"><span class="emoji">🧠</span>02 · Brain</div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+            </div>
+
+            <div class="anatomy-term-chunk anatomy-term-chunk--mcp" data-block="mcp">
+              <div class="anatomy-term-chunk-label"><span class="emoji">🔌</span>03 · MCP &amp; Tools</div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+              <div class="anatomy-term-line"></div>
+            </div>
+
+            <div class="anatomy-term-block" data-block="success">
+              <div class="anatomy-term-line"></div>
+            </div>
+
+           </div>
+          </div>
+        </div>
+
+        <!-- ── Mini terminal strip (phase 5+ — replaces the pill) ── -->
+        <div class="anatomy-mini-strip" data-anatomy="strip">
+          <div class="anatomy-mini-strip-dots">
+            <div class="anatomy-mini-strip-dot"></div>
+            <div class="anatomy-mini-strip-dot"></div>
+            <div class="anatomy-mini-strip-dot"></div>
+          </div>
+          <span class="check">✓</span>
+          <div class="anatomy-mini-strip-stack">
+            <div class="anatomy-mini-strip-title">WHAT GOES INTO EVERY SKILL I BUILD?</div>
+            <div class="anatomy-mini-strip-subtitle">Six ingredients I always include — the recipe behind every skill</div>
+          </div>
+        </div>
+
+        <!-- ── PHASE 6 · Six-element feature grid (3×2) — what every skill needs ── -->
+        <div class="anatomy-grid" data-anatomy="grid">
+          <!-- 01 · Purpose -->
+          <div class="anatomy-feature-card" data-feature="1">
+            <div class="anatomy-feature-card-num">01</div>
+            <svg class="anatomy-feature-card-pattern" aria-hidden="true">
+              <defs>
+                <pattern id="anatPat1" width="20" height="20" patternUnits="userSpaceOnUse" x="-12" y="4">
+                  <path d="M.5 20V.5H20" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#anatPat1)" />
+              <g transform="translate(-12 4)">
+                <rect width="21" height="21" x="160" y="20"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="180" y="60"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="140" y="80"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="200" y="40"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="160" y="120" fill="rgba(255,255,255,0.05)" />
+              </g>
+            </svg>
+            <div class="anatomy-feature-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+            </div>
+            <h3 class="anatomy-feature-card-title">Purpose</h3>
+            <div class="anatomy-feature-card-divider"></div>
+            <p class="anatomy-feature-card-desc">Why the skill exists — its single mission.</p>
+          </div>
+
+          <!-- 02 · Triggers -->
+          <div class="anatomy-feature-card" data-feature="2">
+            <div class="anatomy-feature-card-num">02</div>
+            <svg class="anatomy-feature-card-pattern" aria-hidden="true">
+              <defs>
+                <pattern id="anatPat2" width="20" height="20" patternUnits="userSpaceOnUse" x="-12" y="4">
+                  <path d="M.5 20V.5H20" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#anatPat2)" />
+              <g transform="translate(-12 4)">
+                <rect width="21" height="21" x="180" y="40"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="160" y="100" fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="200" y="80"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="140" y="60"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="180" y="120" fill="rgba(255,255,255,0.05)" />
+              </g>
+            </svg>
+            <div class="anatomy-feature-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="anatomy-feature-card-title">Triggers</h3>
+            <div class="anatomy-feature-card-divider"></div>
+            <p class="anatomy-feature-card-desc">When Claude knows to use it — activation rules in the SKILL.md frontmatter.</p>
+          </div>
+
+          <!-- 03 · Method -->
+          <div class="anatomy-feature-card" data-feature="3">
+            <div class="anatomy-feature-card-num">03</div>
+            <svg class="anatomy-feature-card-pattern" aria-hidden="true">
+              <defs>
+                <pattern id="anatPat3" width="20" height="20" patternUnits="userSpaceOnUse" x="-12" y="4">
+                  <path d="M.5 20V.5H20" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#anatPat3)" />
+              <g transform="translate(-12 4)">
+                <rect width="21" height="21" x="200" y="20"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="160" y="80"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="180" y="100" fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="140" y="40"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="200" y="120" fill="rgba(255,255,255,0.05)" />
+              </g>
+            </svg>
+            <div class="anatomy-feature-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <path d="M3 9h18"></path>
+                <path d="M9 21V9"></path>
+              </svg>
+            </div>
+            <h3 class="anatomy-feature-card-title">Method</h3>
+            <div class="anatomy-feature-card-divider"></div>
+            <p class="anatomy-feature-card-desc">The frameworks &amp; playbooks it follows — RICE · JTBD · Lenny's framework.</p>
+          </div>
+
+          <!-- 04 · Org Context -->
+          <div class="anatomy-feature-card" data-feature="4">
+            <div class="anatomy-feature-card-num">04</div>
+            <svg class="anatomy-feature-card-pattern" aria-hidden="true">
+              <defs>
+                <pattern id="anatPat4" width="20" height="20" patternUnits="userSpaceOnUse" x="-12" y="4">
+                  <path d="M.5 20V.5H20" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#anatPat4)" />
+              <g transform="translate(-12 4)">
+                <rect width="21" height="21" x="160" y="40"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="200" y="60"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="140" y="100" fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="180" y="80"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="160" y="20"  fill="rgba(255,255,255,0.05)" />
+              </g>
+            </svg>
+            <div class="anatomy-feature-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18"></path>
+                <path d="M5 21V7l7-4 7 4v14"></path>
+                <path d="M9 9v.01"></path>
+                <path d="M9 13v.01"></path>
+                <path d="M9 17v.01"></path>
+                <path d="M15 9v.01"></path>
+                <path d="M15 13v.01"></path>
+                <path d="M15 17v.01"></path>
+              </svg>
+            </div>
+            <h3 class="anatomy-feature-card-title">Org Context</h3>
+            <div class="anatomy-feature-card-divider"></div>
+            <p class="anatomy-feature-card-desc">What it knows about us — OKRs, decisions, code.</p>
+          </div>
+
+          <!-- 05 · Output -->
+          <div class="anatomy-feature-card" data-feature="5">
+            <div class="anatomy-feature-card-num">05</div>
+            <svg class="anatomy-feature-card-pattern" aria-hidden="true">
+              <defs>
+                <pattern id="anatPat5" width="20" height="20" patternUnits="userSpaceOnUse" x="-12" y="4">
+                  <path d="M.5 20V.5H20" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#anatPat5)" />
+              <g transform="translate(-12 4)">
+                <rect width="21" height="21" x="180" y="20"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="140" y="80"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="200" y="100" fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="160" y="60"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="180" y="120" fill="rgba(255,255,255,0.05)" />
+              </g>
+            </svg>
+            <div class="anatomy-feature-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3 class="anatomy-feature-card-title">Output</h3>
+            <div class="anatomy-feature-card-divider"></div>
+            <p class="anatomy-feature-card-desc">What it produces — PRDs, specs, decisions, briefs.</p>
+          </div>
+
+          <!-- 06 · MCP & Tools -->
+          <div class="anatomy-feature-card" data-feature="6">
+            <div class="anatomy-feature-card-num">06</div>
+            <svg class="anatomy-feature-card-pattern" aria-hidden="true">
+              <defs>
+                <pattern id="anatPat6" width="20" height="20" patternUnits="userSpaceOnUse" x="-12" y="4">
+                  <path d="M.5 20V.5H20" fill="none" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#anatPat6)" />
+              <g transform="translate(-12 4)">
+                <rect width="21" height="21" x="200" y="40"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="140" y="60"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="180" y="100" fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="160" y="20"  fill="rgba(255,255,255,0.05)" />
+                <rect width="21" height="21" x="200" y="120" fill="rgba(255,255,255,0.05)" />
+              </g>
+            </svg>
+            <div class="anatomy-feature-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2v6"></path>
+                <path d="M15 2v6"></path>
+                <path d="M12 17v5"></path>
+                <path d="M5 8h14"></path>
+                <path d="M6 11V8h12v3a6 6 0 1 1-12 0Z"></path>
+              </svg>
+            </div>
+            <h3 class="anatomy-feature-card-title">MCP &amp; Tools</h3>
+            <div class="anatomy-feature-card-divider"></div>
+            <p class="anatomy-feature-card-desc">External hands — Mixpanel · JIRA · Slack.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
   <!-- ═══════ SLIDE 4-flow-1 — Stage 01: Discovery ═══════ -->
   <div class="slide" data-slide="4-flow-1">
     <div class="slide-inner">
@@ -5158,7 +6358,7 @@
       <div class="flow-step-body">
         <div class="flow-step-video">
           <video preload="auto" playsinline data-manual-play>
-            <source src="https://github.com/danielboaron23/d2c-conference/releases/download/videos-v1/flow-01-discovery.mp4" type="video/mp4">
+            <source src="assets/flow-01-discovery.mp4" type="video/mp4">
           </video>
         </div>
         <div class="discovery-stack">
@@ -5243,7 +6443,7 @@
       <div class="flow-step-body">
         <div class="flow-step-video">
           <video preload="auto" playsinline data-manual-play>
-            <source src="https://github.com/danielboaron23/d2c-conference/releases/download/videos-v1/flow-02-ideation.mp4" type="video/mp4">
+            <source src="assets/flow-02-ideation.mp4" type="video/mp4">
           </video>
         </div>
         <div class="skills-stack">
@@ -5338,11 +6538,21 @@
       <div class="flow-step-body">
         <div class="flow-step-video" style="border-color:rgba(255,180,60,0.25);">
           <video preload="auto" playsinline data-manual-play>
-            <source src="https://github.com/danielboaron23/d2c-conference/releases/download/videos-v1/flow-03-uifix.mp4" type="video/mp4">
+            <source src="assets/flow-03-uifix.mp4" type="video/mp4">
           </video>
         </div>
         <div class="ui-fix-showcase">
           <img class="ui-fix-showcase-img" src="assets/figma-mcp-mark.svg" alt="Figma MCP">
+          <div class="ui-fix-commands">
+            <div class="ui-fix-command" data-cmd="1">
+              <div class="ui-fix-command-line"><span class="ui-fix-command-prompt">&gt;</span><span class="ui-fix-command-text"></span><span class="ui-fix-command-cursor"></span></div>
+              <div class="ui-fix-command-desc">Design layers to new or existing Figma files, or to your clipboard.</div>
+            </div>
+            <div class="ui-fix-command" data-cmd="2">
+              <div class="ui-fix-command-line"><span class="ui-fix-command-prompt">&gt;</span><span class="ui-fix-command-text"></span><span class="ui-fix-command-cursor"></span></div>
+              <div class="ui-fix-command-desc">A structured workflow for translating Figma designs into production-ready code with pixel-perfect accuracy.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -5401,7 +6611,7 @@
       <div class="flow-step-body">
         <div class="flow-step-video">
           <video preload="auto" playsinline data-manual-play>
-            <source src="https://github.com/danielboaron23/d2c-conference/releases/download/videos-v1/flow-04-devprep.mp4" type="video/mp4">
+            <source src="assets/flow-04-devprep.mp4" type="video/mp4">
           </video>
         </div>
         <div class="skills-stack">
@@ -5495,7 +6705,7 @@
       <div class="flow-step-body flow-step-body--video-only">
         <div class="flow-step-video">
           <video preload="auto" playsinline data-manual-play>
-            <source src="https://github.com/danielboaron23/d2c-conference/releases/download/videos-v1/flow-05-ship.mp4" type="video/mp4">
+            <source src="assets/flow-05-ship.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -5568,6 +6778,100 @@
           <div class="n8n-node-head"><span class="n8n-node-badge">Stage 05 · Ship</span><div class="n8n-node-title">SHIP</div></div>
           <div class="n8n-node-desc">
             <div class="n8n-node-row"><div class="n8n-node-row-icon"><img src="assets/github-logo-black.svg" alt=""></div><div class="n8n-node-row-meta"><div class="n8n-node-row-name">PR by parts</div><div class="n8n-node-row-tag">GitHub</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4-flow-evolution — 2025 vs 2026 (then-vs-now comparison) ═══════ -->
+  <div class="slide" data-slide="4-flow-evolution">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="evo-stage">
+        <!-- LEFT: 2025 -->
+        <div class="evo-col evo-col--2025">
+          <div class="evo-header">
+            <div class="evo-year">2025</div>
+            <div class="evo-time">Weeks / Months</div>
+            <div class="evo-tagline">Flappy prototypes, fake components</div>
+          </div>
+          <div class="evo-flow">
+            <div class="evo-icon"><img src="assets/figma-logo-nobg.png" alt="Figma"></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-pill"><img src="assets/figma-logo-nobg.png" alt=""><span>Wireframes</span></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-pill"><img src="assets/figma-logo-nobg.png" alt=""><span>Design System</span></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-pill"><img src="assets/figma-logo-nobg.png" alt=""><span>Product Designs</span></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-pill"><img src="assets/figma-logo-nobg.png" alt=""><span>Prototypes</span></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-mockup evo-mockup--2025">
+              <div class="evo-mock-inner">
+                <div class="evo-mock-side">
+                  <div class="evo-mock-side-row evo-mock-side-row--active"></div>
+                  <div class="evo-mock-side-row"></div>
+                  <div class="evo-mock-side-row"></div>
+                  <div class="evo-mock-side-row"></div>
+                  <div class="evo-mock-side-row"></div>
+                </div>
+                <div class="evo-mock-body">
+                  <div class="evo-mock-kpis">
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                  </div>
+                  <div class="evo-mock-chart"></div>
+                </div>
+              </div>
+            </div>
+            <div class="evo-arrow"></div>
+            <div class="evo-cta evo-cta--dark">Ready for Dev</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: 2026 -->
+        <div class="evo-col evo-col--2026">
+          <div class="evo-header">
+            <div class="evo-year">2026</div>
+            <div class="evo-time">Hours / Days</div>
+            <div class="evo-tagline">Perfect prototypes, real components</div>
+          </div>
+          <div class="evo-flow">
+            <div class="evo-icon"><img src="assets/figma-logo-nobg.png" alt="Figma"></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-icon"><img src="assets/claude-color.png" alt="Claude"></div>
+            <div class="evo-arrow"></div>
+            <div class="evo-branch">
+              <div class="evo-icon"><img src="assets/github-logo-black.svg" alt="GitHub"></div>
+              <div class="evo-icon"><img src="assets/storybook-logo.svg" alt="Storybook"></div>
+            </div>
+            <div class="evo-arrow"></div>
+            <div class="evo-mockup evo-mockup--2026">
+              <div class="evo-mock-inner">
+                <div class="evo-mock-side">
+                  <div class="evo-mock-side-row evo-mock-side-row--active"></div>
+                  <div class="evo-mock-side-row"></div>
+                  <div class="evo-mock-side-row"></div>
+                  <div class="evo-mock-side-row"></div>
+                  <div class="evo-mock-side-row"></div>
+                </div>
+                <div class="evo-mock-body">
+                  <div class="evo-mock-kpis">
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                    <div class="evo-mock-kpi"><div class="evo-mock-kpi-label"></div><div class="evo-mock-kpi-num"></div></div>
+                  </div>
+                  <div class="evo-mock-chart"></div>
+                </div>
+              </div>
+            </div>
+            <div class="evo-arrow"></div>
+            <div class="evo-cta evo-cta--green">Ready for Users</div>
           </div>
         </div>
       </div>
@@ -5939,7 +7243,12 @@
     if (slide4FlowMasterTimeline) slide4FlowMasterTimeline.kill();
     if (slide4FlowNonlinearTimeline) slide4FlowNonlinearTimeline.kill();
     if (slide4FlowBridgeTimeline) slide4FlowBridgeTimeline.kill();
+    if (slide4FlowAnatomyTimeline) slide4FlowAnatomyTimeline.kill();
+    if (typeof clearAnatomyTyping === 'function') clearAnatomyTyping();
+    slide4FlowAnatomyPhase = 0;
     if (typeof slide4FlowRecapTimeline !== 'undefined' && slide4FlowRecapTimeline) slide4FlowRecapTimeline.kill();
+    if (typeof slide4FlowEvolutionTimeline !== 'undefined' && slide4FlowEvolutionTimeline) slide4FlowEvolutionTimeline.kill();
+    slide4FlowEvolutionPhase = 0;
     if (typeof slide4Flow3Timeline !== 'undefined' && slide4Flow3Timeline) slide4Flow3Timeline.kill();
     slide4Flow3Phase = 0;
     if (typeof slide4Flow2Timeline !== 'undefined' && slide4Flow2Timeline) slide4Flow2Timeline.kill();
@@ -5978,11 +7287,13 @@
     else if (slideId === '4-flow-master') animateSlide4FlowMaster();
     else if (slideId === '4-flow-nonlinear') animateSlide4FlowNonlinear();
     else if (slideId === '4-flow-bridge') animateSlide4FlowBridge();
+    else if (slideId === '4-flow-anatomy') animateSlide4FlowAnatomy();
     else if (slideId === '4-flow-2') animateSlide4Flow2();
     else if (slideId === '4-flow-3') animateSlide4Flow3();
     else if (slideId === '4-flow-4') animateSlide4Flow4();
     else if (slideId === '4-flow-5') initSlide4Flow5();
     else if (slideId === '4-flow-recap') animateSlide4FlowRecap();
+    else if (slideId === '4-flow-evolution') animateSlide4FlowEvolution();
     else if (slideId === '4d-adapt') animateSlide4dAdapt();
     else if (slideId === '4d-focus') animateSlide4dFocus();
     else if (slideId === '4d-discipline') animateSlide4dDiscipline();
@@ -6026,6 +7337,18 @@
       animateSlide4FlowMasterPhase(slide4FlowMasterPhase);
       return;
     }
+    if (slideId === '4-flow-anatomy') {
+      // If typing is in progress, click skips to end of typing — does NOT advance phase
+      if (typeof slide4FlowAnatomyTyping !== 'undefined' && slide4FlowAnatomyTyping.active) {
+        skipAnatomyTyping();
+        return;
+      }
+      if (slide4FlowAnatomyPhase < slide4FlowAnatomyMaxPhase) {
+        slide4FlowAnatomyPhase += 1;
+        animateSlide4FlowAnatomyPhase(slide4FlowAnatomyPhase);
+        return;
+      }
+    }
     if (slideId === '4-flow-nonlinear' && slide4FlowNonlinearPhase < slide4FlowNonlinearMaxPhase) {
       slide4FlowNonlinearPhase += 1;
       animateSlide4FlowNonlinearPhase(slide4FlowNonlinearPhase);
@@ -6041,9 +7364,14 @@
       animateSlide4Flow2Phase(slide4Flow2Phase);
       return;
     }
-    if (slideId === '4-flow-3' && slide4Flow3Phase === 0) {
-      slide4Flow3Phase = 1;
-      expandSlide4Flow3Video();
+    if (slideId === '4-flow-3' && slide4Flow3Phase < slide4Flow3MaxPhase) {
+      slide4Flow3Phase += 1;
+      animateSlide4Flow3Phase(slide4Flow3Phase);
+      return;
+    }
+    if (slideId === '4-flow-evolution' && slide4FlowEvolutionPhase < slide4FlowEvolutionMaxPhase) {
+      slide4FlowEvolutionPhase += 1;
+      animateSlide4FlowEvolutionPhase(slide4FlowEvolutionPhase);
       return;
     }
     if (slideId === '4-flow-4' && slide4Flow4Phase < slide4Flow4MaxPhase) {
@@ -6092,10 +7420,73 @@
   prevBtn.addEventListener('click', function() { goToSlide(currentSlide - 1); });
   nextBtn.addEventListener('click', function() { advanceForward(); });
 
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') advanceForward();
-    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goToSlide(currentSlide - 1);
-  });
+  // ── Keyboard / clicker handler — robust cross-browser (Chrome + Safari) ──
+  // Many wireless presenters (Logitech R400/R500, Kensington, generic) emulate
+  // different keys: PageDown/PageUp, F5/Esc, Space, arrows, Period.
+  // Match on `key`, `code`, AND `keyCode` to catch every browser/clicker combo.
+  function isForwardKey(e) {
+    var k = e.key, c = e.code, n = e.keyCode;
+    return k === 'ArrowRight'  || k === 'ArrowDown' || k === 'PageDown' ||
+           k === ' '           || k === 'Spacebar'  || k === 'Enter'    ||
+           k === 'F5'          || k === '.'         ||
+           c === 'ArrowRight'  || c === 'ArrowDown' || c === 'PageDown' ||
+           c === 'Space'       || c === 'Enter'     || c === 'NumpadEnter' ||
+           c === 'F5'          || c === 'Period'    || c === 'NumpadDecimal' ||
+           n === 39 /* Right */ || n === 40 /* Down */ || n === 34 /* PageDown */ ||
+           n === 32 /* Space */ || n === 13 /* Enter */ || n === 116 /* F5 */ ||
+           n === 190 /* . */    || n === 110 /* Numpad . */;
+  }
+  function isBackKey(e) {
+    var k = e.key, c = e.code, n = e.keyCode;
+    return k === 'ArrowLeft'   || k === 'ArrowUp'   || k === 'PageUp' ||
+           k === 'Backspace'   ||
+           c === 'ArrowLeft'   || c === 'ArrowUp'   || c === 'PageUp' ||
+           c === 'Backspace'   ||
+           n === 37 /* Left */ || n === 38 /* Up */ || n === 33 /* PageUp */ ||
+           n === 8  /* Backspace */;
+  }
+  // Debounce guard: prevent double-fires from clicker repeat / event bubbling.
+  // 80ms is well below human click cadence (~200ms minimum) so it never blocks
+  // intentional double-clicks but it does swallow accidental dupes.
+  var deckLastKeyTs = 0;
+  function handleDeckKey(e) {
+    // Ignore if user is typing in an input/textarea (defensive — deck has none today)
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    // Per-event guard: same KeyboardEvent never fires our handler twice
+    if (e.__deckHandled) return;
+    e.__deckHandled = true;
+    // Time-based debounce — drops dupes within 80ms
+    var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    if (now - deckLastKeyTs < 80) return;
+    if (isForwardKey(e)) {
+      deckLastKeyTs = now;
+      e.preventDefault();
+      advanceForward();
+    } else if (isBackKey(e)) {
+      deckLastKeyTs = now;
+      e.preventDefault();
+      goToSlide(currentSlide - 1);
+    }
+  }
+  // Listen on document only — events bubble to document from anywhere in the page.
+  // (We previously also listened on window, which caused EVERY clicker press to fire
+  // the handler twice — slides skipped, animations broke, videos didn't get to play.)
+  document.addEventListener('keydown', handleDeckKey, false);
+
+  // Ensure the deck has keyboard focus on load (Safari sometimes lands the
+  // window without focus, swallowing the first clicker press).
+  function ensureDeckFocus() {
+    try { window.focus(); } catch (e) {}
+    try { document.body.focus(); } catch (e) {}
+  }
+  // Make body programmatically focusable + suppress focus ring
+  document.body.setAttribute('tabindex', '-1');
+  document.body.style.outline = 'none';
+  ensureDeckFocus();
+  window.addEventListener('load', ensureDeckFocus);
+  // Re-grab focus whenever user clicks the page (covers tab-switch scenarios)
+  document.addEventListener('mousedown', ensureDeckFocus);
 
   // Activate first slide after a frame so CSS transitions fire on load
   requestAnimationFrame(function() {
@@ -6106,7 +7497,7 @@
   });
 
   // ── GLSL Hills (Three.js) ──
-  (function initGLSLHills() {
+  try { (function initGLSLHills() {
     var canvas = document.getElementById('glsl-hills-canvas');
     if (!canvas) return;
 
@@ -6338,7 +7729,7 @@
       requestAnimationFrame(animate);
     }
     animate();
-  })();
+  })(); } catch (e) { console.warn('[GLSL hills disabled]', e && e.message); }
 
   /* ═══════════════════════════════════════
      SLIDE 6a/6b — GSAP Animations
@@ -6365,11 +7756,19 @@
   var slide4FlowNonlinearPhase = 0;
   var slide4FlowNonlinearMaxPhase = 4;
   var slide4FlowBridgeTimeline = null;
+  var slide4FlowAnatomyTimeline = null;
+  var slide4FlowAnatomyPhase = 0;
+  var slide4FlowAnatomyMaxPhase = 6;
   var slide4Flow1Phase = 0;
   var slide4Flow2Phase = 0;
   var slide4Flow2MaxPhase = 3;
   var slide4Flow2Timeline = null;
   var slide4Flow3Phase = 0;
+  var slide4Flow3MaxPhase = 3;
+  var slide4Flow3TypeTimeouts = [];
+  var slide4FlowEvolutionPhase = 0;
+  var slide4FlowEvolutionMaxPhase = 1;
+  var slide4FlowEvolutionTimeline = null;
   var slide4Flow4Phase = 0;
   var slide4Flow4MaxPhase = 3;
   var slide4Flow4Timeline = null;
@@ -6797,6 +8196,295 @@
     }
   }
 
+  // ── Slide 4-flow-anatomy v5 — Hero → Big terminal typing → Mini-strip → 3 cards ──
+  var slide4FlowAnatomyTyping = {
+    active: false,
+    timers: [],
+    onComplete: null,
+    currentEls: null,
+    currentSpecs: null
+  };
+
+  var SLIDE4_ANATOMY_LINES = {
+    entry: [
+      { html: '<span class="welcome">✻ Welcome to Claude Code · v2.0</span>',                    type: 'instant', delay: 200 },
+      { html: '<span class="dim">  Type / for commands. Esc to interrupt.</span>',                 type: 'instant', delay: 250 },
+      { html: '',                                                                                   type: 'instant', delay: 250 },
+      { html: '<span class="prompt">&gt;</span><span class="slash">/skill-creator</span>',          type: 'type',    delay: 350, cps: 50 },
+      { html: '<span class="response">  Let\'s create a skill. What should we call it?</span>',    type: 'type',    delay: 400, cps: 90 },
+      { html: '',                                                                                   type: 'instant', delay: 200 },
+      { html: '<span class="prompt">&gt;</span><span class="user">product-manager</span>',          type: 'type',    delay: 500, cps: 45 },
+      { html: '<span class="response">  Got it. What should this skill do?</span>',                type: 'type',    delay: 400, cps: 90 }
+    ],
+    purpose: [
+      { html: '<span class="prompt">&gt;</span><span class="user">Help me handle requirements from execs and product</span>', type: 'type', delay: 0,  cps: 55 },
+      { html: '<span class="user">  managers — plus everyday PM work: research,</span>',                                       type: 'type', delay: 80, cps: 55 },
+      { html: '<span class="user">  prioritization, specs, decisions, stakeholder syncs.</span>',                              type: 'type', delay: 80, cps: 55 }
+    ],
+    brain: [
+      { html: '<span class="prompt">&gt;</span><span class="user">Pull from our org context (OKRs, decisions, stakeholders),</span>', type: 'type', delay: 0,  cps: 55 },
+      { html: '<span class="user">  use Lenny\'s PM playbook (a skill I pulled from GitHub),</span>',                                  type: 'type', delay: 80, cps: 55 },
+      { html: '<span class="user">  and know our company code structure.</span>',                                                       type: 'type', delay: 80, cps: 55 }
+    ],
+    mcp: [
+      { html: '<span class="prompt">&gt;</span><span class="user"><span class="strong">Mixpanel</span> — for our org data and product analytics,</span>', type: 'type', delay: 0,  cps: 55 },
+      { html: '<span class="user">  <span class="strong">JIRA</span> — to access tasks and tickets,</span>',                                                            type: 'type', delay: 80, cps: 55 },
+      { html: '<span class="user">  <span class="strong">Slack</span> — to read team messages and post updates.</span>',                                                type: 'type', delay: 80, cps: 55 }
+    ],
+    success: [
+      { html: '<span class="ok">✓</span><span class="ok-text">Created skill: </span><span class="slash">/product-manager</span><span class="dim">  ·  3 capabilities · 3 MCP tools</span>', type: 'instant', delay: 0 }
+    ]
+  };
+
+  function clearAnatomyTyping() {
+    if (!slide4FlowAnatomyTyping.timers) return;
+    for (var i = 0; i < slide4FlowAnatomyTyping.timers.length; i++) {
+      clearTimeout(slide4FlowAnatomyTyping.timers[i]);
+    }
+    slide4FlowAnatomyTyping.timers = [];
+    slide4FlowAnatomyTyping.active = false;
+    slide4FlowAnatomyTyping.onComplete = null;
+  }
+
+  function startAnatomyTyping(lineEls, lineSpecs, onComplete) {
+    slide4FlowAnatomyTyping.active = true;
+    slide4FlowAnatomyTyping.currentEls = lineEls;
+    slide4FlowAnatomyTyping.currentSpecs = lineSpecs;
+    slide4FlowAnatomyTyping.onComplete = onComplete;
+
+    for (var i = 0; i < lineEls.length; i++) {
+      if (lineEls[i]) lineEls[i].innerHTML = '';
+    }
+
+    var idx = 0;
+    function processNextLine() {
+      if (!slide4FlowAnatomyTyping.active) return;
+      if (idx >= lineSpecs.length) {
+        slide4FlowAnatomyTyping.active = false;
+        var cb = slide4FlowAnatomyTyping.onComplete;
+        slide4FlowAnatomyTyping.onComplete = null;
+        if (cb) cb();
+        return;
+      }
+      var spec = lineSpecs[idx];
+      var el = lineEls[idx];
+      idx++;
+      if (!el) { processNextLine(); return; }
+
+      slide4FlowAnatomyTyping.timers.push(setTimeout(function() {
+        if (!slide4FlowAnatomyTyping.active) return;
+        if (spec.type === 'instant' || !spec.html) {
+          el.innerHTML = spec.html;
+          processNextLine();
+        } else {
+          typeAnatomyLine(el, spec.html, spec.cps || 50, function() {
+            processNextLine();
+          });
+        }
+      }, spec.delay || 0));
+    }
+    processNextLine();
+  }
+
+  function typeAnatomyLine(el, html, cps, onDone) {
+    var i = 0;
+    var rendered = '';
+    var charDelay = 1000 / cps;
+    function step() {
+      if (!slide4FlowAnatomyTyping.active) return;
+      if (i >= html.length) {
+        el.innerHTML = rendered;
+        if (onDone) onDone();
+        return;
+      }
+      var ch = html.charAt(i);
+      if (ch === '<') {
+        var endIdx = html.indexOf('>', i);
+        if (endIdx === -1) endIdx = html.length - 1;
+        rendered += html.substring(i, endIdx + 1);
+        i = endIdx + 1;
+        el.innerHTML = rendered + (i < html.length ? '<span class="anatomy-term-cursor"></span>' : '');
+        slide4FlowAnatomyTyping.timers.push(setTimeout(step, 0));
+      } else {
+        rendered += ch;
+        i++;
+        el.innerHTML = rendered + (i < html.length ? '<span class="anatomy-term-cursor"></span>' : '');
+        slide4FlowAnatomyTyping.timers.push(setTimeout(step, charDelay));
+      }
+    }
+    step();
+  }
+
+  function skipAnatomyTyping() {
+    if (!slide4FlowAnatomyTyping.active) return false;
+    clearAnatomyTyping();
+    var els = slide4FlowAnatomyTyping.currentEls;
+    var specs = slide4FlowAnatomyTyping.currentSpecs;
+    if (els && specs) {
+      for (var i = 0; i < specs.length; i++) {
+        if (els[i]) els[i].innerHTML = specs[i].html;
+      }
+    }
+    var cb = slide4FlowAnatomyTyping.onComplete;
+    slide4FlowAnatomyTyping.onComplete = null;
+    slide4FlowAnatomyTyping.currentEls = null;
+    slide4FlowAnatomyTyping.currentSpecs = null;
+    if (cb) cb();
+    return true;
+  }
+
+  function getAnatomyBlockLines(blockName) {
+    var slide = document.querySelector('[data-slide="4-flow-anatomy"]');
+    if (!slide) return [];
+    var block = slide.querySelector('[data-block="' + blockName + '"]');
+    if (!block) return [];
+    return block.querySelectorAll('.anatomy-term-line');
+  }
+
+  // Scroll the terminal so a target block's TOP lands at `topPx` from the top of the scroll origin.
+  // Forces older content up and out of view, like a real terminal scrolling.
+  function scrollAnatomyToBlockTop(blockName, topPx) {
+    topPx = topPx == null ? 0 : topPx;
+    var slide = document.querySelector('[data-slide="4-flow-anatomy"]');
+    if (!slide) return;
+    var scrollEl = slide.querySelector('[data-anatomy="term-scroll"]');
+    var block = slide.querySelector('[data-block="' + blockName + '"]');
+    if (!scrollEl || !block) return;
+    var targetY = -(block.offsetTop - topPx);
+    if (targetY > 0) targetY = 0;
+    // Direct style + CSS transition — animates smoothly in real browser
+    scrollEl.style.transform = 'translateY(' + targetY + 'px)';
+  }
+
+
+  function animateSlide4FlowAnatomy() {
+    if (slide4FlowAnatomyTimeline) slide4FlowAnatomyTimeline.kill();
+    clearAnatomyTyping();
+
+    var slide = document.querySelector('[data-slide="4-flow-anatomy"]');
+    if (!slide) return;
+
+    var title = slide.querySelector('[data-anatomy="title"]');
+    var terminal = slide.querySelector('[data-anatomy="terminal"]');
+    var blockEntry = slide.querySelector('[data-block="entry"]');
+    var blockPurpose = slide.querySelector('[data-block="purpose"]');
+    var blockBrain = slide.querySelector('[data-block="brain"]');
+    var blockMcp = slide.querySelector('[data-block="mcp"]');
+    var blockSuccess = slide.querySelector('[data-block="success"]');
+    var strip = slide.querySelector('[data-anatomy="strip"]');
+    var anatomyFeatureCards = slide.querySelectorAll('[data-anatomy="grid"] .anatomy-feature-card');
+
+    slide4FlowAnatomyPhase = 0;
+
+    // Reset visuals — phase 0 = HERO state (only title visible, centered)
+    terminal.style.visibility = '';
+    title.style.visibility = '';
+    gsap.set(title,    { opacity: 0, scale: 0.94, y: 20 });
+    gsap.set(terminal, { opacity: 0, scale: 0.94 });
+    gsap.set(blockEntry, { opacity: 1 });
+    gsap.set([blockPurpose, blockBrain, blockMcp, blockSuccess], { opacity: 0, scale: 0.97, y: 14 });
+    gsap.set(strip,    { opacity: 0, scale: 0.92, y: -10 });
+    if (anatomyFeatureCards.length) {
+      gsap.set(anatomyFeatureCards, { opacity: 0, scale: 0.92, y: 20 });
+    }
+
+    // Reset terminal scroll (instant — disable transition briefly)
+    var scrollEl = slide.querySelector('[data-anatomy="term-scroll"]');
+    if (scrollEl) {
+      scrollEl.style.transition = 'none';
+      scrollEl.style.transform = 'translateY(0px)';
+      scrollEl.offsetHeight;
+      scrollEl.style.transition = '';
+    }
+
+    // Clear text content
+    var allLines = slide.querySelectorAll('.anatomy-term-line');
+    for (var i = 0; i < allLines.length; i++) allLines[i].innerHTML = '';
+
+    // Phase 0 entry — hero title fade in (centered)
+    slide4FlowAnatomyTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    slide4FlowAnatomyTimeline.to(title, { opacity: 1, scale: 1, y: 0, duration: 0.85, ease: 'power3.out' }, 0);
+  }
+
+  function animateSlide4FlowAnatomyPhase(n) {
+    var slide = document.querySelector('[data-slide="4-flow-anatomy"]');
+    if (!slide) return;
+
+    var title = slide.querySelector('[data-anatomy="title"]');
+    var terminal = slide.querySelector('[data-anatomy="terminal"]');
+    var blockPurpose = slide.querySelector('[data-block="purpose"]');
+    var blockBrain = slide.querySelector('[data-block="brain"]');
+    var blockMcp = slide.querySelector('[data-block="mcp"]');
+    var blockSuccess = slide.querySelector('[data-block="success"]');
+    var strip = slide.querySelector('[data-anatomy="strip"]');
+
+    if (slide4FlowAnatomyTimeline) {
+      try { slide4FlowAnatomyTimeline.progress(1); } catch (e) {}
+      slide4FlowAnatomyTimeline.kill();
+    }
+
+    var tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    slide4FlowAnatomyTimeline = tl;
+
+    if (n === 1) {
+      // Hero title rises up + fades out, terminal scales in full size, entry typing starts
+      tl.to(title, {
+            opacity: 0, y: -180, scale: 0.86, duration: 0.7, ease: 'power3.inOut',
+            onComplete: function() { title.style.visibility = 'hidden'; }
+          }, 0)
+        .to(terminal, { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' }, 0.15)
+        .call(function() {
+          var els = getAnatomyBlockLines('entry');
+          startAnatomyTyping(els, SLIDE4_ANATOMY_LINES.entry);
+        }, null, 0.95);
+    } else if (n === 2) {
+      tl.to(blockPurpose, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.4)' }, 0)
+        .call(function() { scrollAnatomyToBlockTop('purpose', 280); }, null, 0.1)
+        .call(function() {
+          var els = getAnatomyBlockLines('purpose');
+          startAnatomyTyping(els, SLIDE4_ANATOMY_LINES.purpose);
+        }, null, 0.5);
+    } else if (n === 3) {
+      tl.to(blockBrain, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.4)' }, 0)
+        .call(function() { scrollAnatomyToBlockTop('purpose', 60); }, null, 0.1)
+        .call(function() {
+          var els = getAnatomyBlockLines('brain');
+          startAnatomyTyping(els, SLIDE4_ANATOMY_LINES.brain);
+        }, null, 0.5);
+    } else if (n === 4) {
+      tl.to(blockMcp, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.4)' }, 0)
+        .call(function() { scrollAnatomyToBlockTop('purpose', 60); }, null, 0.1)
+        .call(function() {
+          var els = getAnatomyBlockLines('mcp');
+          startAnatomyTyping(els, SLIDE4_ANATOMY_LINES.mcp);
+        }, null, 0.5);
+    } else if (n === 5) {
+      // Success line + collapse terminal to mini-strip
+      tl.to(blockSuccess, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.5)' }, 0)
+        .call(function() { scrollAnatomyToBlockTop('purpose', 60); }, null, 0.1)
+        .call(function() {
+          var els = getAnatomyBlockLines('success');
+          startAnatomyTyping(els, SLIDE4_ANATOMY_LINES.success);
+        }, null, 0.3)
+        .to(terminal, {
+              opacity: 0, scale: 0.55, y: -300,
+              duration: 0.7, ease: 'power3.inOut',
+              onComplete: function() { terminal.style.visibility = 'hidden'; }
+            }, 1.4)
+        .to(strip, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: 'back.out(1.5)' }, 1.7);
+    } else if (n === 6) {
+      // PHASE 6 — Six-element feature grid reveals with a clean stagger
+      var featureCards = slide.querySelectorAll('[data-anatomy="grid"] .anatomy-feature-card');
+      gsap.set(featureCards, { opacity: 0, scale: 0.92, y: 20 });
+      tl.to(featureCards, {
+        opacity: 1, scale: 1, y: 0,
+        duration: 0.55,
+        ease: 'back.out(1.4)',
+        stagger: 0.08
+      }, 0);
+    }
+  }
+
   // ── Slide 4-flow-nonlinear — top rail morphs up + bottom alt flow click-to-reveal ──
   function animateSlide4FlowNonlinear() {
     if (slide4FlowNonlinearTimeline) slide4FlowNonlinearTimeline.kill();
@@ -6966,6 +8654,65 @@
       }, 0.2)
       .to(paths, { opacity: 1, duration: 0.5 }, 0.5)
       .to(labels, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, 0.6);
+  }
+
+  // ── Slide 4-flow-evolution — 2025 vs 2026 staged reveal (left first, then right on click) ──
+  function animateSlide4FlowEvolution() {
+    if (slide4FlowEvolutionTimeline) slide4FlowEvolutionTimeline.kill();
+    var slide = document.querySelector('[data-slide="4-flow-evolution"]');
+    if (!slide) return;
+
+    slide4FlowEvolutionPhase = 0;
+
+    var col25 = slide.querySelector('.evo-col--2025');
+    var col26 = slide.querySelector('.evo-col--2026');
+    if (!col25 || !col26) return;
+
+    // Reset both columns: header + every flow child hidden
+    var hdr25 = col25.querySelector('.evo-header');
+    var hdr26 = col26.querySelector('.evo-header');
+    var nodes25 = col25.querySelectorAll('.evo-flow > *');
+    var nodes26 = col26.querySelectorAll('.evo-flow > *');
+    var arrows25 = col25.querySelectorAll('.evo-arrow');
+    var arrows26 = col26.querySelectorAll('.evo-arrow');
+
+    gsap.set([hdr25, hdr26], { opacity: 0, y: 14 });
+    gsap.set(nodes25, { opacity: 0, y: 12 });
+    gsap.set(nodes26, { opacity: 0, y: 12 });
+    gsap.set(arrows25, { scaleY: 0, opacity: 1 });
+    gsap.set(arrows26, { scaleY: 0, opacity: 1 });
+
+    // Auto-reveal 2025 column on slide entry
+    slide4FlowEvolutionTimeline = buildEvolutionRevealTimeline(col25);
+  }
+
+  function animateSlide4FlowEvolutionPhase(n) {
+    if (n !== 1) return;
+    var slide = document.querySelector('[data-slide="4-flow-evolution"]');
+    if (!slide) return;
+    var col26 = slide.querySelector('.evo-col--2026');
+    buildEvolutionRevealTimeline(col26);
+  }
+
+  function buildEvolutionRevealTimeline(col) {
+    var hdr = col.querySelector('.evo-header');
+    var nodes = col.querySelectorAll('.evo-flow > *');
+    var tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    tl.to(hdr, { opacity: 1, y: 0, duration: 0.55 }, 0);
+
+    var t = 0.35;
+    nodes.forEach(function(el) {
+      if (el.classList.contains('evo-arrow')) {
+        tl.to(el, { scaleY: 1, duration: 0.32, ease: 'power2.out' }, t);
+        t += 0.18;
+      } else {
+        tl.to(el, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.6)' }, t);
+        t += 0.22;
+      }
+    });
+
+    return tl;
   }
 
   // ── Slide 4d-1 — Typewriter Reprise (original slide 4 words + BE BUILDERS / BE MAKERS) ──
@@ -7179,6 +8926,28 @@
     }
   }
 
+  // Generic typewriter helper used by 4-flow-3 (and reusable)
+  function typewriteClaudeCommand(cmdEl, text, charDelay, timeoutBucket) {
+    var textEl = cmdEl.querySelector('.ui-fix-command-text');
+    var cursorEl = cmdEl.querySelector('.ui-fix-command-cursor');
+    if (!textEl || !cursorEl) return;
+    cursorEl.classList.remove('is-blinking');
+    cursorEl.classList.add('is-typing');
+    var i = 0;
+    function step() {
+      if (i < text.length) {
+        textEl.textContent += text.charAt(i);
+        i++;
+        var t = setTimeout(step, charDelay);
+        if (timeoutBucket) timeoutBucket.push(t);
+      } else {
+        cursorEl.classList.remove('is-typing');
+        cursorEl.classList.add('is-blinking');
+      }
+    }
+    step();
+  }
+
   // ── Slide 4-flow-4 — Skill cards reveal in 3 phases (open Eng Lead → open Code Review → fullscreen video) ──
   function animateSlide4Flow4() {
     if (slide4Flow4Timeline) slide4Flow4Timeline.kill();
@@ -7252,6 +9021,7 @@
     var slide = document.querySelector('[data-slide="4-flow-3"]');
     if (!slide) return;
     var img = slide.querySelector('.ui-fix-showcase-img');
+    var showcase = slide.querySelector('.ui-fix-showcase');
 
     // Reset video state — show first frame as still poster, no autoplay
     slide4Flow3Phase = 0;
@@ -7267,6 +9037,19 @@
         if (typeof video.load === 'function') video.load();
       } catch (e) {}
     }
+
+    // Reset commands stack
+    if (showcase) showcase.classList.remove('is-revealed');
+    var cmds = slide.querySelectorAll('.ui-fix-command');
+    cmds.forEach(function(c) {
+      c.classList.remove('is-visible');
+      var t = c.querySelector('.ui-fix-command-text');
+      var cur = c.querySelector('.ui-fix-command-cursor');
+      if (t) t.textContent = '';
+      if (cur) cur.classList.remove('is-typing', 'is-blinking');
+    });
+    slide4Flow3TypeTimeouts.forEach(function(id) { clearTimeout(id); });
+    slide4Flow3TypeTimeouts = [];
 
     if (!img) return;
     gsap.set(img, { opacity: 0, scale: 0.82, y: 24, rotation: -2 });
@@ -7290,6 +9073,66 @@
         repeat: -1,
         ease: 'sine.inOut'
       });
+  }
+
+  function animateSlide4Flow3Phase(n) {
+    var slide = document.querySelector('[data-slide="4-flow-3"]');
+    if (!slide) return;
+    var showcase = slide.querySelector('.ui-fix-showcase');
+    var cmds = slide.querySelectorAll('.ui-fix-command');
+
+    if (n === 1) {
+      // Phase 1 — reveal layout: image moves to top, command 1 typewriters in
+      if (slide4Flow3Timeline) slide4Flow3Timeline.kill();
+      var img = slide.querySelector('.ui-fix-showcase-img');
+      if (img) {
+        gsap.killTweensOf(img);
+        gsap.to(img, { y: 0, scale: 1, duration: 0.4, ease: 'power2.out' });
+      }
+      if (showcase) showcase.classList.add('is-revealed');
+      // Reveal cmd1 + typewriter
+      var t1 = setTimeout(function() {
+        if (cmds[0]) {
+          cmds[0].classList.add('is-visible');
+          typewriteClaudeCommand(cmds[0], '/generate_figma_design', 55, slide4Flow3TypeTimeouts);
+        }
+      }, 580);
+      slide4Flow3TypeTimeouts.push(t1);
+    } else if (n === 2) {
+      // Phase 2 — second command typewriters in
+      if (cmds[1]) {
+        cmds[1].classList.add('is-visible');
+        // Stop first cursor from blinking once second appears
+        var t2 = setTimeout(function() {
+          typewriteClaudeCommand(cmds[1], '/implement_design', 55, slide4Flow3TypeTimeouts);
+        }, 120);
+        slide4Flow3TypeTimeouts.push(t2);
+      }
+    } else if (n === 3) {
+      // Phase 3 — fullscreen video (existing behavior)
+      expandSlide4Flow3Video();
+    }
+  }
+
+  function typewriteUiFixCommand(cmdEl, text, charDelay) {
+    var textEl = cmdEl.querySelector('.ui-fix-command-text');
+    var cursorEl = cmdEl.querySelector('.ui-fix-command-cursor');
+    if (!textEl || !cursorEl) return;
+    cursorEl.classList.remove('is-blinking');
+    cursorEl.classList.add('is-typing');
+    var i = 0;
+    function step() {
+      if (i < text.length) {
+        textEl.textContent += text.charAt(i);
+        i++;
+        var t = setTimeout(step, charDelay);
+        slide4Flow3TypeTimeouts.push(t);
+      } else {
+        cursorEl.classList.remove('is-typing');
+        cursorEl.classList.add('is-blinking');
+      }
+    }
+    step();
   }
 
   function expandSlide4Flow3Video() {

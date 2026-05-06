@@ -3509,35 +3509,48 @@
       position: absolute;
       inset: 0;
       display: grid;
-      grid-template-columns: 600px 1100px;
-      gap: 60px;
+      grid-template-columns: 620px 1200px;
+      gap: 40px;
       align-content: center;
       justify-content: center;
-      padding-top: 240px;
+      padding-top: 220px;
       padding-bottom: 80px;
     }
 
-    /* LEFT — accordion list */
+    /* LEFT — accordion list, height locked to match video on the right */
     .focus-deep-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      align-self: start;
+      gap: 0;
+      height: 780px;
     }
 
     .focus-deep-row {
+      flex: 1;
       position: relative;
       border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 18px;
+      border-radius: 0;
       background: linear-gradient(155deg, rgba(255,255,255,0.04) 0%, rgba(10,12,18,0.65) 100%);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       overflow: hidden;
       transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
     }
+    .focus-deep-row + .focus-deep-row {
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .focus-deep-row:first-child {
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
+    }
+    .focus-deep-row:last-child {
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+    }
     .focus-deep-row.is-open {
       border-color: rgba(var(--row-acc), 0.5);
       box-shadow: 0 0 40px rgba(var(--row-acc), 0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+      z-index: 2;
     }
 
     .focus-deep-row[data-row="1"] { --row-acc: 123 237 82; }   /* green */
@@ -3546,24 +3559,26 @@
 
     .focus-deep-row-head {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 22px;
-      padding: 22px 28px;
+      padding: 28px 32px 16px;
       cursor: default;
     }
     .focus-deep-row-num {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 800;
-      font-size: 22px;
+      font-size: 30px;
       color: rgba(var(--row-acc), 0.9);
       letter-spacing: 1.5px;
-      min-width: 36px;
+      min-width: 44px;
+      line-height: 1.1;
     }
     .focus-deep-row-icon {
-      width: 30px;
-      height: 30px;
+      width: 38px;
+      height: 38px;
       flex-shrink: 0;
       color: rgba(var(--row-acc), 0.95);
+      margin-top: 2px;
     }
     .focus-deep-row-icon svg {
       width: 100%;
@@ -3574,19 +3589,38 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .focus-deep-row-title {
+    .focus-deep-row-text {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .focus-deep-row-title {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 700;
-      font-size: 26px;
+      font-size: 36px;
       color: #fff;
       letter-spacing: 0.3px;
+      line-height: 1.1;
+    }
+    .focus-deep-row-subtitle {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 400;
+      font-size: 19px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.2px;
+      line-height: 1.35;
+    }
+    .focus-deep-row.is-open .focus-deep-row-subtitle {
+      color: rgba(255,255,255,0.78);
     }
     .focus-deep-row-chevron {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       color: rgba(255,255,255,0.45);
       transition: transform 0.4s ease, color 0.4s ease;
+      margin-top: 8px;
     }
     .focus-deep-row.is-open .focus-deep-row-chevron {
       transform: rotate(90deg);
@@ -3605,25 +3639,15 @@
     .focus-deep-row-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
     }
     .focus-deep-row.is-open .focus-deep-row-body {
-      max-height: 360px;
+      max-height: 180px;
+      opacity: 1;
     }
     .focus-deep-row-body-inner {
-      padding: 0 28px 24px 96px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .focus-deep-row-desc {
-      font-family: 'ElmsSans', sans-serif;
-      font-weight: 400;
-      font-size: 17px;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.72);
-    }
-    .focus-deep-row-features {
+      padding: 0 32px 24px 102px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -3631,32 +3655,32 @@
     .focus-deep-row-feature {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: 'ElmsSans', sans-serif;
-      font-size: 15px;
-      color: rgba(255,255,255,0.62);
+      font-size: 18px;
+      color: rgba(255,255,255,0.72);
       letter-spacing: 0.2px;
+      line-height: 1.35;
     }
     .focus-deep-row-feature::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: rgba(var(--row-acc), 0.7);
+      background: rgba(var(--row-acc), 0.85);
       flex-shrink: 0;
     }
 
-    /* RIGHT — big video frame */
+    /* RIGHT — big video frame, height matches the 3 cards on the left */
     .focus-deep-video {
       position: relative;
-      width: 1100px;
-      height: 620px;
+      width: 1200px;
+      height: 780px;
       border-radius: 24px;
       border: 2px solid rgba(255,255,255,0.10);
       background: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(8,10,14,0.95) 100%);
       overflow: hidden;
       transition: border-color 0.5s ease, box-shadow 0.5s ease;
-      align-self: start;
     }
     .focus-deep-video.is-active--c1 {
       border-color: rgba(123,237,82,0.5);
@@ -7403,20 +7427,20 @@
                   <path d="M5 3v4M3 5h4M19 17v4M17 19h4"/>
                 </svg>
               </div>
-              <div class="focus-deep-row-title">Skills</div>
+              <div class="focus-deep-row-text">
+                <div class="focus-deep-row-title">Skills</div>
+                <div class="focus-deep-row-subtitle">Your AI's playbook, written by you.</div>
+              </div>
               <div class="focus-deep-row-chevron">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
               </div>
             </div>
             <div class="focus-deep-row-body">
               <div class="focus-deep-row-body-inner">
-                <p class="focus-deep-row-desc">Custom Claude Skills tailored to your workflow. Teach Claude what "good" looks like for you.</p>
-                <div class="focus-deep-row-features">
-                  <div class="focus-deep-row-feature">Lenny PM — product thinking</div>
-                  <div class="focus-deep-row-feature">UIUX Pro — design sense</div>
-                  <div class="focus-deep-row-feature">Code Review — quality gate</div>
-                  <div class="focus-deep-row-feature">Your library — your playbook</div>
-                </div>
+                <div class="focus-deep-row-feature">Lenny PM — product thinking</div>
+                <div class="focus-deep-row-feature">UIUX Pro — design sense</div>
+                <div class="focus-deep-row-feature">Code Review — quality gate</div>
+                <div class="focus-deep-row-feature">Your library — your playbook</div>
               </div>
             </div>
           </div>
@@ -7430,20 +7454,20 @@
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                 </svg>
               </div>
-              <div class="focus-deep-row-title">Agents</div>
+              <div class="focus-deep-row-text">
+                <div class="focus-deep-row-title">Agents</div>
+                <div class="focus-deep-row-subtitle">A team of AI teammates working in parallel.</div>
+              </div>
               <div class="focus-deep-row-chevron">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
               </div>
             </div>
             <div class="focus-deep-row-body">
               <div class="focus-deep-row-body-inner">
-                <p class="focus-deep-row-desc">Build a team of agents that runs autonomously. You orchestrate — they execute.</p>
-                <div class="focus-deep-row-features">
-                  <div class="focus-deep-row-feature">Claude Managed Agents</div>
-                  <div class="focus-deep-row-feature">OpenClaw — multi-agent CLI</div>
-                  <div class="focus-deep-row-feature">Autonomous team execution</div>
-                  <div class="focus-deep-row-feature">Parallel sub-task orchestration</div>
-                </div>
+                <div class="focus-deep-row-feature">Claude Managed Agents</div>
+                <div class="focus-deep-row-feature">OpenClaw — multi-agent CLI</div>
+                <div class="focus-deep-row-feature">Autonomous team execution</div>
+                <div class="focus-deep-row-feature">Parallel sub-task orchestration</div>
               </div>
             </div>
           </div>
@@ -7460,20 +7484,20 @@
                   <path d="m14 17 2-2-2-2"/>
                 </svg>
               </div>
-              <div class="focus-deep-row-title">Design.md</div>
+              <div class="focus-deep-row-text">
+                <div class="focus-deep-row-title">Design.md</div>
+                <div class="focus-deep-row-subtitle">Your design system, written for machines.</div>
+              </div>
               <div class="focus-deep-row-chevron">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
               </div>
             </div>
             <div class="focus-deep-row-body">
               <div class="focus-deep-row-body-inner">
-                <p class="focus-deep-row-desc">One markdown file. Every AI agent reads your design language. Stitch + Claude Design converge here.</p>
-                <div class="focus-deep-row-features">
-                  <div class="focus-deep-row-feature">One markdown — every agent reads it</div>
-                  <div class="focus-deep-row-feature">Google Stitch + Claude Design converge</div>
-                  <div class="focus-deep-row-feature">Taste → markdown → production</div>
-                  <div class="focus-deep-row-feature">The new source of truth</div>
-                </div>
+                <div class="focus-deep-row-feature">One markdown — every agent reads it</div>
+                <div class="focus-deep-row-feature">Google Stitch + Claude Design converge</div>
+                <div class="focus-deep-row-feature">Taste → markdown → production</div>
+                <div class="focus-deep-row-feature">The new source of truth</div>
               </div>
             </div>
           </div>

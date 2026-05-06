@@ -3501,6 +3501,195 @@
       background: rgba(255,180,60,0.06);
     }
 
+    /* ═══════════════════════════════════════
+       SLIDE 4d-focus-deep — Accordion + Video
+    ═══════════════════════════════════════ */
+
+    .focus-deep-stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 600px 1100px;
+      gap: 60px;
+      align-content: center;
+      justify-content: center;
+      padding-top: 240px;
+      padding-bottom: 80px;
+    }
+
+    /* LEFT — accordion list */
+    .focus-deep-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-self: start;
+    }
+
+    .focus-deep-row {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      background: linear-gradient(155deg, rgba(255,255,255,0.04) 0%, rgba(10,12,18,0.65) 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      overflow: hidden;
+      transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .focus-deep-row.is-open {
+      border-color: rgba(var(--row-acc), 0.5);
+      box-shadow: 0 0 40px rgba(var(--row-acc), 0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .focus-deep-row[data-row="1"] { --row-acc: 123 237 82; }   /* green */
+    .focus-deep-row[data-row="2"] { --row-acc: 167 139 250; }  /* purple */
+    .focus-deep-row[data-row="3"] { --row-acc: 255 180 60; }   /* orange */
+
+    .focus-deep-row-head {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 22px 28px;
+      cursor: default;
+    }
+    .focus-deep-row-num {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: rgba(var(--row-acc), 0.9);
+      letter-spacing: 1.5px;
+      min-width: 36px;
+    }
+    .focus-deep-row-icon {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      color: rgba(var(--row-acc), 0.95);
+    }
+    .focus-deep-row-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .focus-deep-row-title {
+      flex: 1;
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    .focus-deep-row-chevron {
+      width: 18px;
+      height: 18px;
+      color: rgba(255,255,255,0.45);
+      transition: transform 0.4s ease, color 0.4s ease;
+    }
+    .focus-deep-row.is-open .focus-deep-row-chevron {
+      transform: rotate(90deg);
+      color: rgba(var(--row-acc), 0.95);
+    }
+    .focus-deep-row-chevron svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .focus-deep-row-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .focus-deep-row.is-open .focus-deep-row-body {
+      max-height: 360px;
+    }
+    .focus-deep-row-body-inner {
+      padding: 0 28px 24px 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .focus-deep-row-desc {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.72);
+    }
+    .focus-deep-row-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .focus-deep-row-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'ElmsSans', sans-serif;
+      font-size: 15px;
+      color: rgba(255,255,255,0.62);
+      letter-spacing: 0.2px;
+    }
+    .focus-deep-row-feature::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(var(--row-acc), 0.7);
+      flex-shrink: 0;
+    }
+
+    /* RIGHT — big video frame */
+    .focus-deep-video {
+      position: relative;
+      width: 1100px;
+      height: 620px;
+      border-radius: 24px;
+      border: 2px solid rgba(255,255,255,0.10);
+      background: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(8,10,14,0.95) 100%);
+      overflow: hidden;
+      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+      align-self: start;
+    }
+    .focus-deep-video.is-active--c1 {
+      border-color: rgba(123,237,82,0.5);
+      box-shadow: 0 0 60px rgba(123,237,82,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .focus-deep-video.is-active--c2 {
+      border-color: rgba(167,139,250,0.5);
+      box-shadow: 0 0 60px rgba(167,139,250,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .focus-deep-video.is-active--c3 {
+      border-color: rgba(255,180,60,0.5);
+      box-shadow: 0 0 60px rgba(255,180,60,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .focus-deep-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .focus-deep-video video.is-on {
+      opacity: 1;
+    }
+    /* Idle hint when no video is active or videos haven't loaded */
+    .focus-deep-video::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.025) 0%, transparent 60%);
+    }
+
     /* ── Anatomy Six-Element Feature Grid (phase 6) — full-bleed, big & readable ── */
     .anatomy-grid {
       position: absolute;
@@ -7191,6 +7380,121 @@
     </div>
   </div>
 
+  <!-- ═══════ SLIDE 4d-focus-deep — Accordion + Video (deep dive on My Recommendations) ═══════ -->
+  <div class="slide" data-slide="4d-focus-deep">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="focus-header" style="position:absolute; top:80px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:14px; z-index:3;">
+        <span class="green-badge">My Recommendations · Deep Dive</span>
+        <div class="mc-title" style="font-size:54px; letter-spacing:3px;">WHERE I'D FOCUS NOW</div>
+      </div>
+
+      <div class="focus-deep-stage">
+        <!-- LEFT: 3-row accordion -->
+        <div class="focus-deep-list">
+          <!-- Row 1 — Skills -->
+          <div class="focus-deep-row" data-row="1">
+            <div class="focus-deep-row-head">
+              <div class="focus-deep-row-num">01</div>
+              <div class="focus-deep-row-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z"/>
+                  <path d="M5 3v4M3 5h4M19 17v4M17 19h4"/>
+                </svg>
+              </div>
+              <div class="focus-deep-row-title">Skills</div>
+              <div class="focus-deep-row-chevron">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+              </div>
+            </div>
+            <div class="focus-deep-row-body">
+              <div class="focus-deep-row-body-inner">
+                <p class="focus-deep-row-desc">Custom Claude Skills tailored to your workflow. Teach Claude what "good" looks like for you.</p>
+                <div class="focus-deep-row-features">
+                  <div class="focus-deep-row-feature">Lenny PM — product thinking</div>
+                  <div class="focus-deep-row-feature">UIUX Pro — design sense</div>
+                  <div class="focus-deep-row-feature">Code Review — quality gate</div>
+                  <div class="focus-deep-row-feature">Your library — your playbook</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2 — Agents -->
+          <div class="focus-deep-row" data-row="2">
+            <div class="focus-deep-row-head">
+              <div class="focus-deep-row-num">02</div>
+              <div class="focus-deep-row-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </div>
+              <div class="focus-deep-row-title">Agents</div>
+              <div class="focus-deep-row-chevron">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+              </div>
+            </div>
+            <div class="focus-deep-row-body">
+              <div class="focus-deep-row-body-inner">
+                <p class="focus-deep-row-desc">Build a team of agents that runs autonomously. You orchestrate — they execute.</p>
+                <div class="focus-deep-row-features">
+                  <div class="focus-deep-row-feature">Claude Managed Agents</div>
+                  <div class="focus-deep-row-feature">OpenClaw — multi-agent CLI</div>
+                  <div class="focus-deep-row-feature">Autonomous team execution</div>
+                  <div class="focus-deep-row-feature">Parallel sub-task orchestration</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3 — Design.md -->
+          <div class="focus-deep-row" data-row="3">
+            <div class="focus-deep-row-head">
+              <div class="focus-deep-row-num">03</div>
+              <div class="focus-deep-row-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <path d="m10 13-2 2 2 2"/>
+                  <path d="m14 17 2-2-2-2"/>
+                </svg>
+              </div>
+              <div class="focus-deep-row-title">Design.md</div>
+              <div class="focus-deep-row-chevron">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+              </div>
+            </div>
+            <div class="focus-deep-row-body">
+              <div class="focus-deep-row-body-inner">
+                <p class="focus-deep-row-desc">One markdown file. Every AI agent reads your design language. Stitch + Claude Design converge here.</p>
+                <div class="focus-deep-row-features">
+                  <div class="focus-deep-row-feature">One markdown — every agent reads it</div>
+                  <div class="focus-deep-row-feature">Google Stitch + Claude Design converge</div>
+                  <div class="focus-deep-row-feature">Taste → markdown → production</div>
+                  <div class="focus-deep-row-feature">The new source of truth</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: big video frame -->
+        <div class="focus-deep-video" data-focus-video>
+          <video data-video-row="1" preload="auto" playsinline data-manual-play>
+            <source src="assets/focus-skills.mp4" type="video/mp4">
+          </video>
+          <video data-video-row="2" preload="auto" playsinline data-manual-play>
+            <source src="assets/focus-agents.mp4" type="video/mp4">
+          </video>
+          <video data-video-row="3" preload="auto" playsinline data-manual-play>
+            <source src="assets/focus-designmd.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════ SLIDE 4d-discipline — "Drop the FOMO" Manifesto ═══════ -->
   <div class="slide" data-slide="4d-discipline">
     <div class="slide-inner">
@@ -7411,6 +7715,7 @@
     }
     if (typeof slide4dAdaptTimeline !== 'undefined' && slide4dAdaptTimeline) slide4dAdaptTimeline.kill();
     if (slide4dFocusTimeline) slide4dFocusTimeline.kill();
+    if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
     if (slide4dDisciplineTimeline) slide4dDisciplineTimeline.kill();
     if (typeof slide10AnimId !== 'undefined' && slide10AnimId) {
       cancelAnimationFrame(slide10AnimId); slide10AnimId = null;
@@ -7447,6 +7752,7 @@
     else if (slideId === '4-flow-evolution') animateSlide4FlowEvolution();
     else if (slideId === '4d-adapt') animateSlide4dAdapt();
     else if (slideId === '4d-focus') animateSlide4dFocus();
+    else if (slideId === '4d-focus-deep') animateSlide4dFocusDeep();
     else if (slideId === '4d-discipline') animateSlide4dDiscipline();
     else if (slideId === '10') animateSlide10();
     else if (slideId === '11') animateSlide11();
@@ -7533,6 +7839,11 @@
     if (slideId === '4d-focus' && slide4dFocusPhase < slide4dFocusMaxPhase) {
       slide4dFocusPhase += 1;
       animateSlide4dFocusPhase(slide4dFocusPhase);
+      return;
+    }
+    if (slideId === '4d-focus-deep' && slide4dFocusDeepPhase < slide4dFocusDeepMaxPhase) {
+      slide4dFocusDeepPhase += 1;
+      animateSlide4dFocusDeepPhase(slide4dFocusDeepPhase);
       return;
     }
     if (slideId === '4d-discipline' && slide4dDisciplinePhase < slide4dDisciplineMaxPhase) {
@@ -7965,6 +8276,9 @@
   var slide4dFocusPhase = 0;
   var slide4dFocusMaxPhase = 7;
   var slide4dFocusTimeline = null;
+  var slide4dFocusDeepPhase = 0;
+  var slide4dFocusDeepMaxPhase = 3;
+  var slide4dFocusDeepTimeline = null;
   var slide4dDisciplinePhase = 0;
   var slide4dDisciplineMaxPhase = 3;
   var slide4dDisciplineTimeline = null;
@@ -9013,6 +9327,67 @@
       // Flip the current card to its back face
       card.classList.add('is-flipped');
     }
+  }
+
+  // ── Slide 4d-focus-deep — accordion + big video, one row at a time per click ──
+  function animateSlide4dFocusDeep() {
+    if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
+
+    var slide = document.querySelector('[data-slide="4d-focus-deep"]');
+    if (!slide) return;
+
+    var header = slide.querySelector('.focus-header');
+    var stage = slide.querySelector('.focus-deep-stage');
+    var rows = slide.querySelectorAll('.focus-deep-row');
+    var videoFrame = slide.querySelector('.focus-deep-video');
+    var videos = slide.querySelectorAll('.focus-deep-video video');
+
+    slide4dFocusDeepPhase = 0;
+
+    // Reset all rows closed, all videos paused + reset, frame back to neutral
+    rows.forEach(function(r) { r.classList.remove('is-open'); });
+    videos.forEach(function(v) {
+      v.classList.remove('is-on');
+      try { v.pause(); v.currentTime = 0; } catch (e) {}
+    });
+    if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
+
+    gsap.set(header, { opacity: 0, y: -30 });
+    gsap.set(stage,  { opacity: 0, y: 16 });
+
+    slide4dFocusDeepTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    slide4dFocusDeepTimeline
+      .to(header, { opacity: 1, y: 0, duration: 0.55 }, 0)
+      .to(stage,  { opacity: 1, y: 0, duration: 0.55 }, 0.1);
+  }
+
+  function animateSlide4dFocusDeepPhase(n) {
+    var slide = document.querySelector('[data-slide="4d-focus-deep"]');
+    if (!slide) return;
+
+    var rows = slide.querySelectorAll('.focus-deep-row');
+    var videoFrame = slide.querySelector('.focus-deep-video');
+    var videos = slide.querySelectorAll('.focus-deep-video video');
+
+    // Close all rows and pause all videos first
+    rows.forEach(function(r) { r.classList.remove('is-open'); });
+    videos.forEach(function(v) {
+      v.classList.remove('is-on');
+      try { v.pause(); } catch (e) {}
+    });
+    if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
+
+    // Open the row that matches phase n (1-based)
+    var activeRow = slide.querySelector('.focus-deep-row[data-row="' + n + '"]');
+    if (activeRow) activeRow.classList.add('is-open');
+
+    // Activate the matching video element + frame accent
+    var activeVideo = slide.querySelector('.focus-deep-video video[data-video-row="' + n + '"]');
+    if (activeVideo) {
+      activeVideo.classList.add('is-on');
+      try { activeVideo.currentTime = 0; activeVideo.play(); } catch (e) {}
+    }
+    if (videoFrame) videoFrame.classList.add('is-active--c' + n);
   }
 
   // ── Slide 11 — Thank You & Have Fun (mirrors slide 2 layout). Sequential fade in. ──

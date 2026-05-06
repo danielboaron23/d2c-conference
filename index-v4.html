@@ -3513,7 +3513,7 @@
       gap: 40px;
       align-content: center;
       justify-content: center;
-      padding-top: 180px;
+      padding-top: 240px;
       padding-bottom: 60px;
     }
 
@@ -3522,7 +3522,7 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      height: 840px;
+      height: 780px;
     }
 
     .focus-deep-row {
@@ -3535,17 +3535,18 @@
       -webkit-backdrop-filter: blur(8px);
       overflow: hidden;
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(-22px) scale(0.97);
+      transform-origin: center top;
       transition:
-        opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        border-color 0.4s ease,
-        background 0.4s ease,
-        box-shadow 0.4s ease;
+        opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.5s ease,
+        background 0.5s ease,
+        box-shadow 0.5s ease;
     }
     .focus-deep-row.is-revealed {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
     .focus-deep-row + .focus-deep-row {
       border-top: 1px solid rgba(255,255,255,0.05);
@@ -3558,10 +3559,27 @@
       border-bottom-left-radius: 22px;
       border-bottom-right-radius: 22px;
     }
+    /* Left accent bar — fills from top when card becomes active */
+    .focus-deep-row::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: rgba(var(--row-acc), 1);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .focus-deep-row.is-active::before {
+      transform: scaleY(1);
+    }
     .focus-deep-row.is-active {
       border-color: rgba(var(--row-acc), 0.55);
-      box-shadow: 0 0 50px rgba(var(--row-acc), 0.22), inset 0 1px 0 rgba(255,255,255,0.07);
-      background: linear-gradient(155deg, rgba(var(--row-acc), 0.07) 0%, rgba(10,12,18,0.72) 100%);
+      box-shadow: 0 0 60px rgba(var(--row-acc), 0.22), inset 0 1px 0 rgba(255,255,255,0.07);
+      background: linear-gradient(155deg, rgba(var(--row-acc), 0.08) 0%, rgba(10,12,18,0.72) 100%);
       z-index: 2;
     }
 
@@ -3569,57 +3587,47 @@
     .focus-deep-row[data-row="2"] { --row-acc: 167 139 250; }  /* purple */
     .focus-deep-row[data-row="3"] { --row-acc: 255 180 60; }   /* orange */
 
+    /* Card content — number on top, title + subtitle below */
     .focus-deep-row-head {
       display: flex;
-      align-items: flex-start;
-      gap: 24px;
-      padding: 24px 32px 14px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      height: 100%;
+      padding: 36px 40px 36px 44px;
       cursor: default;
     }
     .focus-deep-row-num {
       font-family: 'ElmsSans', sans-serif;
-      font-weight: 800;
-      font-size: 32px;
-      color: rgba(var(--row-acc), 0.9);
-      letter-spacing: 1.5px;
-      min-width: 48px;
-      line-height: 1.1;
+      font-weight: 700;
+      font-size: 18px;
+      color: rgba(var(--row-acc), 0.85);
+      letter-spacing: 4.5px;
+      text-transform: uppercase;
+      line-height: 1;
     }
-    .focus-deep-row-icon {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-      color: rgba(var(--row-acc), 0.95);
-    }
-    .focus-deep-row-icon svg {
-      width: 100%;
-      height: 100%;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .focus-deep-row.is-active .focus-deep-row-num {
+      color: rgba(var(--row-acc), 1);
     }
     .focus-deep-row-text {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
       min-width: 0;
     }
     .focus-deep-row-title {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 700;
-      font-size: 44px;
+      font-size: 50px;
       color: #fff;
-      letter-spacing: 0.3px;
-      line-height: 1.05;
+      letter-spacing: 0.4px;
+      line-height: 1.02;
     }
     .focus-deep-row-subtitle {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 400;
       font-size: 23px;
-      color: rgba(255,255,255,0.62);
+      color: rgba(255,255,255,0.55);
       letter-spacing: 0.2px;
       line-height: 1.3;
     }
@@ -3627,46 +3635,11 @@
       color: rgba(255,255,255,0.85);
     }
 
-    .focus-deep-row-body {
-      padding: 4px 32px 20px 104px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .focus-deep-row-feature {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-family: 'ElmsSans', sans-serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.2px;
-      line-height: 1.35;
-      transition: color 0.4s ease;
-    }
-    .focus-deep-row.is-active .focus-deep-row-feature {
-      color: rgba(255,255,255,0.85);
-    }
-    .focus-deep-row-feature::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(var(--row-acc), 0.7);
-      flex-shrink: 0;
-      transition: background 0.4s ease, transform 0.4s ease;
-    }
-    .focus-deep-row.is-active .focus-deep-row-feature::before {
-      background: rgba(var(--row-acc), 1);
-      transform: scale(1.15);
-    }
-
     /* RIGHT — big video frame, height matches the 3 cards on the left */
     .focus-deep-video {
       position: relative;
       width: 1240px;
-      height: 840px;
+      height: 780px;
       border-radius: 24px;
       border: 2px solid rgba(255,255,255,0.10);
       background: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(8,10,14,0.95) 100%);
@@ -7402,7 +7375,7 @@
 
       <div class="focus-header" style="position:absolute; top:80px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:14px; z-index:3;">
         <span class="green-badge">My Recommendations · Deep Dive</span>
-        <div class="mc-title" style="font-size:54px; letter-spacing:3px;">WHERE I'D FOCUS NOW</div>
+        <div class="mc-title" style="font-size:48px; letter-spacing:3px;">WHERE I'D FOCUS NOW</div>
       </div>
 
       <div class="focus-deep-stage">
@@ -7411,70 +7384,33 @@
           <!-- Row 1 — Skills -->
           <div class="focus-deep-row" data-row="1">
             <div class="focus-deep-row-head">
-              <div class="focus-deep-row-num">01</div>
-              <div class="focus-deep-row-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z"/>
-                  <path d="M5 3v4M3 5h4M19 17v4M17 19h4"/>
-                </svg>
-              </div>
+              <div class="focus-deep-row-num">Bet 01</div>
               <div class="focus-deep-row-text">
                 <div class="focus-deep-row-title">Skills</div>
                 <div class="focus-deep-row-subtitle">Your AI's playbook, written by you.</div>
               </div>
-            </div>
-            <div class="focus-deep-row-body">
-                <div class="focus-deep-row-feature">Lenny PM — product thinking</div>
-                <div class="focus-deep-row-feature">UIUX Pro — design sense</div>
-                <div class="focus-deep-row-feature">Code Review — quality gate</div>
-                <div class="focus-deep-row-feature">Your library — your playbook</div>
             </div>
           </div>
 
           <!-- Row 2 — Agents -->
           <div class="focus-deep-row" data-row="2">
             <div class="focus-deep-row-head">
-              <div class="focus-deep-row-num">02</div>
-              <div class="focus-deep-row-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                </svg>
-              </div>
+              <div class="focus-deep-row-num">Bet 02</div>
               <div class="focus-deep-row-text">
                 <div class="focus-deep-row-title">Agents</div>
                 <div class="focus-deep-row-subtitle">A team of AI teammates working in parallel.</div>
               </div>
-            </div>
-            <div class="focus-deep-row-body">
-                <div class="focus-deep-row-feature">Claude Managed Agents</div>
-                <div class="focus-deep-row-feature">OpenClaw — multi-agent CLI</div>
-                <div class="focus-deep-row-feature">Autonomous team execution</div>
-                <div class="focus-deep-row-feature">Parallel sub-task orchestration</div>
             </div>
           </div>
 
           <!-- Row 3 — Design.md -->
           <div class="focus-deep-row" data-row="3">
             <div class="focus-deep-row-head">
-              <div class="focus-deep-row-num">03</div>
-              <div class="focus-deep-row-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <path d="m10 13-2 2 2 2"/>
-                  <path d="m14 17 2-2-2-2"/>
-                </svg>
-              </div>
+              <div class="focus-deep-row-num">Bet 03</div>
               <div class="focus-deep-row-text">
                 <div class="focus-deep-row-title">Design.md</div>
                 <div class="focus-deep-row-subtitle">Your design system, written for machines.</div>
               </div>
-            </div>
-            <div class="focus-deep-row-body">
-                <div class="focus-deep-row-feature">One markdown — every agent reads it</div>
-                <div class="focus-deep-row-feature">Google Stitch + Claude Design converge</div>
-                <div class="focus-deep-row-feature">Taste → markdown → production</div>
-                <div class="focus-deep-row-feature">The new source of truth</div>
             </div>
           </div>
         </div>

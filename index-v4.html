@@ -3509,20 +3509,20 @@
       position: absolute;
       inset: 0;
       display: grid;
-      grid-template-columns: 620px 1200px;
+      grid-template-columns: 600px 1240px;
       gap: 40px;
       align-content: center;
       justify-content: center;
-      padding-top: 220px;
-      padding-bottom: 80px;
+      padding-top: 180px;
+      padding-bottom: 60px;
     }
 
-    /* LEFT — accordion list, height locked to match video on the right */
+    /* LEFT — stack of cards, height locked to match video on the right */
     .focus-deep-list {
       display: flex;
       flex-direction: column;
       gap: 0;
-      height: 780px;
+      height: 840px;
     }
 
     .focus-deep-row {
@@ -3534,7 +3534,18 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       overflow: hidden;
-      transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.4s ease,
+        background 0.4s ease,
+        box-shadow 0.4s ease;
+    }
+    .focus-deep-row.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
     .focus-deep-row + .focus-deep-row {
       border-top: 1px solid rgba(255,255,255,0.05);
@@ -3547,9 +3558,10 @@
       border-bottom-left-radius: 22px;
       border-bottom-right-radius: 22px;
     }
-    .focus-deep-row.is-open {
-      border-color: rgba(var(--row-acc), 0.5);
-      box-shadow: 0 0 40px rgba(var(--row-acc), 0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    .focus-deep-row.is-active {
+      border-color: rgba(var(--row-acc), 0.55);
+      box-shadow: 0 0 50px rgba(var(--row-acc), 0.22), inset 0 1px 0 rgba(255,255,255,0.07);
+      background: linear-gradient(155deg, rgba(var(--row-acc), 0.07) 0%, rgba(10,12,18,0.72) 100%);
       z-index: 2;
     }
 
@@ -3560,25 +3572,24 @@
     .focus-deep-row-head {
       display: flex;
       align-items: flex-start;
-      gap: 22px;
-      padding: 28px 32px 16px;
+      gap: 24px;
+      padding: 24px 32px 14px;
       cursor: default;
     }
     .focus-deep-row-num {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 800;
-      font-size: 30px;
+      font-size: 32px;
       color: rgba(var(--row-acc), 0.9);
       letter-spacing: 1.5px;
-      min-width: 44px;
+      min-width: 48px;
       line-height: 1.1;
     }
     .focus-deep-row-icon {
-      width: 38px;
-      height: 38px;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
       color: rgba(var(--row-acc), 0.95);
-      margin-top: 2px;
     }
     .focus-deep-row-icon svg {
       width: 100%;
@@ -3593,89 +3604,69 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
       min-width: 0;
     }
     .focus-deep-row-title {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 700;
-      font-size: 36px;
+      font-size: 44px;
       color: #fff;
       letter-spacing: 0.3px;
-      line-height: 1.1;
+      line-height: 1.05;
     }
     .focus-deep-row-subtitle {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 400;
-      font-size: 19px;
-      color: rgba(255,255,255,0.55);
+      font-size: 23px;
+      color: rgba(255,255,255,0.62);
       letter-spacing: 0.2px;
-      line-height: 1.35;
+      line-height: 1.3;
     }
-    .focus-deep-row.is-open .focus-deep-row-subtitle {
-      color: rgba(255,255,255,0.78);
-    }
-    .focus-deep-row-chevron {
-      width: 22px;
-      height: 22px;
-      color: rgba(255,255,255,0.45);
-      transition: transform 0.4s ease, color 0.4s ease;
-      margin-top: 8px;
-    }
-    .focus-deep-row.is-open .focus-deep-row-chevron {
-      transform: rotate(90deg);
-      color: rgba(var(--row-acc), 0.95);
-    }
-    .focus-deep-row-chevron svg {
-      width: 100%;
-      height: 100%;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .focus-deep-row.is-active .focus-deep-row-subtitle {
+      color: rgba(255,255,255,0.85);
     }
 
     .focus-deep-row-body {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
-    }
-    .focus-deep-row.is-open .focus-deep-row-body {
-      max-height: 180px;
-      opacity: 1;
-    }
-    .focus-deep-row-body-inner {
-      padding: 0 32px 24px 102px;
+      padding: 4px 32px 20px 104px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
     .focus-deep-row-feature {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-family: 'ElmsSans', sans-serif;
-      font-size: 18px;
-      color: rgba(255,255,255,0.72);
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
       letter-spacing: 0.2px;
       line-height: 1.35;
+      transition: color 0.4s ease;
+    }
+    .focus-deep-row.is-active .focus-deep-row-feature {
+      color: rgba(255,255,255,0.85);
     }
     .focus-deep-row-feature::before {
       content: '';
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: rgba(var(--row-acc), 0.85);
+      background: rgba(var(--row-acc), 0.7);
       flex-shrink: 0;
+      transition: background 0.4s ease, transform 0.4s ease;
+    }
+    .focus-deep-row.is-active .focus-deep-row-feature::before {
+      background: rgba(var(--row-acc), 1);
+      transform: scale(1.15);
     }
 
     /* RIGHT — big video frame, height matches the 3 cards on the left */
     .focus-deep-video {
       position: relative;
-      width: 1200px;
-      height: 780px;
+      width: 1240px;
+      height: 840px;
       border-radius: 24px;
       border: 2px solid rgba(255,255,255,0.10);
       background: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(8,10,14,0.95) 100%);
@@ -7431,17 +7422,12 @@
                 <div class="focus-deep-row-title">Skills</div>
                 <div class="focus-deep-row-subtitle">Your AI's playbook, written by you.</div>
               </div>
-              <div class="focus-deep-row-chevron">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-              </div>
             </div>
             <div class="focus-deep-row-body">
-              <div class="focus-deep-row-body-inner">
                 <div class="focus-deep-row-feature">Lenny PM — product thinking</div>
                 <div class="focus-deep-row-feature">UIUX Pro — design sense</div>
                 <div class="focus-deep-row-feature">Code Review — quality gate</div>
                 <div class="focus-deep-row-feature">Your library — your playbook</div>
-              </div>
             </div>
           </div>
 
@@ -7458,17 +7444,12 @@
                 <div class="focus-deep-row-title">Agents</div>
                 <div class="focus-deep-row-subtitle">A team of AI teammates working in parallel.</div>
               </div>
-              <div class="focus-deep-row-chevron">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-              </div>
             </div>
             <div class="focus-deep-row-body">
-              <div class="focus-deep-row-body-inner">
                 <div class="focus-deep-row-feature">Claude Managed Agents</div>
                 <div class="focus-deep-row-feature">OpenClaw — multi-agent CLI</div>
                 <div class="focus-deep-row-feature">Autonomous team execution</div>
                 <div class="focus-deep-row-feature">Parallel sub-task orchestration</div>
-              </div>
             </div>
           </div>
 
@@ -7488,17 +7469,12 @@
                 <div class="focus-deep-row-title">Design.md</div>
                 <div class="focus-deep-row-subtitle">Your design system, written for machines.</div>
               </div>
-              <div class="focus-deep-row-chevron">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-              </div>
             </div>
             <div class="focus-deep-row-body">
-              <div class="focus-deep-row-body-inner">
                 <div class="focus-deep-row-feature">One markdown — every agent reads it</div>
                 <div class="focus-deep-row-feature">Google Stitch + Claude Design converge</div>
                 <div class="focus-deep-row-feature">Taste → markdown → production</div>
                 <div class="focus-deep-row-feature">The new source of truth</div>
-              </div>
             </div>
           </div>
         </div>
@@ -9353,7 +9329,7 @@
     }
   }
 
-  // ── Slide 4d-focus-deep — accordion + big video, one row at a time per click ──
+  // ── Slide 4d-focus-deep — cards reveal one per click; active card glows + video plays ──
   function animateSlide4dFocusDeep() {
     if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
 
@@ -9368,8 +9344,11 @@
 
     slide4dFocusDeepPhase = 0;
 
-    // Reset all rows closed, all videos paused + reset, frame back to neutral
-    rows.forEach(function(r) { r.classList.remove('is-open'); });
+    // Reset: all rows hidden (no .is-revealed, no .is-active), all videos paused, frame neutral
+    rows.forEach(function(r) {
+      r.classList.remove('is-revealed');
+      r.classList.remove('is-active');
+    });
     videos.forEach(function(v) {
       v.classList.remove('is-on');
       try { v.pause(); v.currentTime = 0; } catch (e) {}
@@ -9393,19 +9372,22 @@
     var videoFrame = slide.querySelector('.focus-deep-video');
     var videos = slide.querySelectorAll('.focus-deep-video video');
 
-    // Close all rows and pause all videos first
-    rows.forEach(function(r) { r.classList.remove('is-open'); });
+    // Reveal cards 1..n (cumulative). Mark only card N as active.
+    rows.forEach(function(r) {
+      var rowIdx = parseInt(r.getAttribute('data-row'), 10);
+      if (rowIdx <= n) r.classList.add('is-revealed');
+      else r.classList.remove('is-revealed');
+      if (rowIdx === n) r.classList.add('is-active');
+      else r.classList.remove('is-active');
+    });
+
+    // Pause all videos, then play only the one matching the active card
     videos.forEach(function(v) {
       v.classList.remove('is-on');
       try { v.pause(); } catch (e) {}
     });
     if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
 
-    // Open the row that matches phase n (1-based)
-    var activeRow = slide.querySelector('.focus-deep-row[data-row="' + n + '"]');
-    if (activeRow) activeRow.classList.add('is-open');
-
-    // Activate the matching video element + frame accent
     var activeVideo = slide.querySelector('.focus-deep-video video[data-video-row="' + n + '"]');
     if (activeVideo) {
       activeVideo.classList.add('is-on');

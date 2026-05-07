@@ -3680,6 +3680,126 @@
       background: radial-gradient(ellipse at center, rgba(255,255,255,0.025) 0%, transparent 60%);
     }
 
+    /* ═══════════════════════════════════════
+       SLIDE 4d-focus-deep-intro — Lamp effect hero
+    ═══════════════════════════════════════ */
+
+    .focus-intro-stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* All lamp pieces converge from top center */
+    .focus-intro-lamp {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Top center glow blob (the "bulb") */
+    .lamp-glow {
+      position: absolute;
+      top: -90px;
+      left: 50%;
+      width: 560px;
+      height: 220px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at center, rgba(123,237,82,0.7) 0%, rgba(123,237,82,0) 70%);
+      filter: blur(40px);
+      opacity: 0;
+    }
+
+    /* Inner bright core under the bulb */
+    .lamp-strip {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 280px;
+      height: 130px;
+      transform: translateX(-50%);
+      background: rgba(123, 237, 82, 0.5);
+      border-radius: 50%;
+      filter: blur(56px);
+      opacity: 0;
+    }
+
+    /* The thin horizontal accent line where the cones converge */
+    .lamp-line {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      width: 520px;
+      height: 2px;
+      transform: translateX(-50%) scaleX(0.4);
+      transform-origin: center;
+      background: linear-gradient(90deg, transparent 0%, rgba(123,237,82,0.9) 50%, transparent 100%);
+      opacity: 0;
+    }
+
+    /* Two conic-gradient cones radiating downward */
+    .lamp-cone {
+      position: absolute;
+      top: 0;
+      width: 540px;
+      height: 360px;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .lamp-cone--left {
+      right: 50%;
+      background-image: conic-gradient(from 70deg at center top, rgba(123,237,82,0.55), transparent 25%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent 85%);
+              mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent 85%);
+    }
+    .lamp-cone--right {
+      left: 50%;
+      background-image: conic-gradient(from 290deg at center top, transparent, transparent 75%, rgba(123,237,82,0.55));
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent 85%);
+              mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent 85%);
+    }
+
+    /* Hero text — centered, big. Becomes the small header on the next slide. */
+    .focus-intro-hero {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transform-origin: top center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      z-index: 3;
+      text-align: center;
+      max-width: 1200px;
+      padding: 0 60px;
+    }
+    .focus-intro-title {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 800;
+      font-size: 96px;
+      letter-spacing: 4.5px;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1.04;
+      margin: 0;
+    }
+    .focus-intro-title .hl {
+      color: #7bed52;
+    }
+    .focus-intro-subtitle {
+      font-family: 'ElmsSans', sans-serif;
+      font-weight: 400;
+      font-size: 26px;
+      color: rgba(255,255,255,0.62);
+      letter-spacing: 0.5px;
+      line-height: 1.45;
+      margin: 0;
+      max-width: 760px;
+    }
+
     /* ── Anatomy Six-Element Feature Grid (phase 6) — full-bleed, big & readable ── */
     .anatomy-grid {
       position: absolute;
@@ -7370,6 +7490,31 @@
     </div>
   </div>
 
+  <!-- ═══════ SLIDE 4d-focus-deep-intro — Lamp hero before the deep dive ═══════ -->
+  <div class="slide" data-slide="4d-focus-deep-intro">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+
+      <div class="focus-intro-stage">
+        <!-- Lamp effect — beams converging from top -->
+        <div class="focus-intro-lamp">
+          <div class="lamp-cone lamp-cone--left"></div>
+          <div class="lamp-cone lamp-cone--right"></div>
+          <div class="lamp-strip"></div>
+          <div class="lamp-glow"></div>
+          <div class="lamp-line"></div>
+        </div>
+
+        <!-- Hero text — morphs into the deep slide's header on click -->
+        <div class="focus-intro-hero" data-focus-intro-hero>
+          <span class="green-badge">If I Were Starting Today</span>
+          <h1 class="focus-intro-title">MY THREE <span class="hl">BETS</span></h1>
+          <p class="focus-intro-subtitle">Where I'd put my focus right now — and what's worth your time too.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════ SLIDE 4d-focus-deep — Accordion + Video (deep dive on My Recommendations) ═══════ -->
   <div class="slide" data-slide="4d-focus-deep">
     <div class="slide-inner">
@@ -7653,6 +7798,7 @@
     }
     if (typeof slide4dAdaptTimeline !== 'undefined' && slide4dAdaptTimeline) slide4dAdaptTimeline.kill();
     if (slide4dFocusTimeline) slide4dFocusTimeline.kill();
+    if (slide4dFocusDeepIntroTimeline) slide4dFocusDeepIntroTimeline.kill();
     if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
     if (slide4dDisciplineTimeline) slide4dDisciplineTimeline.kill();
     if (typeof slide10AnimId !== 'undefined' && slide10AnimId) {
@@ -7690,6 +7836,7 @@
     else if (slideId === '4-flow-evolution') animateSlide4FlowEvolution();
     else if (slideId === '4d-adapt') animateSlide4dAdapt();
     else if (slideId === '4d-focus') animateSlide4dFocus();
+    else if (slideId === '4d-focus-deep-intro') animateSlide4dFocusDeepIntro();
     else if (slideId === '4d-focus-deep') animateSlide4dFocusDeep();
     else if (slideId === '4d-discipline') animateSlide4dDiscipline();
     else if (slideId === '10') animateSlide10();
@@ -7777,6 +7924,11 @@
     if (slideId === '4d-focus' && slide4dFocusPhase < slide4dFocusMaxPhase) {
       slide4dFocusPhase += 1;
       animateSlide4dFocusPhase(slide4dFocusPhase);
+      return;
+    }
+    if (slideId === '4d-focus-deep-intro') {
+      // First click on intro: trigger the morph (hero shrinks + rises) and auto-advance
+      animateSlide4dFocusDeepIntroPhase(1);
       return;
     }
     if (slideId === '4d-focus-deep' && slide4dFocusDeepPhase < slide4dFocusDeepMaxPhase) {
@@ -8218,6 +8370,10 @@
   var slide4dFocusDeepPhase = 0;
   var slide4dFocusDeepMaxPhase = 3;
   var slide4dFocusDeepTimeline = null;
+  var slide4dFocusDeepIntroPhase = 0;
+  var slide4dFocusDeepIntroMaxPhase = 0;
+  var slide4dFocusDeepIntroTimeline = null;
+  var slide4dFocusDeepFromIntro = false;
   var slide4dDisciplinePhase = 0;
   var slide4dDisciplineMaxPhase = 3;
   var slide4dDisciplineTimeline = null;
@@ -9268,6 +9424,75 @@
     }
   }
 
+  // ── Slide 4d-focus-deep-intro — Lamp hero, morph to next slide on click ──
+  function animateSlide4dFocusDeepIntro() {
+    if (slide4dFocusDeepIntroTimeline) slide4dFocusDeepIntroTimeline.kill();
+
+    var slide = document.querySelector('[data-slide="4d-focus-deep-intro"]');
+    if (!slide) return;
+
+    var glow = slide.querySelector('.lamp-glow');
+    var strip = slide.querySelector('.lamp-strip');
+    var line = slide.querySelector('.lamp-line');
+    var leftCone = slide.querySelector('.lamp-cone--left');
+    var rightCone = slide.querySelector('.lamp-cone--right');
+    var hero = slide.querySelector('.focus-intro-hero');
+    var subtitle = slide.querySelector('.focus-intro-subtitle');
+
+    slide4dFocusDeepIntroPhase = 0;
+
+    // Reset everything to its pre-entrance state — undo any morph from a previous visit
+    gsap.set(hero, { top: '50%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0, y: 60 });
+    gsap.set(subtitle, { opacity: 0, scale: 1 });
+    gsap.set(glow, { opacity: 0 });
+    gsap.set(strip, { opacity: 0, scale: 0.6 });
+    gsap.set(line, { opacity: 0, scaleX: 0.4 });
+    gsap.set([leftCone, rightCone], { opacity: 0, scale: 0.7 });
+
+    // Reveal: cones expand, line widens, glow pulses on, then hero rises in
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    slide4dFocusDeepIntroTimeline = tl;
+
+    tl
+      .to([leftCone, rightCone], { opacity: 1, scale: 1, duration: 1.0, ease: 'power2.out' }, 0.15)
+      .to(strip, { opacity: 1, scale: 1, duration: 0.8 }, 0.2)
+      .to(glow,  { opacity: 1, duration: 0.6 }, 0.35)
+      .to(line,  { opacity: 1, scaleX: 1, duration: 0.9, ease: 'power2.out' }, 0.3)
+      .to(hero,  { opacity: 1, y: 0, duration: 0.85 }, 0.55)
+      .to(subtitle, { opacity: 1, duration: 0.5 }, 0.85);
+  }
+
+  function animateSlide4dFocusDeepIntroPhase(n) {
+    if (n !== 1) return;
+
+    var slide = document.querySelector('[data-slide="4d-focus-deep-intro"]');
+    if (!slide) return;
+    var hero = slide.querySelector('.focus-intro-hero');
+    var lamp = slide.querySelector('.focus-intro-lamp');
+    var subtitle = slide.querySelector('.focus-intro-subtitle');
+
+    slide4dFocusDeepIntroPhase = 1;
+    // Tell the next slide to skip its own header fade-in — we're morphing into place
+    slide4dFocusDeepFromIntro = true;
+
+    var tl = gsap.timeline({
+      defaults: { ease: 'power3.inOut' },
+      onComplete: function() { goToSlide(currentSlide + 1); }
+    });
+
+    // Lamp + subtitle fade out; hero shrinks + rises to where the next slide's header sits.
+    // top:50% → 108px (deep header baseline) ; scale 1 → 0.5 (96px title → ~48px to match deep)
+    tl
+      .to(lamp,     { opacity: 0, duration: 0.55 }, 0)
+      .to(subtitle, { opacity: 0, scale: 0.55, duration: 0.45 }, 0)
+      .to(hero, {
+        top: '108px',
+        yPercent: 0,
+        scale: 0.5,
+        duration: 0.75
+      }, 0);
+  }
+
   // ── Slide 4d-focus-deep — cards reveal one per click; active card glows + video plays ──
   function animateSlide4dFocusDeep() {
     if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
@@ -9293,6 +9518,17 @@
       try { v.pause(); v.currentTime = 0; } catch (e) {}
     });
     if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
+
+    // If we just morphed in from the intro slide, the header is already visually in place.
+    // Skip the header fade-in to keep the transition continuous; only animate the stage in.
+    if (slide4dFocusDeepFromIntro) {
+      slide4dFocusDeepFromIntro = false;
+      gsap.set(header, { opacity: 1, y: 0 });
+      gsap.set(stage,  { opacity: 0, y: 16 });
+      slide4dFocusDeepTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      slide4dFocusDeepTimeline.to(stage, { opacity: 1, y: 0, duration: 0.55 }, 0.1);
+      return;
+    }
 
     gsap.set(header, { opacity: 0, y: -30 });
     gsap.set(stage,  { opacity: 0, y: 16 });

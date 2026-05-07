@@ -3779,8 +3779,8 @@
     .focus-intro-title {
       font-family: 'ElmsSans', sans-serif;
       font-weight: 800;
-      font-size: 96px;
-      letter-spacing: 4.5px;
+      font-size: 120px;
+      letter-spacing: 5px;
       color: #fff;
       text-transform: uppercase;
       line-height: 1.04;
@@ -3788,16 +3788,6 @@
     }
     .focus-intro-title .hl {
       color: #7bed52;
-    }
-    .focus-intro-subtitle {
-      font-family: 'ElmsSans', sans-serif;
-      font-weight: 400;
-      font-size: 26px;
-      color: rgba(255,255,255,0.62);
-      letter-spacing: 0.5px;
-      line-height: 1.45;
-      margin: 0;
-      max-width: 760px;
     }
 
     /* ── Anatomy Six-Element Feature Grid (phase 6) — full-bleed, big & readable ── */
@@ -7507,9 +7497,7 @@
 
         <!-- Hero text — morphs into the deep slide's header on click -->
         <div class="focus-intro-hero" data-focus-intro-hero>
-          <span class="green-badge">If I Were Starting Today</span>
-          <h1 class="focus-intro-title">MY THREE <span class="hl">BETS</span></h1>
-          <p class="focus-intro-subtitle">Where I'd put my focus right now — and what's worth your time too.</p>
+          <h1 class="focus-intro-title">WHERE I'D <span class="hl">FOCUS</span> NOW</h1>
         </div>
       </div>
     </div>
@@ -9437,13 +9425,11 @@
     var leftCone = slide.querySelector('.lamp-cone--left');
     var rightCone = slide.querySelector('.lamp-cone--right');
     var hero = slide.querySelector('.focus-intro-hero');
-    var subtitle = slide.querySelector('.focus-intro-subtitle');
 
     slide4dFocusDeepIntroPhase = 0;
 
     // Reset everything to its pre-entrance state — undo any morph from a previous visit
     gsap.set(hero, { top: '50%', left: '50%', xPercent: -50, yPercent: -50, scale: 1, opacity: 0, y: 60 });
-    gsap.set(subtitle, { opacity: 0, scale: 1 });
     gsap.set(glow, { opacity: 0 });
     gsap.set(strip, { opacity: 0, scale: 0.6 });
     gsap.set(line, { opacity: 0, scaleX: 0.4 });
@@ -9458,8 +9444,7 @@
       .to(strip, { opacity: 1, scale: 1, duration: 0.8 }, 0.2)
       .to(glow,  { opacity: 1, duration: 0.6 }, 0.35)
       .to(line,  { opacity: 1, scaleX: 1, duration: 0.9, ease: 'power2.out' }, 0.3)
-      .to(hero,  { opacity: 1, y: 0, duration: 0.85 }, 0.55)
-      .to(subtitle, { opacity: 1, duration: 0.5 }, 0.85);
+      .to(hero,  { opacity: 1, y: 0, duration: 0.85 }, 0.55);
   }
 
   function animateSlide4dFocusDeepIntroPhase(n) {
@@ -9469,7 +9454,6 @@
     if (!slide) return;
     var hero = slide.querySelector('.focus-intro-hero');
     var lamp = slide.querySelector('.focus-intro-lamp');
-    var subtitle = slide.querySelector('.focus-intro-subtitle');
 
     slide4dFocusDeepIntroPhase = 1;
     // Tell the next slide to skip its own header fade-in — we're morphing into place
@@ -9480,15 +9464,15 @@
       onComplete: function() { goToSlide(currentSlide + 1); }
     });
 
-    // Lamp + subtitle fade out; hero shrinks + rises to where the next slide's header sits.
-    // top:50% → 108px (deep header baseline) ; scale 1 → 0.5 (96px title → ~48px to match deep)
+    // Lamp fades; hero shrinks + rises to where the deep slide's header title sits.
+    // 120px → 48px = scale 0.4. Deep header at top:80, with badge above the title.
+    // Hero (title-only) needs to land at the title's vertical position: ~124px.
     tl
-      .to(lamp,     { opacity: 0, duration: 0.55 }, 0)
-      .to(subtitle, { opacity: 0, scale: 0.55, duration: 0.45 }, 0)
+      .to(lamp, { opacity: 0, duration: 0.55 }, 0)
       .to(hero, {
-        top: '108px',
+        top: '124px',
         yPercent: 0,
-        scale: 0.5,
+        scale: 0.4,
         duration: 0.75
       }, 0);
   }
@@ -9519,13 +9503,17 @@
     });
     if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
 
-    // If we just morphed in from the intro slide, the header is already visually in place.
-    // Skip the header fade-in to keep the transition continuous; only animate the stage in.
+    // If we just morphed in from the intro slide, the title is already visually in place.
+    // Skip the full header fade-in; only fade in the badge gently above the morphed title,
+    // and animate the cards stage in as usual.
     if (slide4dFocusDeepFromIntro) {
       slide4dFocusDeepFromIntro = false;
+      var badge = slide.querySelector('.focus-header .green-badge');
       gsap.set(header, { opacity: 1, y: 0 });
+      if (badge) gsap.set(badge, { opacity: 0, y: -6 });
       gsap.set(stage,  { opacity: 0, y: 16 });
       slide4dFocusDeepTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      if (badge) slide4dFocusDeepTimeline.to(badge, { opacity: 1, y: 0, duration: 0.5 }, 0);
       slide4dFocusDeepTimeline.to(stage, { opacity: 1, y: 0, duration: 0.55 }, 0.1);
       return;
     }

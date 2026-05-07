@@ -2759,6 +2759,19 @@
        NAVIGATION BAR
     ═══════════════════════════════════════ */
 
+    /* Embed mode — hide everything except the anatomy slide */
+    html.embed-anatomy-loop, body.embed-anatomy-loop {
+      background: #000;
+      overflow: hidden;
+    }
+    body.embed-anatomy-loop .nav-bar { display: none !important; }
+    body.embed-anatomy-loop .slide:not([data-slide="4-flow-anatomy"]) { display: none !important; }
+    body.embed-anatomy-loop .slide[data-slide="4-flow-anatomy"] {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: none;
+    }
+
     .nav-bar {
       display: none;
       position: fixed;
@@ -3658,15 +3671,20 @@
       border-color: rgba(255,180,60,0.5);
       box-shadow: 0 0 60px rgba(255,180,60,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
     }
-    .focus-deep-video video {
+    .focus-deep-video video,
+    .focus-deep-video iframe.focus-deep-embed {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      border: 0;
       opacity: 0;
       transition: opacity 0.5s ease;
     }
-    .focus-deep-video video.is-on {
+    .focus-deep-video video.is-on,
+    .focus-deep-video iframe.focus-deep-embed.is-on {
       opacity: 1;
     }
     /* Idle hint when no video is active or videos haven't loaded */
@@ -7417,9 +7435,11 @@
 
         <!-- RIGHT: big video frame -->
         <div class="focus-deep-video" data-focus-video>
-          <video data-video-row="1" preload="auto" playsinline data-manual-play>
-            <source src="assets/focus-skills.mp4" type="video/mp4">
-          </video>
+          <!-- Skills: live anatomy walkthrough (auto-loop iframe) -->
+          <iframe data-video-row="1" class="focus-deep-embed"
+            data-embed-src="index-v4.html?embed=anatomy-loop"
+            scrolling="no" loading="lazy"
+            aria-hidden="true"></iframe>
           <video data-video-row="2" preload="auto" playsinline data-manual-play>
             <source src="assets/focus-agents.mp4" type="video/mp4">
           </video>
@@ -7533,10 +7553,23 @@
 </nav>
 
 <script>
+  // ── Embed mode (used by deep-dive Skills card iframe) ──
+  var EMBED_MODE = (function() {
+    try { return new URLSearchParams(window.location.search).get('embed'); }
+    catch (e) { return null; }
+  })();
+  if (EMBED_MODE === 'anatomy-loop') {
+    document.documentElement.classList.add('embed-anatomy-loop');
+    document.body && document.body.classList.add('embed-anatomy-loop');
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('embed-anatomy-loop');
+    });
+  }
+
   // ── Responsive scaling ──
   function scaleSlides() {
     var vw = window.innerWidth;
-    var vh = window.innerHeight - 64; // minus nav height
+    var vh = window.innerHeight - (EMBED_MODE === 'anatomy-loop' ? 0 : 64); // no nav in embed
     var scaleX = vw / 1920;
     var scaleY = vh / 1080;
     var scale = Math.min(scaleX, scaleY);
@@ -7893,6 +7926,64 @@
       updateNav();
     });
   });
+
+  // ── Anatomy embed loop (only runs when ?embed=anatomy-loop) ──
+  // Used by the Skills card iframe in the 4d-focus-deep slide. Cycles through
+  // all 12 phases of the anatomy walkthrough on a continuous loop so the deep
+  // slide can show the entire skill-creator flow as ambient video.
+  if (EMBED_MODE === 'anatomy-loop') {
+    // Per-phase visible duration (ms). Tuned to give viewers time to read.
+    var ANATOMY_PHASE_MS = [
+      1500,  // 0 — hero title
+      5000,  // 1 — terminal in + entry typing
+      4500,  // 2 — purpose typing
+      4500,  // 3 — brain typing
+      4500,  // 4 — mcp typing
+      4500,  // 5 — success line + terminal collapse
+      1100,  // 6 — card 1 (Purpose)
+      1100,  // 7 — card 2 (Triggers)
+      1100,  // 8 — card 3 (Method)
+      1100,  // 9 — card 4 (Org Context)
+      1100,  // 10 — card 5 (Output)
+      4000   // 11 — card 6 (MCP & Tools) + footnote, then loop back
+    ];
+
+    // Find anatomy slide index in the deck
+    var anatomyEmbedIdx = -1;
+    for (var ei = 0; ei < slides.length; ei++) {
+      if (slides[ei].getAttribute('data-slide') === '4-flow-anatomy') {
+        anatomyEmbedIdx = ei;
+        break;
+      }
+    }
+
+    var anatomyEmbedTimer = null;
+    function runAnatomyEmbedCycle() {
+      if (anatomyEmbedIdx < 0) return;
+      goToSlide(anatomyEmbedIdx);
+      var phase = 0;
+      function step() {
+        var dwell = ANATOMY_PHASE_MS[phase] || 1200;
+        anatomyEmbedTimer = setTimeout(function() {
+          if (phase >= 11) {
+            // Cycle complete — restart after a short pause
+            setTimeout(runAnatomyEmbedCycle, 800);
+            return;
+          }
+          phase++;
+          slide4FlowAnatomyPhase = phase;
+          if (typeof animateSlide4FlowAnatomyPhase === 'function') {
+            animateSlide4FlowAnatomyPhase(phase);
+          }
+          step();
+        }, dwell);
+      }
+      step();
+    }
+
+    // Wait for fonts/layout, then start
+    setTimeout(runAnatomyEmbedCycle, 600);
+  }
 
   // ── Seamless cinematic loop: paired cross-fade between two video copies ──
   // Solves the "jump" at the loop boundary that you get with <video loop>.
@@ -9265,7 +9356,7 @@
     }
   }
 
-  // ── Slide 4d-focus-deep — cards reveal one per click; active card glows + video plays ──
+  // ── Slide 4d-focus-deep — cards reveal one per click; active card glows + media plays ──
   function animateSlide4dFocusDeep() {
     if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
 
@@ -9277,10 +9368,11 @@
     var rows = slide.querySelectorAll('.focus-deep-row');
     var videoFrame = slide.querySelector('.focus-deep-video');
     var videos = slide.querySelectorAll('.focus-deep-video video');
+    var iframes = slide.querySelectorAll('.focus-deep-video iframe');
 
     slide4dFocusDeepPhase = 0;
 
-    // Reset: all rows hidden (no .is-revealed, no .is-active), all videos paused, frame neutral
+    // Reset: all rows hidden (no .is-revealed, no .is-active), all media paused, frame neutral
     rows.forEach(function(r) {
       r.classList.remove('is-revealed');
       r.classList.remove('is-active');
@@ -9288,6 +9380,14 @@
     videos.forEach(function(v) {
       v.classList.remove('is-on');
       try { v.pause(); v.currentTime = 0; } catch (e) {}
+    });
+    iframes.forEach(function(f) {
+      f.classList.remove('is-on');
+      // Lazy-load iframe src on first deep-slide entry — prevents the recursive
+      // load when this same file is opened in embed mode.
+      if (!f.src && EMBED_MODE !== 'anatomy-loop' && f.dataset.embedSrc) {
+        f.src = f.dataset.embedSrc;
+      }
     });
     if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
 
@@ -9307,6 +9407,7 @@
     var rows = slide.querySelectorAll('.focus-deep-row');
     var videoFrame = slide.querySelector('.focus-deep-video');
     var videos = slide.querySelectorAll('.focus-deep-video video');
+    var iframes = slide.querySelectorAll('.focus-deep-video iframe');
 
     // Reveal cards 1..n (cumulative). Mark only card N as active.
     rows.forEach(function(r) {
@@ -9317,17 +9418,29 @@
       else r.classList.remove('is-active');
     });
 
-    // Pause all videos, then play only the one matching the active card
+    // Hide all videos + iframes, pause videos
     videos.forEach(function(v) {
       v.classList.remove('is-on');
       try { v.pause(); } catch (e) {}
     });
+    iframes.forEach(function(f) { f.classList.remove('is-on'); });
     if (videoFrame) videoFrame.classList.remove('is-active--c1', 'is-active--c2', 'is-active--c3');
 
-    var activeVideo = slide.querySelector('.focus-deep-video video[data-video-row="' + n + '"]');
-    if (activeVideo) {
-      activeVideo.classList.add('is-on');
-      try { activeVideo.currentTime = 0; activeVideo.play(); } catch (e) {}
+    // Activate the media element matching the new phase
+    var activeMedia = slide.querySelector('.focus-deep-video [data-video-row="' + n + '"]');
+    if (activeMedia) {
+      activeMedia.classList.add('is-on');
+      if (activeMedia.tagName === 'VIDEO') {
+        try { activeMedia.currentTime = 0; activeMedia.play(); } catch (e) {}
+      } else if (activeMedia.tagName === 'IFRAME') {
+        // Make sure src is set (lazy-load) and reload to restart the loop
+        if (!activeMedia.src && activeMedia.dataset.embedSrc) {
+          activeMedia.src = activeMedia.dataset.embedSrc;
+        } else if (activeMedia.src && activeMedia.src.indexOf('about:blank') === -1) {
+          // Reload to restart the cycle from phase 0
+          activeMedia.src = activeMedia.src;
+        }
+      }
     }
     if (videoFrame) videoFrame.classList.add('is-active--c' + n);
   }

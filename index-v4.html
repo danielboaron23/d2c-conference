@@ -3789,6 +3789,18 @@
     .focus-intro-title .hl {
       color: #7bed52;
     }
+    .focus-intro-cursor {
+      display: inline-block;
+      width: 6px;
+      height: 0.82em;
+      background: #7bed52;
+      margin-left: 10px;
+      vertical-align: baseline;
+      animation: blink 0.7s step-end infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .focus-intro-cursor.is-on { opacity: 1; }
 
     /* ── Anatomy Six-Element Feature Grid (phase 6) — full-bleed, big & readable ── */
     .anatomy-grid {
@@ -7495,9 +7507,9 @@
           <div class="lamp-line"></div>
         </div>
 
-        <!-- Hero text — morphs into the deep slide's header on click -->
+        <!-- Hero text — types in char-by-char; morphs into the deep slide's header on click -->
         <div class="focus-intro-hero" data-focus-intro-hero>
-          <h1 class="focus-intro-title">WHERE I'D <span class="hl">FOCUS</span> NOW</h1>
+          <h1 class="focus-intro-title"><span id="focus-intro-typed"></span><span class="focus-intro-cursor" id="focus-intro-cursor"></span></h1>
         </div>
       </div>
     </div>
@@ -9412,6 +9424,41 @@
     }
   }
 
+  // ── Typewriter for the focus-intro title (types "WHERE I'D FOCUS NOW" with FOCUS in green) ──
+  var FOCUS_INTRO_TITLE_PARTS = [
+    { text: "WHERE I'D ", hl: false },
+    { text: "FOCUS",        hl: true  },
+    { text: " NOW",         hl: false }
+  ];
+  var focusIntroTypeTimeout = null;
+  function typeFocusIntroTitle() {
+    var el = document.getElementById('focus-intro-typed');
+    if (!el) return;
+    if (focusIntroTypeTimeout) { clearTimeout(focusIntroTypeTimeout); focusIntroTypeTimeout = null; }
+    el.innerHTML = '';
+    var partIdx = 0, charIdx = 0;
+    function step() {
+      if (partIdx >= FOCUS_INTRO_TITLE_PARTS.length) return;
+      var part = FOCUS_INTRO_TITLE_PARTS[partIdx];
+      if (charIdx < part.text.length) {
+        charIdx++;
+        var built = '';
+        for (var i = 0; i < partIdx; i++) {
+          var p = FOCUS_INTRO_TITLE_PARTS[i];
+          built += p.hl ? '<span class="hl">' + p.text + '</span>' : p.text;
+        }
+        var partial = part.text.slice(0, charIdx);
+        built += part.hl ? '<span class="hl">' + partial + '</span>' : partial;
+        el.innerHTML = built;
+        focusIntroTypeTimeout = setTimeout(step, 75);
+      } else {
+        partIdx++; charIdx = 0;
+        focusIntroTypeTimeout = setTimeout(step, 30);
+      }
+    }
+    step();
+  }
+
   // ── Slide 4d-focus-deep-intro — Lamp hero, morph to next slide on click ──
   function animateSlide4dFocusDeepIntro() {
     if (slide4dFocusDeepIntroTimeline) slide4dFocusDeepIntroTimeline.kill();
@@ -9425,6 +9472,8 @@
     var leftCone = slide.querySelector('.lamp-cone--left');
     var rightCone = slide.querySelector('.lamp-cone--right');
     var hero = slide.querySelector('.focus-intro-hero');
+    var typed = slide.querySelector('#focus-intro-typed');
+    var cursor = slide.querySelector('#focus-intro-cursor');
 
     slide4dFocusDeepIntroPhase = 0;
 
@@ -9434,8 +9483,11 @@
     gsap.set(strip, { opacity: 0, scale: 0.6 });
     gsap.set(line, { opacity: 0, scaleX: 0.4 });
     gsap.set([leftCone, rightCone], { opacity: 0, scale: 0.7 });
+    if (typed) typed.innerHTML = '';
+    if (cursor) cursor.classList.remove('is-on');
+    if (focusIntroTypeTimeout) { clearTimeout(focusIntroTypeTimeout); focusIntroTypeTimeout = null; }
 
-    // Reveal: cones expand, line widens, glow pulses on, then hero rises in
+    // Reveal: cones expand, line widens, glow pulses on, hero rises in, cursor blinks, title types
     var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     slide4dFocusDeepIntroTimeline = tl;
 
@@ -9444,7 +9496,11 @@
       .to(strip, { opacity: 1, scale: 1, duration: 0.8 }, 0.2)
       .to(glow,  { opacity: 1, duration: 0.6 }, 0.35)
       .to(line,  { opacity: 1, scaleX: 1, duration: 0.9, ease: 'power2.out' }, 0.3)
-      .to(hero,  { opacity: 1, y: 0, duration: 0.85 }, 0.55);
+      .to(hero,  { opacity: 1, y: 0, duration: 0.85 }, 0.55)
+      .call(function() {
+        if (cursor) cursor.classList.add('is-on');
+        typeFocusIntroTitle();
+      }, null, 1.15);
   }
 
   function animateSlide4dFocusDeepIntroPhase(n) {
@@ -9454,10 +9510,24 @@
     if (!slide) return;
     var hero = slide.querySelector('.focus-intro-hero');
     var lamp = slide.querySelector('.focus-intro-lamp');
+    var cursor = slide.querySelector('#focus-intro-cursor');
 
     slide4dFocusDeepIntroPhase = 1;
     // Tell the next slide to skip its own header fade-in — we're morphing into place
     slide4dFocusDeepFromIntro = true;
+
+    // Stop any in-flight typing
+    if (focusIntroTypeTimeout) { clearTimeout(focusIntroTypeTimeout); focusIntroTypeTimeout = null; }
+    // Make sure the title is fully rendered before the morph (in case user clicks mid-type)
+    var typed = slide.querySelector('#focus-intro-typed');
+    if (typed) {
+      var full = '';
+      FOCUS_INTRO_TITLE_PARTS.forEach(function(p) {
+        full += p.hl ? '<span class="hl">' + p.text + '</span>' : p.text;
+      });
+      typed.innerHTML = full;
+    }
+    if (cursor) cursor.classList.remove('is-on');
 
     var tl = gsap.timeline({
       defaults: { ease: 'power3.inOut' },

@@ -3587,15 +3587,47 @@
     .focus-deep-row[data-row="2"] { --row-acc: 167 139 250; }  /* purple */
     .focus-deep-row[data-row="3"] { --row-acc: 255 180 60; }   /* orange */
 
-    /* Card content — number on top, title + subtitle below */
+    /* Card content — number/title/subtitle on left, brand logo on right */
     .focus-deep-row-head {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 28px;
+      height: 100%;
+      padding: 32px 36px 32px 44px;
+      cursor: default;
+    }
+    .focus-deep-row-content {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 14px;
-      height: 100%;
-      padding: 36px 40px 36px 44px;
-      cursor: default;
+      min-width: 0;
+    }
+    .focus-deep-row-logo {
+      flex-shrink: 0;
+      width: 200px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .focus-deep-row-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: right center;
+      /* Force the brand mark to white for any tinted PNG-in-SVG */
+      filter: brightness(0) invert(1);
+      opacity: 0.55;
+      transition: opacity 0.4s ease;
+    }
+    .focus-deep-row.is-revealed .focus-deep-row-logo img {
+      opacity: 0.7;
+    }
+    .focus-deep-row.is-active .focus-deep-row-logo img {
+      opacity: 1;
     }
     .focus-deep-row-num {
       font-family: 'ElmsSans', sans-serif;
@@ -7549,10 +7581,15 @@
           <!-- Row 1 — Skills -->
           <div class="focus-deep-row" data-row="1">
             <div class="focus-deep-row-head">
-              <div class="focus-deep-row-num">Bet 01</div>
-              <div class="focus-deep-row-text">
-                <div class="focus-deep-row-title">Skills</div>
-                <div class="focus-deep-row-subtitle">Your AI's playbook, written by you.</div>
+              <div class="focus-deep-row-content">
+                <div class="focus-deep-row-num">Bet 01</div>
+                <div class="focus-deep-row-text">
+                  <div class="focus-deep-row-title">Skills</div>
+                  <div class="focus-deep-row-subtitle">Your AI's playbook, written by you.</div>
+                </div>
+              </div>
+              <div class="focus-deep-row-logo">
+                <img src="assets/claudecode.svg" alt="Claude Code">
               </div>
             </div>
           </div>
@@ -7560,10 +7597,15 @@
           <!-- Row 2 — Agents -->
           <div class="focus-deep-row" data-row="2">
             <div class="focus-deep-row-head">
-              <div class="focus-deep-row-num">Bet 02</div>
-              <div class="focus-deep-row-text">
-                <div class="focus-deep-row-title">Agents</div>
-                <div class="focus-deep-row-subtitle">A team of AI teammates working in parallel.</div>
+              <div class="focus-deep-row-content">
+                <div class="focus-deep-row-num">Bet 02</div>
+                <div class="focus-deep-row-text">
+                  <div class="focus-deep-row-title">Agents</div>
+                  <div class="focus-deep-row-subtitle">A team of AI teammates working in parallel.</div>
+                </div>
+              </div>
+              <div class="focus-deep-row-logo">
+                <img src="assets/claudecode.svg" alt="Claude Code">
               </div>
             </div>
           </div>
@@ -7571,10 +7613,15 @@
           <!-- Row 3 — Design.md -->
           <div class="focus-deep-row" data-row="3">
             <div class="focus-deep-row-head">
-              <div class="focus-deep-row-num">Bet 03</div>
-              <div class="focus-deep-row-text">
-                <div class="focus-deep-row-title">Design.md</div>
-                <div class="focus-deep-row-subtitle">Your design system, written for machines.</div>
+              <div class="focus-deep-row-content">
+                <div class="focus-deep-row-num">Bet 03</div>
+                <div class="focus-deep-row-text">
+                  <div class="focus-deep-row-title">Design.md</div>
+                  <div class="focus-deep-row-subtitle">Your design system, written for machines.</div>
+                </div>
+              </div>
+              <div class="focus-deep-row-logo">
+                <img src="assets/claudedesign.svg" alt="Claude Design">
               </div>
             </div>
           </div>

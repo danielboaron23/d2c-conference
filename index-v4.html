@@ -4506,19 +4506,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 38px;
+      gap: 44px;
       text-align: center;
-      width: 1500px;
+      width: 1600px;
+    }
+    /* Discipline-only label: bigger than the global green-label, scales down after all 3 lines reveal */
+    .discipline-stage .green-label {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #7bed52;
+      transform-origin: center;
+      transition:
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        color     0.7s ease,
+        opacity   0.7s ease;
+    }
+    /* After all 3 main lines have arrived: label shrinks + dims so focus moves to the lines */
+    .discipline-stage.is-locked .green-label {
+      transform: scale(0.6);
+      color: rgba(123, 237, 82, 0.55);
     }
     .discipline-lines {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 28px;
       align-items: center;
     }
     .discipline-line {
       font-family: 'ElmsSans', sans-serif;
-      font-size: 78px;
+      font-size: 92px;
       font-weight: 800;
       letter-spacing: 2px;
       line-height: 1;
@@ -4531,13 +4549,13 @@
     .discipline-closing {
       font-family: 'ElmsSans', sans-serif;
       font-style: italic;
-      font-size: 26px;
+      font-size: 32px;
       font-weight: 500;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.65);
       letter-spacing: 1px;
       line-height: 1.4;
-      margin-top: 16px;
-      max-width: 1200px;
+      margin-top: 18px;
+      max-width: 1300px;
     }
 
     /* ═══ ADAPT SLIDE (vapor particle text) ═══ */
@@ -9998,12 +10016,15 @@
     var slide = document.querySelector('[data-slide="4d-discipline"]');
     if (!slide) return;
 
+    var stage = slide.querySelector('.discipline-stage');
     var label = slide.querySelector('.green-label');
     var lines = slide.querySelectorAll('.discipline-line');
     var closing = slide.querySelector('.discipline-closing');
 
     slide4dDisciplinePhase = 0;
 
+    // Reset: label at full size (no .is-locked), all hidden
+    if (stage) stage.classList.remove('is-locked');
     gsap.set(label, { opacity: 0, y: -20 });
     gsap.set(lines, { opacity: 0, y: 30 });
     gsap.set(closing, { opacity: 0, y: 16 });
@@ -10015,6 +10036,7 @@
   function animateSlide4dDisciplinePhase(n) {
     var slide = document.querySelector('[data-slide="4d-discipline"]');
     if (!slide) return;
+    var stage = slide.querySelector('.discipline-stage');
     var lines = slide.querySelectorAll('.discipline-line');
     var closing = slide.querySelector('.discipline-closing');
     var tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
@@ -10022,7 +10044,12 @@
       tl.to(lines[n - 1], { opacity: 1, y: 0, duration: 0.7, ease: 'back.out(1.4)' });
     }
     if (n === 3) {
-      tl.to(closing, { opacity: 1, y: 0, duration: 0.8 }, 0.5);
+      // Once the third line lands, demote the "The Discipline" label so the eye
+      // settles on the manifesto. CSS handles the smooth scale + dim transition.
+      tl.call(function() {
+        if (stage) stage.classList.add('is-locked');
+      }, null, 0.4);
+      tl.to(closing, { opacity: 1, y: 0, duration: 0.8 }, 0.7);
     }
   }
 

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presenter Notes · Daniel Boaron</title>
+  <style>
+    @font-face {
+      font-family: 'ElmsSans';
+      src: url('fonts/ElmsSans-VariableFont_wght.ttf') format('truetype-variations'),
+           url('fonts/ElmsSans-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: #0a0a0a;
+      color: #f4f4f4;
+      font-family: 'ElmsSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 56px 72px 80px;
+    }
+
+    .pn-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(123, 237, 82, 0.15);
+    }
+
+    .pn-brand {
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 600;
+    }
+
+    .pn-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .pn-slide-id {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7bed52;
+      background: rgba(123, 237, 82, 0.08);
+      border: 1px solid rgba(123, 237, 82, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .pn-timer {
+      font-size: 18px;
+      font-variant-numeric: tabular-nums;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .pn-content {
+      flex: 1;
+      overflow: hidden;          /* never scroll — auto-fit will resize text */
+      padding-right: 4px;
+      /* --pn-fs is set by fitContent() — every text size is relative to it */
+      font-size: var(--pn-fs, 32px);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* Headers hidden — the speaker can see the slide itself; presenter view
+       focuses on the bullet notes only. Toggle to display: block to bring back. */
+    .pn-content h2,
+    .pn-content h3 {
+      display: none;
+    }
+
+    .pn-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0.5em;
+    }
+
+    .pn-content li {
+      font-size: 1em;
+      line-height: 1.45;
+      margin-bottom: 0.45em;
+      padding-right: 1em;
+      position: relative;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .pn-content li::before {
+      content: '•';
+      color: #7bed52;
+      font-size: 1.2em;
+      position: absolute;
+      right: 0;
+      top: -0.05em;
+      line-height: 1.45;
+    }
+
+    .pn-content li li {
+      font-size: 0.82em;
+      margin-top: 0.25em;
+      margin-bottom: 0.2em;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .pn-content li li::before {
+      content: '◦';
+      font-size: 1em;
+    }
+
+    .pn-content ul ul {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+      padding-right: 0.9em;
+    }
+
+    .pn-content strong {
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .pn-content p {
+      font-size: 0.92em;
+      line-height: 1.5;
+      margin-bottom: 0.5em;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .pn-empty {
+      font-size: 1em;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 2em 0;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .pn-statusbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px 72px;
+      background: rgba(0, 0, 0, 0.85);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+    }
+
+    .pn-statusbar kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: inherit;
+      font-size: 12px;
+      margin: 0 4px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .pn-link-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pn-link-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7bed52;
+      box-shadow: 0 0 8px rgba(123, 237, 82, 0.6);
+    }
+
+    .pn-link-dot.disconnected {
+      background: #ff5c5c;
+      box-shadow: 0 0 8px rgba(255, 92, 92, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <header class="pn-topbar">
+    <div class="pn-brand">Speaker Notes · Daniel Boaron</div>
+    <div class="pn-meta">
+      <div class="pn-timer" id="pn-timer">00:00</div>
+      <div class="pn-slide-id" id="pn-slide-id">—</div>
+    </div>
+  </header>
+
+  <main class="pn-content" id="pn-content">
+    <div class="pn-empty">ממתין לסנכרון עם המצגת…</div>
+  </main>
+
+  <footer class="pn-statusbar">
+    <div>
+      <kbd>→</kbd> / <kbd>Space</kbd> next &nbsp;·&nbsp;
+      <kbd>←</kbd> prev &nbsp;·&nbsp;
+      <kbd>R</kbd> reset timer
+    </div>
+    <div class="pn-link-status" id="pn-link-status">
+      <span class="pn-link-dot" id="pn-link-dot"></span>
+      <span id="pn-link-text">מחובר</span>
+    </div>
+  </footer>
+
+  <script src="assets/speaker-notes.js"></script>
+  <script>
+    (function () {
+      var slideIdEl  = document.getElementById('pn-slide-id');
+      var contentEl  = document.getElementById('pn-content');
+      var timerEl    = document.getElementById('pn-timer');
+      var linkDotEl  = document.getElementById('pn-link-dot');
+      var linkTextEl = document.getElementById('pn-link-text');
+
+      // ── Minimal markdown renderer ──
+      // Supports: ## h2, ### h3, **bold**, "- " bullets (1-level + indented sub-bullets via "  - "),
+      // numbered lists ("1. "), blank lines as paragraph breaks. Plain text otherwise.
+      function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+      }
+
+      function inline(s) {
+        return escapeHtml(s).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      }
+
+      function renderMarkdown(md) {
+        if (!md) return '<div class="pn-empty">' + escapeHtml(window.SPEAKER_NOTES_FALLBACK || '') + '</div>';
+
+        var lines = md.split(/\r?\n/);
+        var html = [];
+        var listStack = []; // each entry: { indent: number }
+
+        function closeListsTo(indent) {
+          while (listStack.length && listStack[listStack.length - 1].indent >= indent) {
+            html.push('</ul>');
+            listStack.pop();
+          }
+        }
+        function closeAllLists() { closeListsTo(-1); }
+
+        for (var i = 0; i < lines.length; i++) {
+          var raw = lines[i];
+          var trimmed = raw.trim();
+
+          if (trimmed === '') {
+            closeAllLists();
+            continue;
+          }
+
+          // Heading h3
+          if (/^###\s+/.test(trimmed)) {
+            closeAllLists();
+            html.push('<h3>' + inline(trimmed.replace(/^###\s+/, '')) + '</h3>');
+            continue;
+          }
+          // Heading h2
+          if (/^##\s+/.test(trimmed)) {
+            closeAllLists();
+            html.push('<h2>' + inline(trimmed.replace(/^##\s+/, '')) + '</h2>');
+            continue;
+          }
+
+          // Bullet (- ... or numbered like "1. ...")
+          var bulletMatch = raw.match(/^(\s*)[-*]\s+(.*)$/);
+          var numMatch    = raw.match(/^(\s*)\d+\.\s+(.*)$/);
+          var match = bulletMatch || numMatch;
+          if (match) {
+            var indent = Math.floor(match[1].length / 2); // 2 spaces per level
+            // Open lists if needed
+            while (!listStack.length || listStack[listStack.length - 1].indent < indent) {
+              html.push('<ul>');
+              listStack.push({ indent: listStack.length ? listStack[listStack.length - 1].indent + 1 : 0 });
+              if (listStack[listStack.length - 1].indent >= indent) break;
+            }
+            // Close lists deeper than current indent
+            while (listStack.length && listStack[listStack.length - 1].indent > indent) {
+              html.push('</ul>');
+              listStack.pop();
+            }
+            html.push('<li>' + inline(match[2]) + '</li>');
+            continue;
+          }
+
+          // Plain paragraph line
+          closeAllLists();
+          html.push('<p>' + inline(trimmed) + '</p>');
+        }
+        closeAllLists();
+
+        return html.join('\n');
+      }
+
+      // ── Auto-fit: pick the largest base font size where content fits without scroll ──
+      // Binary-search a base px value; every CSS size is em-relative to --pn-fs.
+      // Short slides → big text. Long slides → smaller text. Always fully visible.
+      function fitContent() {
+        if (!contentEl.firstChild) return;
+        var lo = 16;   // floor — readability minimum on dense slides
+        var hi = 80;   // ceiling — anything larger looks comical on short slides
+        var best = lo;
+        for (var i = 0; i < 14; i++) {
+          var mid = (lo + hi) / 2;
+          contentEl.style.setProperty('--pn-fs', mid + 'px');
+          // Force a synchronous reflow so scrollHeight reflects this scale
+          void contentEl.offsetHeight;
+          if (contentEl.scrollHeight <= contentEl.clientHeight + 1) {
+            best = mid;
+            lo = mid;
+          } else {
+            hi = mid;
+          }
+        }
+        contentEl.style.setProperty('--pn-fs', best + 'px');
+      }
+
+      function showSlide(slideId) {
+        slideIdEl.textContent = slideId || '—';
+        var notes = window.SPEAKER_NOTES && window.SPEAKER_NOTES[slideId];
+        if (notes) {
+          contentEl.innerHTML = renderMarkdown(notes);
+        } else {
+          contentEl.innerHTML = '<div class="pn-empty">' +
+            (window.SPEAKER_NOTES_FALLBACK || 'אין נוטס לשקף הזה.') +
+            '</div>';
+        }
+        // Wait one frame so layout settles, then fit
+        requestAnimationFrame(fitContent);
+      }
+
+      // Re-fit when the window is resized (e.g. dragged between displays)
+      window.addEventListener('resize', function () {
+        requestAnimationFrame(fitContent);
+      });
+
+      // Fit the initial waiting message too, so it looks intentional
+      requestAnimationFrame(fitContent);
+
+      // ── postMessage sync with the deck (works on file:// in Safari and Chrome) ──
+      function setLinkStatus(connected) {
+        if (connected) {
+          linkDotEl.classList.remove('disconnected');
+          linkTextEl.textContent = 'מחובר';
+        } else {
+          linkDotEl.classList.add('disconnected');
+          linkTextEl.textContent = 'לא מחובר למצגת';
+        }
+      }
+
+      function deckWindow() {
+        // window.opener is the deck if presenter was opened via the P shortcut.
+        // Returns null if presenter was opened directly (no deck to talk to).
+        try {
+          if (window.opener && !window.opener.closed) return window.opener;
+        } catch (e) {}
+        return null;
+      }
+
+      function postToDeck(msg) {
+        var w = deckWindow();
+        if (!w) return false;
+        try { w.postMessage(msg, '*'); return true; } catch (e) { return false; }
+      }
+
+      // Listen for slide changes pushed from the deck
+      window.addEventListener('message', function (ev) {
+        var msg = ev.data || {};
+        if (!msg || typeof msg !== 'object') return;
+        if (msg.type === 'slide-changed' && msg.slideId) {
+          showSlide(msg.slideId);
+          setLinkStatus(true);
+        }
+      });
+
+      // Ask the deck where it is right now (initial sync after this window opens)
+      var initialPing = postToDeck({ type: 'request-state' });
+      setLinkStatus(initialPing);
+
+      if (!initialPing) {
+        contentEl.innerHTML = '<div class="pn-empty">פתח את חלון הספיקר נוטס מתוך המצגת — לחץ <strong>P</strong> ב-index-v4.html.</div>';
+        requestAnimationFrame(fitContent);
+      }
+
+      // Retry the initial ping a couple of times — covers the race where the
+      // presenter loads before the deck's message listener is wired up.
+      var pingAttempts = 0;
+      var pingInterval = setInterval(function () {
+        pingAttempts++;
+        if (postToDeck({ type: 'request-state' }) || pingAttempts >= 5) {
+          clearInterval(pingInterval);
+        }
+      }, 400);
+
+      // Send navigation requests back to the deck
+      function sendNav(direction) {
+        postToDeck({ type: 'nav', direction: direction });
+      }
+
+      // ── Local timer (resettable) ──
+      var startedAt = Date.now();
+      function fmt(n) { return n < 10 ? '0' + n : '' + n; }
+      function tickTimer() {
+        var elapsed = Math.floor((Date.now() - startedAt) / 1000);
+        var m = Math.floor(elapsed / 60);
+        var s = elapsed % 60;
+        timerEl.textContent = fmt(m) + ':' + fmt(s);
+      }
+      setInterval(tickTimer, 1000);
+      tickTimer();
+
+      // ── Keyboard ──
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          sendNav('next');
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          sendNav('prev');
+        } else if (e.key === 'r' || e.key === 'R') {
+          startedAt = Date.now();
+          tickTimer();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

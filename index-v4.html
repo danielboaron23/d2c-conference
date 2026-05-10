@@ -2526,6 +2526,17 @@
       text-transform: uppercase;
     }
 
+    /* ═══ SLIDE 13 — Sponsors & Thanks (full-bleed) ═══ */
+    [data-slide="13"] .sponsors-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
     /* ═══ SLIDE 12 — Big QR (dedicated slide) ═══ */
     .qr-stage {
       position: absolute;
@@ -7402,145 +7413,9 @@
     </div>
   </div>
 
-  <!-- ═══════ SLIDE 4d-focus — Where I'd Focus Now (3 cards) ═══════ -->
-  <div class="slide" data-slide="4d-focus">
-    <div class="slide-inner">
-      <div class="dark-bg"></div>
-
-      <div class="focus-header">
-        <span class="green-badge">My Recommendations</span>
-        <div class="mc-title" style="font-size:64px; letter-spacing:3px;">WHERE I'D FOCUS NOW</div>
-      </div>
-
-      <div class="focus-cards-stage">
-        <!-- Card 1: SKILLS (green) -->
-        <div class="focus-card focus-card--c1" data-card="1">
-          <div class="focus-card-inner">
-            <div class="focus-card-front">
-              <div class="focus-card-front-top">
-                <span class="focus-card-badge">Bet 01</span>
-                <div class="focus-card-title">Skills</div>
-                <div class="focus-card-subtitle">Your AI's playbook, written by you.</div>
-              </div>
-              <div class="focus-card-front-center">
-                <div class="focus-card-icon-large">
-                  <svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z"/><path d="M5 3v4M3 5h4M19 17v4M17 19h4"/></svg>
-                </div>
-              </div>
-              <div class="focus-card-front-bottom">
-                <div class="focus-card-flip-logo">
-                  <img src="assets/claudecode.svg" alt="Claude Code">
-                </div>
-              </div>
-            </div>
-            <div class="focus-card-back">
-              <div class="focus-card-back-head">
-                <div class="focus-card-icon">
-                  <svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z"/><path d="M5 3v4M3 5h4M19 17v4M17 19h4"/></svg>
-                </div>
-                <div class="focus-card-title-sm">Skills</div>
-              </div>
-              <p class="focus-card-desc">Custom Claude Skills tailored to your workflow. Teach Claude what "good" looks like for you.</p>
-              <div class="focus-card-features">
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lenny PM — product thinking</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>UIUX Pro — design sense</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Code Review — quality gate</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Your library — your playbook</div>
-              </div>
-              <div class="focus-card-footer">
-                <span>Start your skill library</span>
-                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: AGENTS (purple) -->
-        <div class="focus-card focus-card--c2" data-card="2">
-          <div class="focus-card-inner">
-            <div class="focus-card-front">
-              <div class="focus-card-front-top">
-                <span class="focus-card-badge">Bet 02</span>
-                <div class="focus-card-title">Agents</div>
-                <div class="focus-card-subtitle">A team of AI teammates working in parallel.</div>
-              </div>
-              <div class="focus-card-front-center">
-                <div class="focus-card-icon-large">
-                  <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                </div>
-              </div>
-              <div class="focus-card-front-bottom">
-                <div class="focus-card-flip-logo">
-                  <img src="assets/claudecode.svg" alt="Claude Code">
-                </div>
-              </div>
-            </div>
-            <div class="focus-card-back">
-              <div class="focus-card-back-head">
-                <div class="focus-card-icon">
-                  <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                </div>
-                <div class="focus-card-title-sm">Agents</div>
-              </div>
-              <p class="focus-card-desc">Build a team of agents that runs autonomously. You orchestrate — they execute.</p>
-              <div class="focus-card-features">
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Claude Managed Agents</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>OpenClaw — multi-agent CLI</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Autonomous team execution</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Parallel sub-task orchestration</div>
-              </div>
-              <div class="focus-card-footer">
-                <span>Build your agent team</span>
-                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: DESIGN.MD (orange) -->
-        <div class="focus-card focus-card--c3" data-card="3">
-          <div class="focus-card-inner">
-            <div class="focus-card-front">
-              <div class="focus-card-front-top">
-                <span class="focus-card-badge">Bet 03</span>
-                <div class="focus-card-title">Design.md</div>
-                <div class="focus-card-subtitle">Your design system, written for machines.</div>
-              </div>
-              <div class="focus-card-front-center">
-                <div class="focus-card-icon-large">
-                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>
-                </div>
-              </div>
-              <div class="focus-card-front-bottom">
-                <div class="focus-card-flip-logo">
-                  <img src="assets/claudedesign.svg" alt="Claude Design">
-                </div>
-              </div>
-            </div>
-            <div class="focus-card-back">
-              <div class="focus-card-back-head">
-                <div class="focus-card-icon">
-                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>
-                </div>
-                <div class="focus-card-title-sm">Design.md</div>
-              </div>
-              <p class="focus-card-desc">One markdown file. Every AI agent reads your design language. Stitch + Claude Design converge here.</p>
-              <div class="focus-card-features">
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>One markdown — every agent reads it</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Google Stitch + Claude Design converge</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Taste → markdown → production</div>
-                <div class="focus-card-feature"><span class="focus-card-feature-chip"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>The new source of truth</div>
-              </div>
-              <div class="focus-card-footer">
-                <span>Codify your style</span>
-                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- (Removed) SLIDE 4d-focus — 3-card "My Recommendations / WHERE I'D FOCUS NOW" overview.
+       Cut as a duplicate: the typewriter lamp hero (4d-focus-deep-intro) introduces the same
+       idea, and the deep-dive accordion (4d-focus-deep) covers Skills / Agents / Design.md in full. -->
 
   <!-- ═══════ SLIDE 4d-focus-deep-intro — Lamp hero before the deep dive ═══════ -->
   <div class="slide" data-slide="4d-focus-deep-intro">
@@ -7734,6 +7609,14 @@
     </div>
   </div>
 
+  <!-- ═══════ SLIDE 13 — Sponsors & Thanks (full-bleed image) ═══════ -->
+  <div class="slide" data-slide="13">
+    <div class="slide-inner">
+      <div class="dark-bg"></div>
+      <img class="sponsors-image" src="assets/sponsors-thanks.png" alt="Sponsors and Media Partners">
+    </div>
+  </div>
+
 </div>
 
 <!-- Navigation Bar -->
@@ -7760,6 +7643,42 @@
 
   scaleSlides();
   window.addEventListener('resize', scaleSlides);
+
+  // ── Presenter View — postMessage sync (offline, no fetch, no CDN) ──
+  // Uses window.postMessage between the deck and the presenter child window.
+  // postMessage works on file:// in BOTH Safari and Chrome, unlike BroadcastChannel
+  // which Safari refuses to share between separate file:// documents.
+  var presenterWin = null;
+
+  function broadcastCurrentSlide() {
+    if (!presenterWin || presenterWin.closed) return;
+    var slide = slides[currentSlide];
+    if (!slide) return;
+    try {
+      presenterWin.postMessage({
+        type: 'slide-changed',
+        slideId: slide.getAttribute('data-slide'),
+        index: currentSlide
+      }, '*');
+    } catch (e) { /* presenter window may be cross-origin or closing */ }
+  }
+
+  window.addEventListener('message', function (ev) {
+    // Ignore messages from this window or with no source
+    if (!ev.source || ev.source === window) return;
+    var msg = ev.data || {};
+    if (!msg || typeof msg !== 'object' || !msg.type) return;
+    // Only react to our protocol messages — ignore anything else (devtools, extensions)
+    if (msg.type !== 'nav' && msg.type !== 'request-state') return;
+    // Adopt this window as the presenter — handles deck reload while presenter stays open
+    presenterWin = ev.source;
+    if (msg.type === 'nav') {
+      if (msg.direction === 'next') advanceForward();
+      else if (msg.direction === 'prev') goToSlide(currentSlide - 1);
+    } else if (msg.type === 'request-state') {
+      broadcastCurrentSlide();
+    }
+  });
 
   // ── Slide navigation ──
   var slides = document.querySelectorAll('.slide');
@@ -7799,6 +7718,9 @@
     slides[currentSlide].classList.remove('active');
     currentSlide = index;
     slides[currentSlide].classList.add('active');
+
+    // Notify the presenter window so it can show the right notes
+    broadcastCurrentSlide();
 
     // Play video on new slide at 1.5x speed
     if (slideVideos[currentSlide]) {
@@ -7862,7 +7784,6 @@
       cancelAnimationFrame(slide4dAdaptAnimId); slide4dAdaptAnimId = null;
     }
     if (typeof slide4dAdaptTimeline !== 'undefined' && slide4dAdaptTimeline) slide4dAdaptTimeline.kill();
-    if (slide4dFocusTimeline) slide4dFocusTimeline.kill();
     if (slide4dFocusDeepIntroTimeline) slide4dFocusDeepIntroTimeline.kill();
     if (slide4dFocusDeepTimeline) slide4dFocusDeepTimeline.kill();
     if (slide4dDisciplineTimeline) slide4dDisciplineTimeline.kill();
@@ -7900,7 +7821,6 @@
     else if (slideId === '4-flow-recap') animateSlide4FlowRecap();
     else if (slideId === '4-flow-evolution') animateSlide4FlowEvolution();
     else if (slideId === '4d-adapt') animateSlide4dAdapt();
-    else if (slideId === '4d-focus') animateSlide4dFocus();
     else if (slideId === '4d-focus-deep-intro') animateSlide4dFocusDeepIntro();
     else if (slideId === '4d-focus-deep') animateSlide4dFocusDeep();
     else if (slideId === '4d-discipline') animateSlide4dDiscipline();
@@ -7984,11 +7904,6 @@
     if (slideId === '4-flow-4' && slide4Flow4Phase < slide4Flow4MaxPhase) {
       slide4Flow4Phase += 1;
       animateSlide4Flow4Phase(slide4Flow4Phase);
-      return;
-    }
-    if (slideId === '4d-focus' && slide4dFocusPhase < slide4dFocusMaxPhase) {
-      slide4dFocusPhase += 1;
-      animateSlide4dFocusPhase(slide4dFocusPhase);
       return;
     }
     if (slideId === '4d-focus-deep-intro') {
@@ -8084,6 +7999,15 @@
       deckLastKeyTs = now;
       e.preventDefault();
       goToSlide(currentSlide - 1);
+    } else if ((e.key === 'p' || e.key === 'P') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      // Open the presenter window (speaker notes) on a separate display.
+      // Cmd/Ctrl+P (browser print) is intentionally NOT hijacked.
+      e.preventDefault();
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+      } else {
+        presenterWin = window.open('presenter.html', 'd2c-presenter-window', 'width=1280,height=800');
+      }
     }
   }
   // Listen on document only — events bubble to document from anywhere in the page.
@@ -8429,9 +8353,6 @@
   var slide4Flow4Phase = 0;
   var slide4Flow4MaxPhase = 3;
   var slide4Flow4Timeline = null;
-  var slide4dFocusPhase = 0;
-  var slide4dFocusMaxPhase = 7;
-  var slide4dFocusTimeline = null;
   var slide4dFocusDeepPhase = 0;
   var slide4dFocusDeepMaxPhase = 3;
   var slide4dFocusDeepTimeline = null;
@@ -9435,59 +9356,8 @@
     typeWord();
   }
 
-  // ── Slide 4d-focus — gradual reveal: each card enters (front) on click, flips to back on next click ──
-  // Phases: 1=card1 in, 2=card1 flip, 3=card2 in, 4=card2 flip, 5=card3 in, 6=card3 flip
-  function animateSlide4dFocus() {
-    if (slide4dFocusTimeline) slide4dFocusTimeline.kill();
-
-    var slide = document.querySelector('[data-slide="4d-focus"]');
-    if (!slide) return;
-
-    var header = slide.querySelector('.focus-header');
-    var cards = slide.querySelectorAll('.focus-card');
-
-    slide4dFocusPhase = 0;
-
-    // Reset: header visible, all cards hidden + on front
-    cards.forEach(function(c) { c.classList.remove('is-flipped'); });
-    gsap.set(header, { opacity: 0, y: -30 });
-    gsap.set(cards, { opacity: 0, scale: 0.85, y: 30 });
-
-    slide4dFocusTimeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
-    slide4dFocusTimeline.to(header, { opacity: 1, y: 0, duration: 0.6 });
-  }
-
-  function animateSlide4dFocusPhase(n) {
-    var slide = document.querySelector('[data-slide="4d-focus"]');
-    if (!slide) return;
-    var cards = slide.querySelectorAll('.focus-card');
-
-    // Phases 1, 3, 5 — card N appears (front face), previous flipped card returns to front
-    // Phases 2, 4, 6 — card N flips to back
-    // Phase 7 — last card (3) returns to front (final beat before advancing)
-    if (n === 7) {
-      cards.forEach(function(c) { c.classList.remove('is-flipped'); });
-      return;
-    }
-
-    var cardIdx = Math.floor((n - 1) / 2);
-    var isAppear = ((n - 1) % 2 === 0);
-    var card = cards[cardIdx];
-    if (!card) return;
-
-    if (isAppear) {
-      // When a new card appears: any previously flipped card returns to its front
-      cards.forEach(function(c) { c.classList.remove('is-flipped'); });
-      // Then the new card enters with spring, on its front face
-      gsap.fromTo(card,
-        { opacity: 0, scale: 0.85, y: 30 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.75, ease: 'back.out(1.5)' }
-      );
-    } else {
-      // Flip the current card to its back face
-      card.classList.add('is-flipped');
-    }
-  }
+  // (Removed) animateSlide4dFocus / animateSlide4dFocusPhase — drove the deleted 4d-focus
+  // 3-card overview. The overview was cut as a duplicate of 4d-focus-deep-intro + 4d-focus-deep.
 
   // ── Typewriter for the focus-intro title (types "WHERE I'D FOCUS NOW" with FOCUS in green) ──
   var FOCUS_INTRO_TITLE_PARTS = [

@@ -7294,10 +7294,10 @@
       <div class="dark-bg"></div>
 
       <div class="evo-stage">
-        <!-- LEFT: 2025 -->
+        <!-- LEFT: BEFORE -->
         <div class="evo-col evo-col--2025">
           <div class="evo-header">
-            <div class="evo-year">2025</div>
+            <div class="evo-year">BEFORE</div>
             <div class="evo-time">Weeks / Months</div>
             <div class="evo-tagline">Flappy prototypes, fake components</div>
           </div>
@@ -7337,10 +7337,10 @@
           </div>
         </div>
 
-        <!-- RIGHT: 2026 -->
+        <!-- RIGHT: AFTER -->
         <div class="evo-col evo-col--2026">
           <div class="evo-header">
-            <div class="evo-year">2026</div>
+            <div class="evo-year">AFTER</div>
             <div class="evo-time">Hours / Days</div>
             <div class="evo-tagline">Perfect prototypes, real components</div>
           </div>
@@ -7628,6 +7628,29 @@
 </nav>
 
 <script>
+  // ── Hybrid video sources: local for offline (file://), GitHub Release CDN for public (https://) ──
+  // The large walkthrough videos (flow-01..05, focus-skills/agents/designmd) live in the
+  // GitHub Release "videos-v1" — they're too big to commit to the repo or serve from Pages.
+  // For local presenting via Safari + file://, the originals on disk are used directly.
+  (function rewriteVideoSourcesForPublic() {
+    if (window.location.protocol === 'file:') return; // local: keep assets/* paths
+    var CDN = 'https://github.com/danielboaron23/d2c-conference/releases/download/videos-v1/';
+    var REMOTE = {
+      'assets/flow-01-discovery.mp4': CDN + 'flow-01-discovery.mp4',
+      'assets/flow-02-ideation.mp4':  CDN + 'flow-02-ideation.mp4',
+      'assets/flow-03-uifix.mp4':     CDN + 'flow-03-uifix.mp4',
+      'assets/flow-04-devprep.mp4':   CDN + 'flow-04-devprep.mp4',
+      'assets/flow-05-ship.mp4':      CDN + 'flow-05-ship.mp4',
+      'assets/focus-skills.mp4':      CDN + 'focus-skills.mp4',
+      'assets/focus-agents.mp4':      CDN + 'focus-agents.mp4',
+      'assets/focus-designmd.mp4':    CDN + 'focus-designmd.mp4'
+    };
+    document.querySelectorAll('video source[src], video[src]').forEach(function (el) {
+      var src = el.getAttribute('src');
+      if (REMOTE[src]) el.setAttribute('src', REMOTE[src]);
+    });
+  })();
+
   // ── Responsive scaling ──
   function scaleSlides() {
     var vw = window.innerWidth;

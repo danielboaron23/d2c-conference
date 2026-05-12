@@ -8,10 +8,14 @@ assets/slide4a-video.mp4
 assets/slide4b-video.mp4
 assets/slide4e-video.mov
 
-# Flow videos hosted on GitHub Releases (videos-v1 tag) — kept local only.
-# Re-upload to the release if you change them, then re-reference via the release URL in index-v4.html.
+# Walkthrough videos hosted on GitHub Releases (videos-v1 tag) — kept local only.
+# Re-upload to the release if you change them; URLs are resolved at runtime
+# in index-v4.html by the video-source-rewrite block (file:// → local, https:// → release).
 assets/flow-01-discovery.mp4
 assets/flow-02-ideation.mp4
 assets/flow-03-uifix.mp4
 assets/flow-04-devprep.mp4
 assets/flow-05-ship.mp4
+assets/focus-skills.mp4
+assets/focus-agents.mp4
+assets/focus-designmd.mp4
